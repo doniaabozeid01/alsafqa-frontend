@@ -1,0 +1,136 @@
+.stats-panel {
+  display: grid;
+  grid-template-columns: 0.9fr 1.4fr;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: linear-gradient(130deg, var(--navy-800), var(--navy-700), var(--navy-600));
+  background-size: 200% 200%;
+  animation: gradientShift 12s ease infinite;
+  box-shadow: var(--shadow-lg);
+}
+
+.panel-image {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 6s ease;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to left, rgba(22, 35, 63, 0.55), transparent 60%);
+  }
+}
+
+.stats-panel:hover .panel-image img {
+  transform: scale(1.08);
+}
+
+.panel-body {
+  padding: 54px 50px;
+}
+
+.panel-tag {
+  color: var(--gold-500);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.panel-title {
+  color: var(--white);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 900;
+  margin-bottom: 36px;
+  position: relative;
+  padding-bottom: 16px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    inset-inline-start: 0;
+    width: 64px;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--gold-500);
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+}
+
+.stat {
+  text-align: center;
+  padding: 18px 8px;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.4s var(--ease-spring);
+
+  &:hover {
+    background: rgba(201, 164, 92, 0.12);
+    border-color: rgba(201, 164, 92, 0.5);
+    transform: translateY(-8px);
+  }
+}
+
+.stat-icon {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(201, 164, 92, 0.16);
+  color: var(--gold-500);
+
+  ::ng-deep svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: var(--gold-500);
+  line-height: 1.3;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 900px) {
+  .stats-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .panel-image {
+    min-height: 220px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .panel-body {
+    padding: 36px 26px;
+  }
+}

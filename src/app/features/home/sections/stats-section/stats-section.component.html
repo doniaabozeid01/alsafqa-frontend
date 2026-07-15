@@ -1,0 +1,37 @@
+<section class="section stats">
+  <div class="container">
+    <div class="stats-panel" appReveal="zoom">
+      <div class="panel-image" appReveal="right" [revealDelay]="200">
+        <img
+          src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=900&q=70"
+          alt="مستودعات وشحن"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="panel-body">
+        <span class="panel-tag" appReveal [revealDelay]="150">لماذا تختارنا</span>
+        <h2 class="panel-title" appReveal [revealDelay]="250">خبرة، ثقة، التزام</h2>
+
+        <div class="stats-grid">
+          <div
+            class="stat"
+            *ngFor="let stat of stats; let i = index"
+            appReveal="up"
+            [revealDelay]="300 + i * 140"
+          >
+            <div class="stat-icon" [innerHTML]="stat.icon"></div>
+            <strong
+              class="stat-value"
+              appCountUp
+              [countTo]="stat.value"
+              [prefix]="stat.prefix"
+              [suffix]="stat.suffix"
+            ></strong>
+            <span class="stat-label">{{ stat.label }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

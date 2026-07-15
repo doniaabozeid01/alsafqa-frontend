@@ -1,0 +1,19 @@
+<section class="section services">
+  <div class="container">
+    <span class="section-tag" appReveal>خدماتنا</span>
+    <h2 class="section-title" appReveal>حلول لوجستية متكاملة</h2>
+
+    <div class="services-grid">
+      <article
+        class="service-card"
+        *ngFor="let service of services; let i = index"
+        appReveal="up"
+        [revealDelay]="i * 120"
+      >
+        <div class="service-icon" [innerHTML]="service.icon"></div>
+        <h3>{{ service.title }}</h3>
+        <p>{{ service.description }}</p>
+      </article>
+    </div>
+  </div>
+</section>

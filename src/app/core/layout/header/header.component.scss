@@ -1,0 +1,262 @@
+/* ---------- Top bar ---------- */
+.topbar {
+  background: var(--navy-800);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
+  position: relative;
+  z-index: 60;
+}
+
+.topbar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+}
+
+.topbar-contact {
+  display: flex;
+  gap: 24px;
+}
+
+.topbar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.3s;
+
+  &:hover {
+    color: var(--gold-500);
+  }
+}
+
+.topbar-icon {
+  font-size: 0.8rem;
+}
+
+.lang-switch {
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  padding: 2px 12px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  transition: all 0.3s;
+
+  &:hover {
+    background: var(--gold-500);
+    border-color: var(--gold-500);
+  }
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(16, 28, 51, 0.06);
+  transition: box-shadow 0.4s ease;
+
+  &.is-scrolled {
+    box-shadow: var(--shadow-md);
+
+    .navbar-inner {
+      padding-block: 10px;
+    }
+  }
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-block: 16px;
+  transition: padding 0.4s ease;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--navy-800);
+  color: var(--gold-500);
+  flex-shrink: 0;
+
+  svg {
+    width: 26px;
+    height: 26px;
+    animation: spinSlow 24s linear infinite;
+  }
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.logo-name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--navy-800);
+
+  b {
+    color: var(--gold-600);
+  }
+}
+
+.logo-sub {
+  font-size: 0.58rem;
+  letter-spacing: 3px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  a {
+    position: relative;
+    padding: 8px 14px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+    border-radius: 50px;
+    transition: color 0.3s;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      inset-inline-start: 50%;
+      transform: translateX(50%) scaleX(0);
+      width: 55%;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--gold-500);
+      transition: transform 0.35s var(--ease-spring);
+      transform-origin: center;
+    }
+
+    &:hover {
+      color: var(--gold-600);
+
+      &::after {
+        transform: translateX(50%) scaleX(1);
+      }
+    }
+
+    &.active {
+      color: var(--gold-600);
+      border: 1.5px solid var(--gold-500);
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
+.nav-cta {
+  padding: 10px 22px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.nav-cta-mobile {
+  display: none;
+}
+
+/* Burger */
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+
+  span {
+    width: 26px;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--navy-800);
+    transition: all 0.35s var(--ease-spring);
+  }
+
+  &.open {
+    span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    span:nth-child(2) {
+      opacity: 0;
+    }
+    span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px) {
+  .nav-cta {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    inset-inline: 0;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--white);
+    box-shadow: var(--shadow-lg);
+    padding: 18px;
+    gap: 6px;
+    transform: translateY(-12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.35s var(--ease-spring);
+
+    a {
+      text-align: center;
+      padding: 12px;
+    }
+
+    &.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  .nav-cta-mobile {
+    display: inline-flex;
+    justify-content: center;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar-contact {
+    gap: 12px;
+    font-size: 0.75rem;
+  }
+}

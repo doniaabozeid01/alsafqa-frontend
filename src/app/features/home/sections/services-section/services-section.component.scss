@@ -1,0 +1,94 @@
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 22px;
+  margin-top: 50px;
+}
+
+.service-card {
+  text-align: center;
+  padding: 34px 16px;
+  border-radius: var(--radius);
+  background: var(--white);
+  border: 1px solid var(--line);
+  transition: transform 0.45s var(--ease-spring), box-shadow 0.45s ease,
+    border-color 0.45s ease;
+  position: relative;
+  overflow: hidden;
+
+  /* gold rising fill on hover */
+  &::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 0;
+    background: linear-gradient(to top, rgba(201, 164, 92, 0.1), transparent);
+    transition: height 0.5s var(--ease-spring);
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  &:hover {
+    transform: translateY(-12px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--gold-500);
+
+    &::before {
+      height: 100%;
+    }
+
+    .service-icon {
+      background: var(--navy-800);
+      color: var(--gold-500);
+      transform: rotateY(360deg);
+    }
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--navy-800);
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+}
+
+.service-icon {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--gold-100);
+  color: var(--gold-600);
+  transition: all 0.7s var(--ease-spring);
+
+  ::ng-deep svg {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}

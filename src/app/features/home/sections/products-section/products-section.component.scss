@@ -1,0 +1,118 @@
+.carousel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 46px;
+}
+
+.arrow {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--line);
+  color: var(--navy-800);
+  font-size: 1.5rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.35s var(--ease-spring);
+
+  &:hover {
+    background: var(--gold-500);
+    border-color: var(--gold-500);
+    color: var(--white);
+    transform: scale(1.12);
+  }
+}
+
+.track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 10px 4px 22px;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.product-card {
+  flex: 0 0 clamp(220px, 24vw, 280px);
+  scroll-snap-align: start;
+  text-align: center;
+  transition: transform 0.45s var(--ease-spring);
+
+  &:hover {
+    transform: translateY(-10px);
+
+    .card-media img {
+      transform: scale(1.12) rotate(1deg);
+    }
+
+    .card-badge {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  h3 {
+    margin-top: 14px;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--navy-800);
+  }
+}
+
+.card-media {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  box-shadow: var(--shadow-sm);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s var(--ease-spring);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(16, 28, 51, 0.45), transparent 55%);
+  }
+}
+
+.card-badge {
+  position: absolute;
+  bottom: 12px;
+  inset-inline-start: 12px;
+  z-index: 1;
+  background: rgba(201, 164, 92, 0.95);
+  color: var(--white);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  transform: translateY(8px);
+  opacity: 0;
+  transition: all 0.4s var(--ease-spring);
+}
+
+.products-cta {
+  text-align: center;
+  margin-top: 16px;
+}
+
+@media (max-width: 640px) {
+  .arrow {
+    display: none;
+  }
+}

@@ -1,0 +1,24 @@
+<section class="section steps">
+  <div class="container">
+    <span class="section-tag" appReveal>كيف نعمل</span>
+    <h2 class="section-title" appReveal>رحلتك معنا خطوة بخطوة</h2>
+
+    <div class="steps-track">
+      <div class="track-line" appReveal="zoom"></div>
+
+      <div
+        class="step"
+        *ngFor="let step of steps; let i = index"
+        appReveal="up"
+        [revealDelay]="i * 180"
+      >
+        <div class="step-bubble">
+          <span class="step-emoji">{{ step.emoji }}</span>
+          <span class="step-number">{{ step.order }}</span>
+        </div>
+        <h3>{{ step.title }}</h3>
+        <p>{{ step.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>

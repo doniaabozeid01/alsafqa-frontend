@@ -1,0 +1,297 @@
+.hero {
+  padding: 26px 0 40px;
+}
+
+.hero-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  min-height: clamp(480px, 72vh, 640px);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-lg);
+  isolation: isolate;
+}
+
+/* ---------- Background with slow Ken Burns zoom ---------- */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1800&q=75')
+    center 60% / cover no-repeat;
+  animation: kenBurns 22s ease-in-out infinite alternate;
+  z-index: -2;
+}
+
+@keyframes kenBurns {
+  from {
+    transform: scale(1) translateX(0);
+  }
+  to {
+    transform: scale(1.12) translateX(-2%);
+  }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center 35%, rgba(16, 28, 51, 0.25), transparent 55%),
+    linear-gradient(to top, rgba(16, 28, 51, 0.82), rgba(16, 28, 51, 0.25) 55%, rgba(16, 28, 51, 0.35));
+  z-index: -1;
+}
+
+/* ---------- Flying plane ---------- */
+.plane {
+  position: absolute;
+  top: 12%;
+  inset-inline-start: -80px;
+  width: 64px;
+  color: rgba(255, 255, 255, 0.92);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+  transform: rotate(12deg);
+  animation: flyAcross 14s linear infinite;
+  z-index: 2;
+}
+
+@keyframes flyAcross {
+  0% {
+    inset-inline-start: -10%;
+    top: 22%;
+    transform: rotate(14deg) scale(0.8);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  50% {
+    top: 8%;
+    transform: rotate(10deg) scale(1);
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    inset-inline-start: 105%;
+    top: 16%;
+    transform: rotate(14deg) scale(0.85);
+    opacity: 0;
+  }
+}
+
+/* ---------- Content ---------- */
+.hero-content {
+  text-align: center;
+  color: var(--white);
+  padding: 40px 20px;
+  max-width: 700px;
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-weight: 900;
+  line-height: 1.35;
+  margin-bottom: 18px;
+  text-shadow: 0 6px 30px rgba(0, 0, 0, 0.45);
+
+  .line {
+    display: block;
+    opacity: 0;
+    animation: riseIn 1s var(--ease-spring) forwards;
+  }
+
+  .line-2 {
+    animation-delay: 0.35s;
+  }
+
+  em {
+    font-style: normal;
+    color: var(--gold-500);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      inset-inline: 0;
+      height: 10px;
+      background: rgba(201, 164, 92, 0.25);
+      border-radius: 6px;
+      z-index: -1;
+      transform: scaleX(0);
+      transform-origin: right;
+      animation: sweepIn 0.8s 1.2s var(--ease-spring) forwards;
+    }
+  }
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.88);
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: riseIn 1s 0.7s var(--ease-spring) forwards;
+}
+
+.hero-cta {
+  font-size: 1.05rem;
+  padding: 15px 36px;
+  opacity: 0;
+  animation: riseIn 1s 1s var(--ease-spring) forwards, pulseRing 2.4s 2s infinite;
+
+  .cta-arrow {
+    display: inline-block;
+    transition: transform 0.35s var(--ease-spring);
+  }
+
+  &:hover .cta-arrow {
+    transform: translateX(-6px);
+  }
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sweepIn {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ---------- Floating chips ---------- */
+.chip {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  border-radius: 50px;
+  padding: 10px 20px 10px 24px;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  z-index: 3;
+  animation: chipIn 0.9s var(--ease-spring) forwards,
+    floatSoft 4.5s ease-in-out infinite;
+}
+
+@keyframes chipIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.chip-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--navy-800);
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+
+.chip-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4;
+
+  b {
+    color: var(--navy-800);
+    font-size: 0.95rem;
+  }
+
+  small {
+    color: var(--muted);
+    font-size: 0.72rem;
+  }
+}
+
+.chip-air {
+  top: 9%;
+  inset-inline-end: 6%;
+  animation-delay: 1.2s, 1.2s;
+}
+
+.chip-sea {
+  top: 26%;
+  inset-inline-start: 5%;
+  animation-delay: 1.5s, 2s;
+}
+
+.chip-land {
+  bottom: 14%;
+  inset-inline-end: 8%;
+  animation-delay: 1.8s, 2.8s;
+}
+
+/* ---------- Scroll hint ---------- */
+.scroll-hint {
+  position: absolute;
+  bottom: 22px;
+  inset-inline-start: 50%;
+  transform: translateX(50%);
+  z-index: 3;
+}
+
+.mouse {
+  display: block;
+  width: 26px;
+  height: 42px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  position: relative;
+}
+
+.wheel {
+  position: absolute;
+  top: 7px;
+  inset-inline-start: 50%;
+  margin-inline-start: -2px;
+  width: 4px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--gold-500);
+  animation: bounceDown 1.6s ease-in-out infinite;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 700px) {
+  .chip {
+    padding: 8px 14px;
+    gap: 8px;
+
+    .chip-icon {
+      width: 32px;
+      height: 32px;
+      font-size: 0.9rem;
+    }
+
+    small {
+      display: none;
+    }
+  }
+
+  .chip-sea {
+    top: 12%;
+  }
+
+  .chip-air {
+    top: auto;
+    bottom: 26%;
+  }
+}

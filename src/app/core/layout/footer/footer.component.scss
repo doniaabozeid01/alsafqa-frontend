@@ -1,0 +1,146 @@
+.footer {
+  background: var(--navy-900);
+  color: rgba(255, 255, 255, 0.75);
+  position: relative;
+  overflow: hidden;
+
+  /* subtle gold glow */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    inset-inline-start: 50%;
+    transform: translateX(50%);
+    width: 500px;
+    height: 240px;
+    background: radial-gradient(closest-side, rgba(201, 164, 92, 0.14), transparent);
+    pointer-events: none;
+  }
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap: 40px;
+  padding: 70px 0 50px;
+}
+
+/* Brand */
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.logo-mark {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(201, 164, 92, 0.4);
+  color: var(--gold-500);
+
+  svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.logo-name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--white);
+
+  b {
+    color: var(--gold-500);
+  }
+}
+
+.logo-sub {
+  font-size: 0.58rem;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 700;
+}
+
+.footer-about {
+  font-size: 0.92rem;
+  line-height: 1.9;
+  max-width: 320px;
+}
+
+/* Columns */
+.footer-title {
+  color: var(--white);
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin-bottom: 18px;
+  position: relative;
+  padding-bottom: 10px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    inset-inline-start: 0;
+    width: 34px;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--gold-500);
+  }
+}
+
+.footer-col ul li {
+  margin-bottom: 10px;
+
+  a {
+    font-size: 0.92rem;
+    transition: all 0.3s;
+    display: inline-block;
+
+    &:hover {
+      color: var(--gold-500);
+      transform: translateX(-6px);
+    }
+  }
+}
+
+.contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-icon {
+  font-size: 0.85rem;
+}
+
+/* Bottom strip */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 18px 0;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}

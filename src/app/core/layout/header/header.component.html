@@ -1,0 +1,60 @@
+<!-- Top bar -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="topbar-contact">
+      <a href="tel:+201234567890" class="topbar-item">
+        <span class="topbar-icon">📞</span> {{ contact.phone }}
+      </a>
+      <a href="mailto:{{ contact.email }}" class="topbar-item">
+        <span class="topbar-icon">✉️</span> {{ contact.email }}
+      </a>
+    </div>
+    <button class="lang-switch" type="button">EN</button>
+  </div>
+</div>
+
+<!-- Main navbar -->
+<header class="navbar" [class.is-scrolled]="scrolled">
+  <div class="container navbar-inner">
+    <a routerLink="/" class="logo" (click)="closeMenu()">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M2 12h20" />
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+        </svg>
+      </span>
+      <span class="logo-text">
+        <span class="logo-name">Global<b>Way</b></span>
+        <span class="logo-sub">IMPORT &amp; EXPORT</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" [class.open]="menuOpen">
+      <a
+        *ngFor="let link of navLinks"
+        [routerLink]="link.path"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: link.exact || false }"
+        (click)="closeMenu()"
+      >
+        {{ link.label }}
+      </a>
+      <a routerLink="/contact" class="btn btn-gold nav-cta-mobile" (click)="closeMenu()">
+        اطلب عرض سعر
+      </a>
+    </nav>
+
+    <a routerLink="/contact" class="btn btn-gold nav-cta">اطلب عرض سعر</a>
+
+    <button
+      class="burger"
+      type="button"
+      [class.open]="menuOpen"
+      (click)="toggleMenu()"
+      aria-label="القائمة"
+    >
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>

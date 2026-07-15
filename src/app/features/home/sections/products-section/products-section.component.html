@@ -1,0 +1,30 @@
+<section class="section products">
+  <div class="container">
+    <span class="section-tag" appReveal>منتجاتنا</span>
+    <h2 class="section-title" appReveal>جودة عالمية تلبي احتياجاتك</h2>
+
+    <div class="carousel" appReveal="up" [revealDelay]="150">
+      <button class="arrow" type="button" (click)="scroll(-1)" aria-label="السابق">
+        ‹
+      </button>
+
+      <div class="track" #track>
+        <article class="product-card" *ngFor="let category of categories">
+          <div class="card-media">
+            <img [src]="category.image" [alt]="category.title" loading="lazy" />
+            <span class="card-badge">{{ category.subtitle }}</span>
+          </div>
+          <h3>{{ category.title }}</h3>
+        </article>
+      </div>
+
+      <button class="arrow" type="button" (click)="scroll(1)" aria-label="التالي">
+        ›
+      </button>
+    </div>
+
+    <div class="products-cta" appReveal [revealDelay]="250">
+      <a routerLink="/products" class="btn btn-outline">عرض جميع المنتجات</a>
+    </div>
+  </div>
+</section>

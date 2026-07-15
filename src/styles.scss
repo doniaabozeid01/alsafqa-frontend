@@ -1,0 +1,309 @@
+/* ============================================================
+   GlobalWay — Global Styles
+   ============================================================ */
+
+:root {
+  /* Palette */
+  --navy-900: #101c33;
+  --navy-800: #16233f;
+  --navy-700: #1b2a4a;
+  --navy-600: #24345a;
+  --gold-500: #c9a45c;
+  --gold-600: #b98b3e;
+  --gold-100: #f3e8d3;
+  --cream: #faf6ee;
+  --white: #ffffff;
+  --ink: #1e2a44;
+  --muted: #6b7487;
+  --line: #e8e1d3;
+
+  /* Effects */
+  --shadow-sm: 0 4px 14px rgba(16, 28, 51, 0.08);
+  --shadow-md: 0 12px 32px rgba(16, 28, 51, 0.14);
+  --shadow-lg: 0 24px 60px rgba(16, 28, 51, 0.22);
+  --radius: 14px;
+  --radius-lg: 22px;
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+::selection {
+  background: var(--gold-500);
+  color: var(--white);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--gold-500), var(--gold-600));
+  border-radius: 20px;
+}
+
+/* ---------- Layout helpers ---------- */
+.container {
+  width: min(1200px, 92%);
+  margin-inline: auto;
+}
+
+.section {
+  padding: 90px 0;
+}
+
+/* ---------- Section headings ---------- */
+.section-tag {
+  display: block;
+  color: var(--gold-600);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.section-title {
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  font-weight: 800;
+  color: var(--navy-800);
+  text-align: center;
+  margin-bottom: 14px;
+  position: relative;
+  padding-bottom: 18px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    inset-inline-start: 50%;
+    transform: translateX(50%);
+    width: 70px;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--gold-500), var(--gold-600));
+  }
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 30px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+  overflow: hidden;
+  transition: transform 0.35s var(--ease-spring), box-shadow 0.35s ease;
+  isolation: isolate;
+
+  /* shine sweep */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.35) 50%,
+      transparent 70%
+    );
+    transform: translateX(150%);
+    transition: transform 0.7s ease;
+    z-index: -1;
+  }
+
+  &:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: var(--shadow-md);
+
+    &::before {
+      transform: translateX(-150%);
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px) scale(0.99);
+  }
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
+  color: var(--white);
+  box-shadow: 0 8px 22px rgba(185, 139, 62, 0.35);
+}
+
+.btn-outline {
+  border: 2px solid var(--gold-500);
+  color: var(--gold-600);
+  background: transparent;
+
+  &:hover {
+    background: var(--gold-500);
+    color: var(--white);
+  }
+}
+
+.btn-navy {
+  background: var(--navy-700);
+  color: var(--white);
+}
+
+/* ============================================================
+   Scroll-reveal system (used with appReveal directive)
+   ============================================================ */
+[data-reveal] {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.9s var(--ease-spring), transform 0.9s var(--ease-spring);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+[data-reveal='up'] {
+  transform: translateY(50px);
+}
+[data-reveal='down'] {
+  transform: translateY(-50px);
+}
+[data-reveal='right'] {
+  transform: translateX(60px);
+}
+[data-reveal='left'] {
+  transform: translateX(-60px);
+}
+[data-reveal='zoom'] {
+  transform: scale(0.75);
+}
+[data-reveal='flip'] {
+  transform: perspective(900px) rotateY(35deg) translateY(30px);
+}
+
+.revealed[data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================================
+   Shared keyframes
+   ============================================================ */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes floatSoft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(201, 164, 92, 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 18px rgba(201, 164, 92, 0);
+  }
+}
+
+@keyframes spinSlow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bounceDown {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 0.4;
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-8deg);
+  }
+  75% {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Respect users who prefer no motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

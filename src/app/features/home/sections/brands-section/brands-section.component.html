@@ -1,0 +1,20 @@
+<section class="section brands">
+  <div class="container">
+    <span class="section-tag" appReveal>ثقة الشركات العالمية</span>
+    <h2 class="section-title" appReveal>براندات نعتز بخدمتهم</h2>
+  </div>
+
+  <div class="marquee" appReveal [revealDelay]="200">
+    <div class="marquee-track">
+      <span
+        class="brand"
+        *ngFor="let brand of marqueeBrands"
+        [style.--brand-color]="brand.color"
+        [class.serif]="brand.font === 'serif'"
+        [class.cursive]="brand.font === 'cursive'"
+      >
+        {{ brand.name }}
+      </span>
+    </div>
+  </div>
+</section>
