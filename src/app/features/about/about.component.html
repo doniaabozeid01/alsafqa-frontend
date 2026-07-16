@@ -42,27 +42,6 @@
   </div>
 </section>
 
-<!-- Values — لماذا تختار الاتحاد؟ -->
-<section class="about-values">
-  <div class="values-wrap">
-    <span class="section-tag" appReveal>{{ valuesHero.tag }}</span>
-    <h2 class="section-title" appReveal>{{ valuesHero.title }}</h2>
-
-    <div class="values-grid">
-      <article
-        class="value-card"
-        *ngFor="let value of values; let i = index"
-        appReveal="up"
-        [revealDelay]="i * 120"
-      >
-        <div class="value-icon" [innerHTML]="value.icon"></div>
-        <h3>{{ value.title }}</h3>
-        <p>{{ value.description }}</p>
-      </article>
-    </div>
-  </div>
-</section>
-
 <!-- Vision timeline -->
 <section class="about-vision">
   <div class="vision-wrap">

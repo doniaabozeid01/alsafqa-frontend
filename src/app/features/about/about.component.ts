@@ -13,8 +13,6 @@ export class AboutComponent implements OnDestroy {
   hero: PageHero = this.siteData.getPageHero('about');
   content: AboutPageContent = this.siteData.getAboutContent();
   contact: ContactInfo = this.siteData.getContactInfo();
-  values = this.siteData.getWhyUsValues();
-  valuesHero = this.siteData.getPageHero('why-us');
   private sub: Subscription;
 
   constructor(
@@ -25,8 +23,6 @@ export class AboutComponent implements OnDestroy {
       this.hero = this.siteData.getPageHero('about');
       this.content = this.siteData.getAboutContent();
       this.contact = this.siteData.getContactInfo();
-      this.values = this.siteData.getWhyUsValues();
-      this.valuesHero = this.siteData.getPageHero('why-us');
     });
   }
 

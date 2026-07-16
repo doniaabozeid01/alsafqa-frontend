@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ServiceItem } from '../../../../core/models/site.models';
+import { StatItem } from '../../../../core/models/site.models';
 import { LanguageService } from '../../../../core/services/language.service';
 import { SiteDataService } from '../../../../core/services/site-data.service';
 
@@ -10,7 +10,7 @@ import { SiteDataService } from '../../../../core/services/site-data.service';
   styleUrls: ['./stats-section.component.scss'],
 })
 export class StatsSectionComponent implements OnDestroy {
-  values: ServiceItem[] = [];
+  stats: StatItem[] = [];
   private sub: Subscription;
 
   constructor(
@@ -26,6 +26,6 @@ export class StatsSectionComponent implements OnDestroy {
   }
 
   private refresh(): void {
-    this.values = this.siteData.getWhyUsValues();
+    this.stats = this.siteData.getStats();
   }
 }
