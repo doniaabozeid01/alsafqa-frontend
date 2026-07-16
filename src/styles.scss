@@ -34,14 +34,34 @@
 
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
   font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
   background: var(--cream);
   color: var(--ink);
+  width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
+  overflow-x: clip;
+  position: relative;
   line-height: 1.7;
+}
+
+/* Used on sections — was referenced in templates but never defined */
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+app-root {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 img {
@@ -90,6 +110,8 @@ button {
 
 .section {
   padding: 90px 0;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 /* ---------- Section headings ---------- */
@@ -206,11 +228,11 @@ button {
 [data-reveal='down'] {
   transform: translateY(-50px);
 }
-[data-reveal='right'] {
-  transform: translateX(60px);
-}
+/* Use a small Y offset instead of translateX so unrevealed
+   elements don't expand the page width (mobile horizontal gap). */
+[data-reveal='right'],
 [data-reveal='left'] {
-  transform: translateX(-60px);
+  transform: translateY(40px);
 }
 [data-reveal='zoom'] {
   transform: scale(0.75);

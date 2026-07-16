@@ -75,12 +75,12 @@
 
     &:nth-of-type(odd) {
       margin-inline-start: auto;
-      transform: translateX(70px) scale(0.96);
+      transform: translateY(36px) scale(0.96);
     }
 
     &:nth-of-type(even) {
       margin-inline-end: auto;
-      transform: translateX(-70px) scale(0.96);
+      transform: translateY(36px) scale(0.96);
     }
 
     &.revealed {
