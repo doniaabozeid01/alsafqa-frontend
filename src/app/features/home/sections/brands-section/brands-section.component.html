@@ -6,15 +6,18 @@
 
   <div class="marquee" appReveal [revealDelay]="200">
     <div class="marquee-track">
-      <span
+      <a
         class="brand"
         *ngFor="let brand of marqueeBrands"
+        href="/products"
         [style.--brand-color]="brand.color"
         [class.serif]="brand.font === 'serif'"
         [class.cursive]="brand.font === 'cursive'"
+        [attr.aria-label]="'منتجات ' + brand.name"
+        (click)="openBrand(brand, $event)"
       >
         {{ brand.name }}
-      </span>
+      </a>
     </div>
   </div>
 </section>

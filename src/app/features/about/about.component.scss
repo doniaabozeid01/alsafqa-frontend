@@ -121,7 +121,12 @@
 /* ---------- Vision timeline ---------- */
 .about-vision {
   padding: 64px 0 40px;
-  background: var(--cream);
+  background: linear-gradient(
+    180deg,
+    var(--white) 0%,
+    var(--cream) 7%,
+    var(--cream) 100%
+  );
 }
 
 .vision-wrap {

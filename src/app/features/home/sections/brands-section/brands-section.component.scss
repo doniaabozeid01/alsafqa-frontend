@@ -8,9 +8,8 @@
   margin-top: 44px;
   overflow: hidden;
   position: relative;
-  direction: ltr; /* keep marquee motion consistent */
+  direction: ltr;
 
-  /* fade edges */
   &::before,
   &::after {
     content: '';
@@ -61,9 +60,10 @@
   letter-spacing: 1px;
   color: #9aa3b5;
   filter: grayscale(1);
-  transition: all 0.4s ease;
-  cursor: default;
+  transition: color 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+  cursor: pointer;
   white-space: nowrap;
+  text-decoration: none;
 
   &.serif {
     font-family: Georgia, 'Times New Roman', serif;
@@ -79,5 +79,11 @@
     color: var(--brand-color);
     filter: grayscale(0);
     transform: scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
   }
 }

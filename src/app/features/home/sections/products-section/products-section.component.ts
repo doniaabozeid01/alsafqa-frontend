@@ -8,7 +8,9 @@ import { SiteDataService } from '../../../../core/services/site-data.service';
   styleUrls: ['./products-section.component.scss'],
 })
 export class ProductsSectionComponent {
-  categories: ProductCategory[] = this.siteData.getProductCategories();
+  categories: ProductCategory[] = this.siteData
+    .getProductCategories()
+    .filter((item, index, list) => list.findIndex((p) => p.brand === item.brand) === index);
 
   @ViewChild('track') track?: ElementRef<HTMLElement>;
 

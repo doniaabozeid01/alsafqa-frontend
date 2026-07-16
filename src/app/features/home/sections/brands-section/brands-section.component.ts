@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Brand } from '../../../../core/models/site.models';
 import { SiteDataService } from '../../../../core/services/site-data.service';
 
@@ -9,8 +10,15 @@ import { SiteDataService } from '../../../../core/services/site-data.service';
 })
 export class BrandsSectionComponent {
   brands: Brand[] = this.siteData.getBrands();
-  /* duplicated list for the seamless infinite marquee */
   marqueeBrands: Brand[] = [...this.brands, ...this.brands];
 
-  constructor(private siteData: SiteDataService) {}
+  constructor(
+    private siteData: SiteDataService,
+    private router: Router
+  ) {}
+
+  openBrand(brand: Brand, event: Event): void {
+    event.preventDefault();
+    this.router.navigate(['/products'], { queryParams: { brand: brand.name } });
+  }
 }

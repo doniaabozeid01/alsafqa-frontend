@@ -1,24 +1,88 @@
 <app-page-hero [tag]="hero.tag" [title]="hero.title" [subtitle]="hero.subtitle"></app-page-hero>
 
-<section class="section">
+<section class="section products-page">
   <div class="container">
-    <div class="products-grid">
+    <div class="filter-panel" appReveal>
+      <div class="filter-head">
+        <div class="filter-title">
+          <span class="filter-label">تصفية حسب البراند</span>
+          <span class="filter-hint">اختر براند لعرض منتجاته</span>
+        </div>
+        <span class="filter-count" *ngIf="selectedBrand; else allCount">
+          {{ filteredProducts.length }} منتج
+        </span>
+        <ng-template #allCount>
+          <span class="filter-count">{{ allProducts.length }} منتج</span>
+        </ng-template>
+      </div>
+
+      <div class="brand-filters">
+        <button
+          type="button"
+          class="filter-chip"
+          [class.active]="!selectedBrand"
+          (click)="selectBrand(null)"
+        >
+          الكل
+        </button>
+        <button
+          type="button"
+          class="filter-chip"
+          *ngFor="let brand of brands"
+          [class.active]="selectedBrand === brand.name"
+          (click)="selectBrand(brand.name)"
+        >
+          {{ brand.name }}
+        </button>
+      </div>
+    </div>
+
+    <div class="results-head" *ngIf="selectedBrand" appReveal>
+      <h2>
+        منتجات
+        <span>{{ selectedBrand }}</span>
+      </h2>
+      <button type="button" class="clear-filter" (click)="selectBrand(null)">
+        مسح الفلتر
+      </button>
+    </div>
+
+    <div
+      class="products-grid"
+      [class.is-filtered]="!!selectedBrand"
+      *ngIf="filteredProducts.length; else emptyState"
+    >
       <article
         class="product-card"
-        *ngFor="let category of categories; let i = index"
+        *ngFor="let category of filteredProducts; let i = index"
         appReveal="up"
-        [revealDelay]="i * 100"
+        [revealDelay]="i * 80"
       >
         <div class="card-media">
           <img [src]="category.image" [alt]="category.title" loading="lazy" />
-          <span class="card-badge">{{ category.subtitle }}</span>
+          <div class="card-overlay">
+            <span class="card-badge">{{ category.brand }}</span>
+            <span class="card-cat">{{ category.subtitle }}</span>
+          </div>
         </div>
-        <h3>{{ category.title }}</h3>
+        <div class="card-body">
+          <h3>{{ category.title }}</h3>
+          <a routerLink="/contact" class="card-link">اطلب توريد ←</a>
+        </div>
       </article>
     </div>
 
+    <ng-template #emptyState>
+      <div class="empty-state" appReveal>
+        <p>لا توجد منتجات لهذا البراند حاليًا.</p>
+        <button type="button" class="btn btn-outline" (click)="selectBrand(null)">
+          عرض كل المنتجات
+        </button>
+      </div>
+    </ng-template>
+
     <div class="page-cta" appReveal>
-      <a routerLink="/contact" class="btn btn-outline">اطلب توريد منتجات</a>
+      <a routerLink="/contact" class="btn btn-gold">اطلب توريد منتجات</a>
     </div>
   </div>
 </section>

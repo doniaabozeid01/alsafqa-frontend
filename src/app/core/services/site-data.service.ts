@@ -456,34 +456,116 @@ export class SiteDataService {
   getProductCategories(): ProductCategory[] {
     return [
       {
-        title: 'منتجات استهلاكية',
-        subtitle: 'ماركات عالمية',
+        title: 'هواتف وأجهزة سامسونج',
+        subtitle: 'إلكترونيات',
+        brand: 'SAMSUNG',
         image:
-          'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=70',
+          'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=70',
       },
       {
-        title: 'أجهزة إلكترونية',
-        subtitle: 'أحدث التقنيات',
+        title: 'شاشات وتلفزيونات سامسونج',
+        subtitle: 'إلكترونيات',
+        brand: 'SAMSUNG',
         image:
-          'https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=800&q=70',
+          'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=800&q=70',
       },
       {
-        title: 'مواد صناعية',
-        subtitle: 'جودة موثوقة',
-        image:
-          'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?auto=format&fit=crop&w=800&q=70',
-      },
-      {
-        title: 'مواد غذائية',
-        subtitle: 'طازجة وآمنة',
+        title: 'منتجات نستله الغذائية',
+        subtitle: 'مواد غذائية',
+        brand: 'Nestlé',
         image:
           'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=70',
       },
       {
-        title: 'معدات كهربائية',
-        subtitle: 'أساسيات وتوريد',
+        title: 'مشروبات وألبان نستله',
+        subtitle: 'مواد غذائية',
+        brand: 'Nestlé',
         image:
-          'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=800&q=70',
+          'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=70',
+      },
+      {
+        title: 'منتجات يونيليفر للعناية',
+        subtitle: 'استهلاكية',
+        brand: 'Unilever',
+        image:
+          'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=800&q=70',
+      },
+      {
+        title: 'منظفات يونيليفر',
+        subtitle: 'استهلاكية',
+        brand: 'Unilever',
+        image:
+          'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=800&q=70',
+      },
+      {
+        title: 'أجهزة بوش المنزلية',
+        subtitle: 'معدات كهربائية',
+        brand: 'BOSCH',
+        image:
+          'https://images.unsplash.com/photo-1556911220-bff31c812dce?auto=format&fit=crop&w=800&q=70',
+      },
+      {
+        title: 'عدد وأدوات بوش',
+        subtitle: 'صناعية',
+        brand: 'BOSCH',
+        image:
+          'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=70',
+      },
+      {
+        title: 'منتجات P&G للعناية الشخصية',
+        subtitle: 'استهلاكية',
+        brand: 'P&G',
+        image:
+          'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=70',
+      },
+      {
+        title: 'منظفات P&G',
+        subtitle: 'استهلاكية',
+        brand: 'P&G',
+        image:
+          'https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=800&q=70',
+      },
+      {
+        title: 'أجهزة فيليبس المنزلية',
+        subtitle: 'إلكترونيات',
+        brand: 'PHILIPS',
+        image:
+          'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=800&q=70',
+      },
+      {
+        title: 'إضاءة فيليبس',
+        subtitle: 'معدات كهربائية',
+        brand: 'PHILIPS',
+        image:
+          'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=800&q=70',
+      },
+      {
+        title: 'أجهزة LG المنزلية',
+        subtitle: 'إلكترونيات',
+        brand: 'LG',
+        image:
+          'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=800&q=70',
+      },
+      {
+        title: 'شاشات LG',
+        subtitle: 'إلكترونيات',
+        brand: 'LG',
+        image:
+          'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=800&q=70',
+      },
+      {
+        title: 'مشروبات كوكا كولا',
+        subtitle: 'مواد غذائية',
+        brand: 'Coca-Cola',
+        image:
+          'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=70',
+      },
+      {
+        title: 'منتجات كوكا كولا المتنوعة',
+        subtitle: 'مواد غذائية',
+        brand: 'Coca-Cola',
+        image:
+          'https://images.unsplash.com/photo-1596803244618-8dcee15344d2?auto=format&fit=crop&w=800&q=70',
       },
     ];
   }

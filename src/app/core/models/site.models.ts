@@ -85,6 +85,7 @@ export interface ProductCategory {
   title: string;
   subtitle: string;
   image: string;
+  brand: string;
 }
 
 export interface Brand {
