@@ -7,10 +7,11 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './core/layout/header/header.component';
 import { FooterComponent } from './core/layout/footer/footer.component';
+import { SplashComponent } from './core/layout/splash/splash.component';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, SplashComponent],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, SharedModule],
   providers: [
     {

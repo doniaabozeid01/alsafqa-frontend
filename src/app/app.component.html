@@ -1,3 +1,4 @@
+<app-splash *ngIf="showSplash" (closed)="onSplashClosed()"></app-splash>
 <app-header *ngIf="showLayout"></app-header>
 <main>
   <router-outlet></router-outlet>

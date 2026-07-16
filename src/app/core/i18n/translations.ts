@@ -26,6 +26,7 @@ export const TRANSLATIONS = {
     'footer.contact': 'تواصل معنا',
     'footer.copyright': '© شركة الصفقة',
     'footer.powered': 'من إنتاج',
+    'splash.tap': 'اضغط للمتابعة',
 
     // Common UI
     'common.loading': 'جاري التحميل...',
@@ -162,6 +163,7 @@ export const TRANSLATIONS = {
     'footer.contact': 'Contact Us',
     'footer.copyright': '© AL-SAFQA',
     'footer.powered': 'Powered by',
+    'splash.tap': 'Tap to continue',
 
     'common.loading': 'Loading...',
     'common.prev': 'Previous',

@@ -1,0 +1,91 @@
+<div
+  class="splash"
+  *ngIf="visible"
+  [class.is-leaving]="leaving"
+  (click)="skip()"
+  role="dialog"
+  aria-label="AL-SAFQA"
+>
+  <div class="splash-sky"></div>
+  <div class="splash-glow"></div>
+
+  <div class="splash-brand">
+    <div class="logo-wrap">
+      <img src="assets/brand/logo-icon.png" alt="" class="logo" />
+      <span class="logo-ring"></span>
+    </div>
+    <h1 class="brand-name" [innerHTML]="'brand.nameHtml' | translate"></h1>
+    <p class="brand-tag">{{ 'brand.tagline' | translate }}</p>
+  </div>
+
+  <!-- sailing ship -->
+  <div class="ship-lane" aria-hidden="true">
+    <div class="ship-move">
+      <svg class="ship" viewBox="0 0 220 110" xmlns="http://www.w3.org/2000/svg">
+      <!-- hull -->
+      <path
+        d="M18 72 L38 88 H188 L208 72 Z"
+        fill="#16233f"
+        stroke="#c9a45c"
+        stroke-width="2"
+      />
+      <path d="M38 72 H188 V88 H38 Z" fill="#1b2a4a" />
+      <!-- bow accent -->
+      <path d="M188 72 L208 72 L188 88 Z" fill="#c9a45c" opacity="0.85" />
+      <!-- deck house -->
+      <rect x="128" y="48" width="42" height="24" rx="3" fill="#24345a" stroke="#c9a45c" stroke-width="1.4" />
+      <rect x="136" y="54" width="10" height="8" rx="1" fill="#c9a45c" opacity="0.7" />
+      <rect x="152" y="54" width="10" height="8" rx="1" fill="#c9a45c" opacity="0.7" />
+      <!-- containers -->
+      <rect x="48" y="52" width="22" height="20" rx="2" fill="#c9a45c" />
+      <rect x="72" y="48" width="22" height="24" rx="2" fill="#b98b3e" />
+      <rect x="96" y="54" width="22" height="18" rx="2" fill="#c9a45c" opacity="0.85" />
+      <!-- mast / flag -->
+      <line x1="160" y1="48" x2="160" y2="28" stroke="#c9a45c" stroke-width="2" />
+      <path d="M160 28 L178 34 L160 40 Z" fill="#c9a45c" />
+      <!-- anchor hint -->
+      <circle cx="198" cy="78" r="3" fill="#c9a45c" />
+      <!-- wake -->
+      <path
+        class="wake"
+        d="M18 80 Q8 78 2 76"
+        fill="none"
+        stroke="rgba(243,232,211,0.45)"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      </svg>
+    </div>
+  </div>
+
+  <!-- waves -->
+  <div class="sea" aria-hidden="true">
+    <svg class="wave wave-back" viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path
+        d="M0,60 C180,100 360,20 540,60 C720,100 900,20 1080,60 C1260,100 1380,40 1440,60 L1440,120 L0,120 Z"
+        fill="rgba(36,52,90,0.55)"
+      />
+    </svg>
+    <svg class="wave wave-mid" viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path
+        d="M0,70 C200,30 400,110 600,70 C800,30 1000,110 1200,70 C1320,50 1400,80 1440,70 L1440,120 L0,120 Z"
+        fill="rgba(27,42,74,0.75)"
+      />
+    </svg>
+    <svg class="wave wave-front" viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path
+        d="M0,80 C160,50 320,110 480,80 C640,50 800,110 960,80 C1120,50 1280,110 1440,80 L1440,120 L0,120 Z"
+        fill="#101c33"
+      />
+      <path
+        d="M0,80 C160,50 320,110 480,80 C640,50 800,110 960,80 C1120,50 1280,110 1440,80"
+        fill="none"
+        stroke="#c9a45c"
+        stroke-width="1.5"
+        opacity="0.45"
+      />
+    </svg>
+  </div>
+
+  <div class="splash-hint">{{ 'splash.tap' | translate }}</div>
+</div>
