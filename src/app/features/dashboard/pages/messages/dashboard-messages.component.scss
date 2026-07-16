@@ -51,6 +51,13 @@
   border: 1px dashed var(--line);
 }
 
+.loading {
+  text-align: center;
+  color: var(--muted);
+  padding: 28px 16px;
+  font-weight: 600;
+}
+
 .msg-card {
   display: grid;
   grid-template-columns: 48px minmax(0, 1fr) auto;

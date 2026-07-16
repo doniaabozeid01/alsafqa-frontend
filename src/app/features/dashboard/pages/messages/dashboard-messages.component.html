@@ -11,24 +11,27 @@
     <button type="button" [class.active]="filter === 'unread'" (click)="setFilter('unread')">غير مقروءة</button>
   </div>
 
-  <div class="empty" *ngIf="!messages.length">لا توجد رسائل في هذا التصفية</div>
+  <div class="loading" *ngIf="loading">جاري تحميل الرسائل...</div>
+  <div class="empty" *ngIf="!loading && error">{{ error }}</div>
+  <div class="empty" *ngIf="!loading && !error && !messages.length">لا توجد رسائل في هذا التصفية</div>
 
   <article
     class="msg-card"
     *ngFor="let msg of messages"
-    [class.unread]="!msg.read"
+    [class.unread]="!msg.isRead"
     (click)="open(msg)"
   >
-    <div class="msg-avatar">{{ msg.name.charAt(0) }}</div>
+    <div class="msg-avatar">{{ msg.fullName.charAt(0) }}</div>
     <div class="msg-main">
       <div class="msg-top">
-        <strong>{{ msg.name }}</strong>
-        <span>{{ msg.date }}</span>
+        <strong>{{ msg.fullName }}</strong>
+        <span>{{ formatDate(msg.createdAt) }}</span>
       </div>
       <div class="msg-meta">
         <span dir="ltr">{{ msg.email }}</span>
         <span dir="ltr">{{ msg.phone }}</span>
       </div>
+      <p *ngIf="msg.subject"><strong>{{ msg.subject }}</strong></p>
       <p>{{ msg.message }}</p>
     </div>
     <button type="button" class="btn-delete" (click)="askDelete(msg, $event)">حذف</button>
@@ -49,7 +52,7 @@
     <h2>حذف الرسالة</h2>
     <p>
       هل أنت متأكد من حذف رسالة
-      <strong *ngIf="pendingDelete">{{ pendingDelete.name }}</strong>؟
+      <strong *ngIf="pendingDelete">{{ pendingDelete.fullName }}</strong>؟
       لا يمكن التراجع عن هذا الإجراء
     </p>
     <div class="modal-actions">

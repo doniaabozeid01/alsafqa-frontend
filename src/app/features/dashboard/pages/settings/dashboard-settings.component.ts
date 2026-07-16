@@ -11,12 +11,14 @@ export class DashboardSettingsComponent {
   form: FormGroup;
   success = false;
   error = '';
+  saving = false;
   showPass = false;
   email = this.auth.getUser()?.email || '';
   role = this.auth.getUser()?.role || 'مدير';
 
   constructor(private fb: FormBuilder, private auth: AuthService) {
     this.form = this.fb.group({
+      currentPassword: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirm: ['', Validators.required],
     });
@@ -30,18 +32,40 @@ export class DashboardSettingsComponent {
     this.success = false;
     this.error = '';
 
+    if (this.saving) return;
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    const { password, confirm } = this.form.value;
+    const { currentPassword, password, confirm } = this.form.value;
     if (password !== confirm) {
       this.error = 'كلمتا المرور غير متطابقتين';
       return;
     }
 
-    this.success = true;
-    this.form.reset();
+    this.saving = true;
+    this.auth
+      .changePassword({
+        currentPassword,
+        newPassword: password,
+        confirmNewPassword: confirm,
+      })
+      .subscribe({
+        next: (result) => {
+          this.saving = false;
+          if (!result.ok) {
+            this.error = result.message || 'تعذر تغيير كلمة المرور';
+            return;
+          }
+          this.success = true;
+          this.form.reset();
+        },
+        error: () => {
+          this.saving = false;
+          this.error = 'تعذر تغيير كلمة المرور. حاول مرة أخرى.';
+        },
+      });
   }
 }

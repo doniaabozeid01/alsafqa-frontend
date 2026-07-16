@@ -2,29 +2,68 @@
   <header class="page-head">
     <div>
       <h1>إدارة المعرض</h1>
-      <p>{{ items.length }} صورة إجمالي</p>
+      <p>كل صورة مرتبطة بتصنيف — التصنيف هو فئة الفلترة في صفحة المعرض</p>
     </div>
     <button type="button" class="btn-primary" (click)="openAdd()">+ إضافة صورة</button>
   </header>
 
-  <div class="empty" *ngIf="!items.length">
-    <p>لا توجد صور في المعرض بعد</p>
-    <button type="button" class="btn-primary" (click)="openAdd()">إضافة أول صورة</button>
+  <div class="insight">
+    <div class="insight-item">
+      <span>إجمالي الصور</span>
+      <strong>{{ items.length }}</strong>
+    </div>
+    <div class="insight-item">
+      <span>صور نشطة</span>
+      <strong>{{ activeCount }}</strong>
+    </div>
+    <div class="insight-item">
+      <span>التصنيفات المتاحة</span>
+      <strong>{{ categories.length }}</strong>
+    </div>
   </div>
 
-  <div class="grid" *ngIf="items.length">
-    <article class="card" *ngFor="let item of items">
+  <div class="filters" *ngIf="categories.length">
+    <button
+      type="button"
+      class="filter-chip"
+      [class.active]="!filterCategoryId"
+      (click)="setCategoryFilter(null)"
+    >
+      كل التصنيفات
+    </button>
+
+    <div class="filter-search">
+      <app-searchable-select
+        class="compact"
+        [options]="categoryOptions"
+        [value]="filterCategoryId"
+        (valueChange)="setCategoryFilter($event)"
+        placeholder="ابحث عن تصنيف..."
+        [clearable]="true"
+      ></app-searchable-select>
+    </div>
+  </div>
+
+  <div class="page-error" *ngIf="error">{{ error }}</div>
+  <div class="loading" *ngIf="loading">جاري تحميل صور المعرض...</div>
+
+  <div class="empty" *ngIf="!loading && !items.length && !error">
+    <p>لا توجد صور{{ filterCategoryId ? ' لهذا التصنيف' : '' }} بعد</p>
+    <button type="button" class="btn-primary" (click)="openAdd()">إضافة صورة</button>
+  </div>
+
+  <div class="grid" *ngIf="!loading && items.length">
+    <article class="card" *ngFor="let item of items" [class.inactive]="!item.isActive">
       <div class="card-media">
-        <img [src]="item.image" [alt]="item.title" />
+        <img [src]="itemImage(item)" [alt]="itemTitle(item)" />
+        <span class="badge" *ngIf="item.isActive">نشط</span>
+        <span class="badge off" *ngIf="!item.isActive">موقوف</span>
       </div>
       <div class="card-body">
-        <div class="card-top">
-          <strong>{{ item.title }}</strong>
-          <div class="tags">
-            <span class="tag cat">{{ item.category }}</span>
-            <span class="tag ok" *ngIf="item.active">نشط</span>
-            <span class="tag off" *ngIf="!item.active">موقوف</span>
-          </div>
+        <h3>{{ itemTitle(item) }}</h3>
+        <p class="name-en" dir="ltr">{{ item.titleEn }}</p>
+        <div class="meta">
+          <span class="pill">{{ itemCategory(item) }}</span>
         </div>
         <div class="card-actions">
           <button type="button" class="btn-edit" (click)="openEdit(item)">تعديل</button>
@@ -37,43 +76,64 @@
 
 <div class="modal-layer" *ngIf="formOpen">
   <div class="modal-backdrop" (click)="closeForm()"></div>
-  <div class="modal" role="dialog" aria-modal="true">
+  <div class="modal modal-lg" role="dialog" aria-modal="true">
     <div class="modal-head">
       <h2>{{ formTitle }}</h2>
       <button type="button" class="modal-close" (click)="closeForm()" aria-label="إغلاق">×</button>
     </div>
-
+    <p class="modal-lead">اختر التصنيف أولاً — ستظهر الصورة ضمن فلتر هذا التصنيف في الموقع.</p>
     <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="field">
+        <label>تصنيف المعرض</label>
+        <app-searchable-select
+          formControlName="galleryCategoryId"
+          [options]="categoryOptions"
+          placeholder="ابحث واختر تصنيف..."
+        ></app-searchable-select>
+      </div>
+
       <div class="field-row">
         <div class="field">
-          <label>عنوان الصورة</label>
-          <input formControlName="title" placeholder="مثال: الصفقة" />
+          <label>العنوان بالعربي</label>
+          <input formControlName="titleAr" placeholder="مثال: عمليات الشحن البري" />
         </div>
         <div class="field">
-          <label>التصنيف</label>
-          <select formControlName="category">
-            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
-          </select>
+          <label>العنوان بالإنجليزي</label>
+          <input formControlName="titleEn" placeholder="Example: Land Freight Operations" dir="ltr" />
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>الوصف بالعربي</label>
+          <textarea formControlName="descriptionAr" rows="3" placeholder="وصف مختصر..."></textarea>
+        </div>
+        <div class="field">
+          <label>الوصف بالإنجليزي</label>
+          <textarea formControlName="descriptionEn" rows="3" placeholder="Short description..." dir="ltr"></textarea>
         </div>
       </div>
 
       <div class="field">
-        <label>رابط الصورة</label>
-        <input formControlName="image" placeholder="https://..." dir="ltr" />
+        <label>صورة المعرض</label>
+        <input type="file" accept="image/*" (change)="onFileChange($event)" />
+        <small *ngIf="editing">اترك الحقل فارغًا للإبقاء على الصورة الحالية</small>
       </div>
 
-      <div class="preview" *ngIf="form.value.image">
-        <img [src]="form.value.image" alt="معاينة" />
+      <div class="preview" *ngIf="previewUrl">
+        <img [src]="previewUrl" alt="معاينة" />
       </div>
 
       <label class="check">
-        <input type="checkbox" formControlName="active" />
-        <span>نشط في الموقع</span>
+        <input type="checkbox" formControlName="isActive" />
+        <span>صورة نشطة (تظهر في الموقع)</span>
       </label>
 
       <div class="modal-actions">
         <button type="button" class="btn-ghost" (click)="closeForm()">إلغاء</button>
-        <button type="submit" class="btn-primary">{{ editing ? 'حفظ التعديلات' : 'إضافة' }}</button>
+        <button type="submit" class="btn-primary" [disabled]="saving">
+          {{ saving ? 'جاري الحفظ...' : editing ? 'حفظ التعديلات' : 'إضافة الصورة' }}
+        </button>
       </div>
     </form>
   </div>
@@ -90,8 +150,11 @@
         <path d="M10 11v6M14 11v6" />
       </svg>
     </div>
-    <h2>حذف الصورة</h2>
-    <p>هل أنت متأكد من حذف هذه الصورة؟ لا يمكن التراجع عن هذا الإجراء</p>
+    <h2>حذف صورة المعرض</h2>
+    <p>
+      هل أنت متأكد من حذف
+      <strong *ngIf="pendingDelete">{{ itemTitle(pendingDelete) }}</strong>؟
+    </p>
     <div class="modal-actions center">
       <button type="button" class="btn-ghost" (click)="closeDelete()">إلغاء</button>
       <button type="button" class="btn-danger" (click)="confirmDelete()">حذف</button>

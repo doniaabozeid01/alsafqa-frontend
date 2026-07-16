@@ -89,6 +89,13 @@
   }
 }
 
+.gallery-empty {
+  text-align: center;
+  color: var(--muted);
+  font-weight: 600;
+  padding: 48px 16px;
+}
+
 @media (max-width: 900px) {
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);

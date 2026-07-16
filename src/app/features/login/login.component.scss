@@ -184,14 +184,17 @@
   position: relative;
 
   input {
-    padding-inline-end: 72px;
+    /* password is dir=ltr — keep space on the right for the toggle */
+    padding-left: 16px;
+    padding-right: 92px;
   }
 }
 
 .toggle-pass {
   position: absolute;
-  inset-inline-end: 10px;
   top: 50%;
+  right: 10px;
+  left: auto;
   transform: translateY(-50%);
   border: 0;
   background: transparent;
@@ -200,7 +203,8 @@
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
-  padding: 4px 6px;
+  padding: 4px 8px;
+  z-index: 1;
 }
 
 .login-btn {

@@ -2,84 +2,114 @@
 
 <section class="section products-page">
   <div class="container">
-    <div class="filter-panel" appReveal>
+    <div class="filter-panel" [class.is-open]="pickerOpen" appReveal *ngIf="brands.length">
       <div class="filter-head">
         <div class="filter-title">
           <span class="filter-label">تصفية حسب البراند</span>
           <span class="filter-hint">اختر براند لعرض منتجاته</span>
         </div>
-        <span class="filter-count" *ngIf="selectedBrand; else allCount">
-          {{ filteredProducts.length }} منتج
-        </span>
-        <ng-template #allCount>
-          <span class="filter-count">{{ allProducts.length }} منتج</span>
-        </ng-template>
+        <span class="filter-count">{{ products.length }} منتج</span>
       </div>
 
-      <div class="brand-filters">
+      <div class="brand-filters" #brandPicker>
         <button
           type="button"
           class="filter-chip"
-          [class.active]="!selectedBrand"
+          [class.active]="!selectedBrandId"
           (click)="selectBrand(null)"
         >
-          الكل
+          كل البراندات
         </button>
-        <button
-          type="button"
-          class="filter-chip"
-          *ngFor="let brand of brands"
-          [class.active]="selectedBrand === brand.name"
-          (click)="selectBrand(brand.name)"
-        >
-          {{ brand.name }}
-        </button>
+
+        <div class="brand-search">
+          <input
+            type="search"
+            [value]="brandQuery"
+            (input)="onBrandQuery($event)"
+            (focus)="openPicker()"
+            placeholder="ابحث ضمن البراندات..."
+            autocomplete="off"
+          />
+
+          <div class="brand-dropdown" *ngIf="pickerOpen">
+            <button
+              type="button"
+              class="brand-option"
+              *ngFor="let brand of filteredBrands"
+              [class.active]="selectedBrandId === brand.id"
+              (click)="selectBrand(brand.id)"
+            >
+              <span>{{ brandName(brand) }}</span>
+              <small dir="ltr" *ngIf="brand.nameEn && brand.nameEn !== brand.nameAr">
+                {{ brand.nameEn }}
+              </small>
+            </button>
+            <p class="brand-empty" *ngIf="!filteredBrands.length">لا توجد نتائج مطابقة</p>
+          </div>
+        </div>
+
+        <div class="selected-brand" *ngIf="selectedBrand">
+          <span>{{ brandName(selectedBrand) }}</span>
+          <button type="button" (click)="selectBrand(null)" aria-label="مسح الفلتر">×</button>
+        </div>
       </div>
     </div>
 
     <div class="results-head" *ngIf="selectedBrand" appReveal>
       <h2>
         منتجات
-        <span>{{ selectedBrand }}</span>
+        <span>{{ brandName(selectedBrand) }}</span>
       </h2>
       <button type="button" class="clear-filter" (click)="selectBrand(null)">
         مسح الفلتر
       </button>
     </div>
 
-    <div
-      class="products-grid"
-      [class.is-filtered]="!!selectedBrand"
-      *ngIf="filteredProducts.length; else emptyState"
-    >
-      <article
-        class="product-card"
-        *ngFor="let category of filteredProducts; let i = index"
-        appReveal="up"
-        [revealDelay]="i * 80"
-      >
-        <div class="card-media">
-          <img [src]="category.image" [alt]="category.title" loading="lazy" />
-          <div class="card-overlay">
-            <span class="card-badge">{{ category.brand }}</span>
-            <span class="card-cat">{{ category.subtitle }}</span>
-          </div>
-        </div>
-        <div class="card-body">
-          <h3>{{ category.title }}</h3>
-          <a routerLink="/contact" class="card-link">اطلب توريد ←</a>
-        </div>
-      </article>
-    </div>
+    <div class="loading-state" *ngIf="loading">جاري تحميل المنتجات...</div>
 
-    <ng-template #emptyState>
-      <div class="empty-state" appReveal>
-        <p>لا توجد منتجات لهذا البراند حاليًا.</p>
-        <button type="button" class="btn btn-outline" (click)="selectBrand(null)">
-          عرض كل المنتجات
-        </button>
+    <ng-container *ngIf="!loading">
+      <div
+        class="products-grid"
+        [class.is-filtered]="!!selectedBrandId"
+        *ngIf="products.length; else emptyState"
+      >
+        <article
+          class="product-card"
+          *ngFor="let product of products; let i = index"
+          appReveal="up"
+          [revealDelay]="i * 80"
+        >
+          <div class="card-media">
+            <img
+              [src]="productImage(product)"
+              [alt]="productTitle(product)"
+              loading="lazy"
+            />
+            <div class="card-overlay">
+              <span class="card-badge">{{ brandLabel(product) }}</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3>{{ productTitle(product) }}</h3>
+            <a routerLink="/contact" class="card-link">اطلب توريد ←</a>
+          </div>
+        </article>
       </div>
-    </ng-template>
+
+      <ng-template #emptyState>
+        <div class="empty-state" appReveal>
+          <p>لا توجد منتجات{{ selectedBrand ? ' لهذا البراند' : '' }} حاليًا.</p>
+          <button
+            type="button"
+            class="btn btn-outline"
+            *ngIf="selectedBrandId"
+            (click)="selectBrand(null)"
+          >
+            عرض كل المنتجات
+          </button>
+        </div>
+      </ng-template>
+    </ng-container>
 
     <div class="page-cta" appReveal>
       <a routerLink="/contact" class="btn btn-gold">اطلب توريد منتجات</a>

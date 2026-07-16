@@ -22,12 +22,12 @@
     <div class="empty" *ngIf="!latestMessages.length">لا توجد رسائل حالياً</div>
 
     <article class="msg-row" *ngFor="let msg of latestMessages">
-      <div class="msg-avatar">{{ msg.name.charAt(0) }}</div>
+      <div class="msg-avatar">{{ msg.fullName.charAt(0) }}</div>
       <div class="msg-body">
-        <strong>{{ msg.name }}</strong>
+        <strong>{{ msg.fullName }}</strong>
         <p>{{ msg.message }}</p>
       </div>
-      <span class="msg-date">{{ msg.date }}</span>
+      <span class="msg-date">{{ formatDate(msg.createdAt) }}</span>
     </article>
   </section>
 </div>

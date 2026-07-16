@@ -2,26 +2,70 @@
   <header class="page-head">
     <div>
       <h1>إدارة المنتجات</h1>
-      <p>{{ products.length }} منتج إجمالي</p>
+      <p>كل منتج مرتبط ببراند — البراند هو فئة الفلترة في الموقع</p>
     </div>
     <button type="button" class="btn-primary" (click)="openAdd()">+ إضافة منتج</button>
   </header>
 
-  <div class="empty" *ngIf="!products.length">
-    <p>لا توجد منتجات بعد</p>
-    <button type="button" class="btn-primary" (click)="openAdd()">إضافة أول منتج</button>
+  <div class="insight">
+    <div class="insight-item">
+      <span>إجمالي المنتجات</span>
+      <strong>{{ products.length }}</strong>
+    </div>
+    <div class="insight-item">
+      <span>منتجات نشطة</span>
+      <strong>{{ activeCount }}</strong>
+    </div>
+    <div class="insight-item">
+      <span>البراندات المتاحة</span>
+      <strong>{{ brands.length }}</strong>
+    </div>
   </div>
 
-  <div class="grid" *ngIf="products.length">
-    <article class="card" *ngFor="let product of products">
+  <div class="filters" *ngIf="brands.length">
+    <button
+      type="button"
+      class="filter-chip"
+      [class.active]="!filterBrandId"
+      (click)="setBrandFilter(null)"
+    >
+      كل البراندات
+    </button>
+
+    <div class="filter-search">
+      <app-searchable-select
+        class="compact"
+        [options]="brandOptions"
+        [value]="filterBrandId"
+        (valueChange)="setBrandFilter($event)"
+        placeholder="ابحث عن براند..."
+        [clearable]="true"
+      ></app-searchable-select>
+    </div>
+  </div>
+
+  <div class="page-error" *ngIf="error">{{ error }}</div>
+  <div class="loading" *ngIf="loading">جاري تحميل المنتجات...</div>
+
+  <div class="empty" *ngIf="!loading && !products.length && !error">
+    <p>لا توجد منتجات{{ filterBrandId ? ' لهذا البراند' : '' }} بعد</p>
+    <button type="button" class="btn-primary" (click)="openAdd()">إضافة منتج</button>
+  </div>
+
+  <div class="grid" *ngIf="!loading && products.length">
+    <article class="card" *ngFor="let product of products" [class.inactive]="!product.isActive">
       <div class="card-media">
-        <img [src]="product.image" [alt]="product.title" />
-        <span class="badge" *ngIf="product.active">نشط</span>
-        <span class="badge off" *ngIf="!product.active">موقوف</span>
+        <img [src]="productImage(product)" [alt]="productTitle(product)" />
+        <span class="badge" *ngIf="product.isActive">نشط</span>
+        <span class="badge off" *ngIf="!product.isActive">موقوف</span>
       </div>
       <div class="card-body">
-        <h3>{{ product.title }}</h3>
-        <p>{{ product.subtitle }}</p>
+        <h3>{{ productTitle(product) }}</h3>
+        <p class="name-en" dir="ltr">{{ product.nameEn }}</p>
+        <div class="meta">
+          <span class="pill">{{ productBrand(product) }}</span>
+          <span class="meta-soft" *ngIf="product.packageCount">{{ product.packageCount }} عبوة</span>
+        </div>
         <div class="card-actions">
           <button type="button" class="btn-edit" (click)="openEdit(product)">تعديل</button>
           <button type="button" class="btn-delete" (click)="askDelete(product)">حذف</button>
@@ -33,37 +77,77 @@
 
 <div class="modal-layer" *ngIf="formOpen">
   <div class="modal-backdrop" (click)="closeForm()"></div>
-  <div class="modal" role="dialog" aria-modal="true">
+  <div class="modal modal-lg" role="dialog" aria-modal="true">
     <div class="modal-head">
       <h2>{{ formTitle }}</h2>
       <button type="button" class="modal-close" (click)="closeForm()" aria-label="إغلاق">×</button>
     </div>
 
+    <p class="modal-lead">اختر البراند أولاً — سيظهر المنتج ضمن فلتر هذا البراند في الموقع.</p>
+
     <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="field">
+        <label>البراند (فئة الفلترة)</label>
+        <app-searchable-select
+          formControlName="brandId"
+          [options]="brandOptions"
+          placeholder="ابحث واختر براند..."
+        ></app-searchable-select>
+      </div>
+
       <div class="field-row">
         <div class="field">
-          <label>اسم المنتج</label>
-          <input formControlName="title" placeholder="مثال: منتجات استهلاكية" />
+          <label>اسم المنتج بالعربي</label>
+          <input formControlName="nameAr" placeholder="مثال: شاي أحمر" />
         </div>
         <div class="field">
-          <label>الوصف القصير</label>
-          <input formControlName="subtitle" placeholder="مثال: ماركات عالمية" />
+          <label>اسم المنتج بالإنجليزي</label>
+          <input formControlName="nameEn" placeholder="Example: Black Tea" dir="ltr" />
         </div>
       </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>الوصف بالعربي</label>
+          <textarea formControlName="descriptionAr" rows="3" placeholder="وصف مختصر..."></textarea>
+        </div>
+        <div class="field">
+          <label>الوصف بالإنجليزي</label>
+          <textarea formControlName="descriptionEn" rows="3" placeholder="Short description..." dir="ltr"></textarea>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>الوزن بالجرام</label>
+          <input type="number" formControlName="weightInGrams" min="0" step="0.01" dir="ltr" />
+        </div>
+        <div class="field">
+          <label>عدد العبوات</label>
+          <input type="number" formControlName="packageCount" min="0" step="1" dir="ltr" />
+        </div>
+      </div>
+
       <div class="field">
-        <label>رابط الصورة</label>
-        <input formControlName="image" placeholder="https://..." dir="ltr" />
+        <label>صورة المنتج</label>
+        <input type="file" accept="image/*" (change)="onFileChange($event)" />
+        <small *ngIf="editing">اترك الحقل فارغًا للإبقاء على الصورة الحالية</small>
       </div>
-      <div class="preview" *ngIf="form.value.image">
-        <img [src]="form.value.image" alt="معاينة" />
+
+      <div class="preview" *ngIf="previewUrl">
+        <img [src]="previewUrl" alt="معاينة" />
       </div>
+
       <label class="check">
-        <input type="checkbox" formControlName="active" />
-        <span>منتج نشط</span>
+        <input type="checkbox" formControlName="isActive" />
+        <span>منتج نشط (يظهر في الموقع)</span>
       </label>
+
       <div class="modal-actions">
         <button type="button" class="btn-ghost" (click)="closeForm()">إلغاء</button>
-        <button type="submit" class="btn-primary">{{ editing ? 'حفظ التعديلات' : 'إضافة' }}</button>
+        <button type="submit" class="btn-primary" [disabled]="saving">
+          {{ saving ? 'جاري الحفظ...' : editing ? 'حفظ التعديلات' : 'إضافة المنتج' }}
+        </button>
       </div>
     </form>
   </div>
@@ -81,7 +165,10 @@
       </svg>
     </div>
     <h2>حذف المنتج</h2>
-    <p>هل أنت متأكد من حذف هذا المنتج؟ لا يمكن التراجع عن هذا الإجراء</p>
+    <p>
+      هل أنت متأكد من حذف
+      <strong *ngIf="pendingDelete">{{ productTitle(pendingDelete) }}</strong>؟
+    </p>
     <div class="modal-actions center">
       <button type="button" class="btn-ghost" (click)="closeDelete()">إلغاء</button>
       <button type="button" class="btn-danger" (click)="confirmDelete()">حذف</button>

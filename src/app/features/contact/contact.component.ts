@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactInfo } from '../../core/models/site.models';
+import { ContactMessagesService } from '../../core/services/contact-messages.service';
 import { SiteDataService } from '../../core/services/site-data.service';
 
 @Component({
@@ -13,9 +14,12 @@ export class ContactComponent {
   contact: ContactInfo = this.siteData.getContactInfo();
   form: FormGroup;
   submitted = false;
+  sending = false;
+  errorMessage: string | null = null;
 
   constructor(
     private siteData: SiteDataService,
+    private contactMessages: ContactMessagesService,
     private fb: FormBuilder
   ) {
     this.form = this.fb.group({
@@ -27,11 +31,37 @@ export class ContactComponent {
   }
 
   onSubmit(): void {
+    if (this.sending) return;
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
-    this.submitted = true;
-    this.form.reset();
+
+    this.submitted = false;
+    this.errorMessage = null;
+    this.sending = true;
+
+    const { name, email, phone, message } = this.form.getRawValue();
+
+    this.contactMessages
+      .send({
+        fullName: name,
+        email,
+        phone,
+        subject: 'رسالة تواصل من الموقع',
+        message,
+      })
+      .subscribe({
+        next: () => {
+          this.sending = false;
+          this.submitted = true;
+          this.form.reset();
+        },
+        error: () => {
+          this.sending = false;
+          this.errorMessage = 'تعذر إرسال الرسالة. تأكد من تشغيل السيرفر وحاول مرة أخرى.';
+        },
+      });
   }
 }

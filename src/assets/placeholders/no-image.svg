@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="D' *H,/ 5H1)">
+  <rect width="800" height="600" fill="#eef1f6"/>
+  <rect x="40" y="40" width="720" height="520" rx="24" fill="#ffffff" stroke="#d5dbe6" stroke-width="2" stroke-dasharray="10 8"/>
+  <g transform="translate(400 270)" fill="none" stroke="#9aa3b5" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="-90" y="-70" width="180" height="140" rx="16"/>
+    <circle cx="-40" cy="-20" r="16"/>
+    <path d="M-70 45 L-20 0 L20 30 L55 -15 L90 45 Z"/>
+  </g>
+  <text x="400" y="420" text-anchor="middle" fill="#6b7487" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="28" font-weight="700">D' *H,/ 5H1)</text>
+</svg>

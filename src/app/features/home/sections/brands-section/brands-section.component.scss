@@ -1,14 +1,27 @@
 .brands {
   background: var(--white);
   padding-top: 88px;
-  padding-bottom: 56px;
+  padding-bottom: 64px;
 }
 
 .marquee {
-  margin-top: 44px;
+  margin-top: 48px;
   overflow: hidden;
   position: relative;
   direction: ltr;
+  padding-block: 12px;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+
+  &.is-dragging {
+    cursor: grabbing;
+
+    .brand {
+      pointer-events: none;
+    }
+  }
 
   &::before,
   &::after {
@@ -16,7 +29,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 120px;
+    width: min(140px, 12vw);
     z-index: 2;
     pointer-events: none;
   }
@@ -30,60 +43,76 @@
     right: 0;
     background: linear-gradient(to left, var(--white), transparent);
   }
-
-  &:hover .marquee-track {
-    animation-play-state: paused;
-  }
 }
 
 .marquee-track {
   display: flex;
-  align-items: center;
-  gap: 90px;
   width: max-content;
-  padding-inline: 45px;
-  animation: marquee 26s linear infinite;
+  will-change: transform;
 }
 
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+.marquee-group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 52px;
+  padding-inline-end: 52px;
 }
 
 .brand {
-  font-size: 1.7rem;
-  font-weight: 900;
-  letter-spacing: 1px;
-  color: #9aa3b5;
-  filter: grayscale(1);
-  transition: color 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 88px;
+  min-width: 120px;
+  flex-shrink: 0;
   cursor: pointer;
-  white-space: nowrap;
   text-decoration: none;
-
-  &.serif {
-    font-family: Georgia, 'Times New Roman', serif;
-  }
-
-  &.cursive {
-    font-family: 'Brush Script MT', 'Segoe Script', cursive;
-    font-weight: 400;
-    font-size: 2.1rem;
-  }
+  transition: transform 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
+  filter: grayscale(1);
+  opacity: 0.7;
 
   &:hover {
-    color: var(--brand-color);
     filter: grayscale(0);
-    transform: scale(1.15);
+    opacity: 1;
+    transform: scale(1.06);
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
+.brand-logo {
+  display: block;
+  height: 76px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.brand-text {
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  color: #7a8498;
+  white-space: nowrap;
+}
+
+.brand:hover .brand-text {
+  color: var(--navy-800);
+}
+
+@media (max-width: 768px) {
+  .marquee-group {
+    gap: 36px;
+    padding-inline-end: 36px;
+  }
+
+  .brand {
+    min-height: 72px;
+    min-width: 100px;
+  }
+
+  .brand-logo {
+    height: 58px;
+    max-width: 150px;
   }
 }

@@ -23,7 +23,7 @@
     <div class="form-block">
       <div class="form-intro">
         <h2>تغيير كلمة المرور</h2>
-        <p>أدخل كلمة المرور الجديدة ثم أكّدها. يفضّل ألا تقل عن 6 أحرف.</p>
+        <p>أدخل كلمة المرور الحالية ثم الجديدة وأكّدها. يفضّل ألا تقل عن 6 أحرف.</p>
       </div>
 
       <div class="ok" *ngIf="success">تم تحديث كلمة المرور بنجاح</div>
@@ -31,13 +31,24 @@
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="fields">
-          <div class="field">
+          <div class="field field-full">
             <div class="field-top">
-              <label for="new-pass">كلمة المرور الجديدة</label>
+              <label for="current-pass">كلمة المرور الحالية</label>
               <button type="button" class="toggle-pass" (click)="togglePass()">
                 {{ showPass ? 'إخفاء' : 'إظهار' }}
               </button>
             </div>
+            <input
+              id="current-pass"
+              formControlName="currentPassword"
+              [type]="showPass ? 'text' : 'password'"
+              placeholder="••••••••"
+              dir="ltr"
+              autocomplete="current-password"
+            />
+          </div>
+          <div class="field">
+            <label for="new-pass">كلمة المرور الجديدة</label>
             <input
               id="new-pass"
               formControlName="password"
@@ -61,7 +72,9 @@
         </div>
 
         <div class="form-actions">
-          <button type="submit" class="save-btn">حفظ التغييرات</button>
+          <button type="submit" class="save-btn" [disabled]="saving">
+            {{ saving ? 'جاري الحفظ...' : 'حفظ التغييرات' }}
+          </button>
         </div>
       </form>
     </div>

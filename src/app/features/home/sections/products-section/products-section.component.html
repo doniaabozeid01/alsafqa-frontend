@@ -1,4 +1,4 @@
-<section class="section products">
+<section class="section products" *ngIf="products.length">
   <div class="container">
     <span class="section-tag" appReveal>منتجاتنا</span>
     <h2 class="section-title" appReveal>جودة عالمية تلبي احتياجاتك</h2>
@@ -9,12 +9,16 @@
       </button>
 
       <div class="track" #track>
-        <article class="product-card" *ngFor="let category of categories">
+        <article class="product-card" *ngFor="let product of products">
           <div class="card-media">
-            <img [src]="category.image" [alt]="category.title" loading="lazy" />
-            <span class="card-badge">{{ category.subtitle }}</span>
+            <img
+              [src]="productImage(product)"
+              [alt]="productTitle(product)"
+              loading="lazy"
+            />
+            <span class="card-badge">{{ brandLabel(product) }}</span>
           </div>
-          <h3>{{ category.title }}</h3>
+          <h3>{{ productTitle(product) }}</h3>
         </article>
       </div>
 

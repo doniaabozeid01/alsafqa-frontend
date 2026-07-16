@@ -1,0 +1,140 @@
+<div class="page">
+  <header class="page-head">
+    <div>
+      <h1>إدارة البراندات</h1>
+      <p>البراندات هي الفئات المستخدمة لتصفية المنتجات في الموقع</p>
+    </div>
+    <button type="button" class="btn-primary" (click)="openAdd()">+ إضافة براند</button>
+  </header>
+
+  <div class="insight">
+    <div class="insight-item">
+      <span>إجمالي البراندات</span>
+      <strong>{{ brands.length }}</strong>
+    </div>
+    <div class="insight-item">
+      <span>نشطة للفلترة</span>
+      <strong>{{ activeCount }}</strong>
+    </div>
+    <div class="insight-item">
+      <span>منتجات مرتبطة</span>
+      <strong>{{ productsLinked }}</strong>
+    </div>
+  </div>
+
+  <div class="hint-banner">
+    <strong>ملاحظة:</strong>
+    البراندات النشطة فقط تظهر في فلتر صفحة المنتجات وفي شريط البراندات بالصفحة الرئيسية.
+  </div>
+
+  <div class="page-error" *ngIf="error">{{ error }}</div>
+  <div class="loading" *ngIf="loading">جاري تحميل البراندات...</div>
+
+  <div class="empty" *ngIf="!loading && !brands.length && !error">
+    <p>لا توجد براندات بعد — ابدأ بإضافة أول فئة للفلترة</p>
+    <button type="button" class="btn-primary" (click)="openAdd()">إضافة أول براند</button>
+  </div>
+
+  <div class="grid" *ngIf="!loading && brands.length">
+    <article class="card" *ngFor="let brand of brands" [class.inactive]="!brand.isActive">
+      <div class="card-media">
+        <img [src]="brandImage(brand)" [alt]="brand.nameAr" />
+        <span class="badge" *ngIf="brand.isActive">نشط</span>
+        <span class="badge off" *ngIf="!brand.isActive">موقوف</span>
+      </div>
+      <div class="card-body">
+        <h3>{{ brand.nameAr }}</h3>
+        <p class="name-en" dir="ltr">{{ brand.nameEn }}</p>
+        <div class="meta">
+          <span class="pill">{{ brand.productsCount || 0 }} منتج</span>
+          <a
+            class="filter-link"
+            [routerLink]="['/products']"
+            [queryParams]="{ brandId: brand.id }"
+            target="_blank"
+            rel="noopener"
+          >
+            معاينة الفلتر
+          </a>
+        </div>
+        <div class="card-actions">
+          <button type="button" class="btn-edit" (click)="openEdit(brand)">تعديل</button>
+          <button type="button" class="btn-delete" (click)="askDelete(brand)">حذف</button>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<div class="modal-layer" *ngIf="formOpen">
+  <div class="modal-backdrop" (click)="closeForm()"></div>
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <h2>{{ formTitle }}</h2>
+      <button type="button" class="modal-close" (click)="closeForm()" aria-label="إغلاق">×</button>
+    </div>
+
+    <p class="modal-lead">
+      أضف براندًا جديدًا ليظهر كخيار تصفية للمنتجات في الموقع.
+    </p>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="field-row">
+        <div class="field">
+          <label>الاسم بالعربي</label>
+          <input formControlName="nameAr" placeholder="مثال: شاي العروسة" />
+        </div>
+        <div class="field">
+          <label>الاسم بالإنجليزي</label>
+          <input formControlName="nameEn" placeholder="Example: El Arosa Tea" dir="ltr" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>شعار البراند</label>
+        <input type="file" accept="image/*" (change)="onFileChange($event)" />
+        <small *ngIf="editing">اترك الحقل فارغًا للإبقاء على الصورة الحالية</small>
+      </div>
+
+      <div class="preview" *ngIf="previewUrl">
+        <img [src]="previewUrl" alt="معاينة الشعار" />
+      </div>
+
+      <label class="check">
+        <input type="checkbox" formControlName="isActive" />
+        <span>براند نشط (يظهر في فلتر المنتجات)</span>
+      </label>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost" (click)="closeForm()">إلغاء</button>
+        <button type="submit" class="btn-primary" [disabled]="saving">
+          {{ saving ? 'جاري الحفظ...' : editing ? 'حفظ التعديلات' : 'إضافة البراند' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-layer" *ngIf="deleteOpen">
+  <div class="modal-backdrop" (click)="closeDelete()"></div>
+  <div class="modal modal-sm" role="dialog" aria-modal="true">
+    <div class="delete-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 6h18" />
+        <path d="M8 6V4h8v2" />
+        <path d="M19 6l-1 14H6L5 6" />
+        <path d="M10 11v6M14 11v6" />
+      </svg>
+    </div>
+    <h2>حذف البراند</h2>
+    <p>
+      هل أنت متأكد من حذف
+      <strong *ngIf="pendingDelete">{{ pendingDelete.nameAr }}</strong>؟
+      سيختفي من فلتر المنتجات.
+    </p>
+    <div class="modal-actions center">
+      <button type="button" class="btn-ghost" (click)="closeDelete()">إلغاء</button>
+      <button type="button" class="btn-danger" (click)="confirmDelete()">حذف</button>
+    </div>
+  </div>
+</div>

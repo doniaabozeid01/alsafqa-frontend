@@ -1,0 +1,56 @@
+<div class="ss" [class.open]="open" [class.has-value]="!!selected" [class.disabled]="disabled">
+  <div
+    class="ss-trigger"
+    role="button"
+    tabindex="0"
+    (click)="toggle()"
+    (keydown.enter)="toggle()"
+    (keydown.space)="$event.preventDefault(); toggle()"
+    [attr.aria-expanded]="open"
+    [attr.aria-disabled]="disabled"
+  >
+    <span class="ss-label" [class.placeholder]="!selected">
+      {{ selected ? displayLabel : placeholder }}
+    </span>
+    <span class="ss-actions">
+      <button
+        *ngIf="clearable && selected"
+        type="button"
+        class="ss-clear"
+        (click)="clear($event)"
+        aria-label="مسح الاختيار"
+      >
+        ×
+      </button>
+      <span class="ss-chevron" aria-hidden="true"></span>
+    </span>
+  </div>
+
+  <div class="ss-panel" *ngIf="open">
+    <div class="ss-search">
+      <input
+        #searchInput
+        type="search"
+        [value]="query"
+        (input)="onQuery($event)"
+        (click)="$event.stopPropagation()"
+        placeholder="اكتب للبحث..."
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="ss-list">
+      <button
+        type="button"
+        class="ss-option"
+        *ngFor="let option of filtered"
+        [class.active]="option.id === (selected?.id || '')"
+        (click)="select(option)"
+      >
+        <span>{{ option.label }}</span>
+        <small *ngIf="option.sublabel" dir="ltr">{{ option.sublabel }}</small>
+      </button>
+      <p class="ss-empty" *ngIf="!filtered.length">{{ emptyText }}</p>
+    </div>
+  </div>
+</div>

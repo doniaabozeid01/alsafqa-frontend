@@ -42,14 +42,20 @@ export class LoginComponent {
 
     this.loading = true;
     const { email, password } = this.form.value;
-    const result = this.auth.login(email, password);
-    this.loading = false;
 
-    if (result.ok) {
-      this.router.navigate(['/dashboard']);
-      return;
-    }
-
-    this.error = result.message || 'تعذر تسجيل الدخول';
+    this.auth.login(email, password).subscribe({
+      next: (result) => {
+        this.loading = false;
+        if (result.ok) {
+          this.router.navigate(['/dashboard']);
+          return;
+        }
+        this.error = result.message || 'تعذر تسجيل الدخول';
+      },
+      error: () => {
+        this.loading = false;
+        this.error = 'تعذر تسجيل الدخول. حاول مرة أخرى.';
+      },
+    });
   }
 }

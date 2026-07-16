@@ -1,23 +1,49 @@
-<section class="section brands">
+<section class="section brands" *ngIf="brands.length">
   <div class="container">
     <span class="section-tag" appReveal>ثقة الشركات العالمية</span>
     <h2 class="section-title" appReveal>براندات نعتز بخدمتهم</h2>
   </div>
 
-  <div class="marquee" appReveal [revealDelay]="200">
-    <div class="marquee-track">
-      <a
-        class="brand"
-        *ngFor="let brand of marqueeBrands"
-        href="/products"
-        [style.--brand-color]="brand.color"
-        [class.serif]="brand.font === 'serif'"
-        [class.cursive]="brand.font === 'cursive'"
-        [attr.aria-label]="'منتجات ' + brand.name"
-        (click)="openBrand(brand, $event)"
+  <div
+    class="marquee"
+    #marquee
+    appReveal
+    [revealDelay]="200"
+    [class.is-dragging]="dragging"
+    (pointerdown)="onPointerDown($event)"
+    (pointermove)="onPointerMove($event)"
+    (pointerup)="onPointerUp($event)"
+    (pointercancel)="onPointerUp($event)"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseLeave()"
+  >
+    <div class="marquee-track" #track>
+      <div
+        class="marquee-group"
+        *ngFor="let group of marqueeGroups; let i = index"
+        [attr.aria-hidden]="i > 0"
       >
-        {{ brand.name }}
-      </a>
+        <a
+          class="brand"
+          *ngFor="let brand of loopBrands"
+          [routerLink]="['/products']"
+          [queryParams]="{ brandId: brand.id }"
+          [attr.aria-label]="'منتجات ' + brandLabel(brand)"
+          (click)="openBrand(brand, $event)"
+          [attr.tabindex]="i === 0 ? 0 : -1"
+          draggable="false"
+        >
+          <img
+            *ngIf="brand.imageUrl"
+            class="brand-logo"
+            [src]="brand.imageUrl"
+            [alt]="brandLabel(brand)"
+            loading="lazy"
+            draggable="false"
+          />
+          <span *ngIf="!brand.imageUrl" class="brand-text">{{ brandLabel(brand) }}</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
