@@ -91,6 +91,23 @@
           </div>
           <div class="card-body">
             <h3>{{ productTitle(product) }}</h3>
+            <div class="product-meta" *ngIf="product.weightInGrams || product.packageCount">
+              <span class="meta-item" *ngIf="product.weightInGrams">
+                <em>{{ 'products.weight' | translate }}</em>
+                <b dir="ltr">{{ product.weightInGrams }} {{ 'products.weightUnit' | translate }}</b>
+              </span>
+              <span class="meta-item" *ngIf="product.packageCount">
+                <em>{{ 'products.packages' | translate }}</em>
+                <b dir="ltr">
+                  {{ product.packageCount }}
+                  {{
+                    product.packageCount === 1
+                      ? ('products.packageUnit' | translate)
+                      : ('products.packageUnitPlural' | translate)
+                  }}
+                </b>
+              </span>
+            </div>
             <a routerLink="/contact" class="card-link">{{ 'common.requestSupply' | translate }}</a>
           </div>
         </article>

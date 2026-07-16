@@ -24,7 +24,8 @@ export const TRANSLATIONS = {
     'footer.services': 'خدماتنا',
     'footer.links': 'روابط سريعة',
     'footer.contact': 'تواصل معنا',
-    'footer.powered': 'Powered by / من إنتاج شركة',
+    'footer.copyright': '© شركة الصفقة',
+    'footer.powered': 'من إنتاج',
 
     // Common UI
     'common.loading': 'جاري التحميل...',
@@ -99,6 +100,11 @@ export const TRANSLATIONS = {
     'products.emptyBrand': 'لا توجد منتجات لهذا البراند حالياً.',
     'products.loading': 'جاري تحميل المنتجات...',
     'products.viewAll': 'عرض كل المنتجات',
+    'products.weight': 'الوزن',
+    'products.weightUnit': 'جرام',
+    'products.packages': 'العبوات',
+    'products.packageUnit': 'عبوة',
+    'products.packageUnitPlural': 'عبوات',
 
     // Gallery
     'gallery.empty': 'لا توجد صور في المعرض حالياً.',
@@ -154,6 +160,7 @@ export const TRANSLATIONS = {
     'footer.services': 'Our Services',
     'footer.links': 'Quick Links',
     'footer.contact': 'Contact Us',
+    'footer.copyright': '© AL-SAFQA',
     'footer.powered': 'Powered by',
 
     'common.loading': 'Loading...',
@@ -225,6 +232,11 @@ export const TRANSLATIONS = {
     'products.emptyBrand': 'No products for this brand right now.',
     'products.loading': 'Loading products...',
     'products.viewAll': 'View all products',
+    'products.weight': 'Weight',
+    'products.weightUnit': 'g',
+    'products.packages': 'Packages',
+    'products.packageUnit': 'pack',
+    'products.packageUnitPlural': 'packs',
 
     'gallery.empty': 'No gallery images available right now.',
     'gallery.close': 'Close',

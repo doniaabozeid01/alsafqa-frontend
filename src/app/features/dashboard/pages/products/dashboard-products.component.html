@@ -64,6 +64,7 @@
         <p class="name-en" dir="ltr">{{ product.nameEn }}</p>
         <div class="meta">
           <span class="pill">{{ productBrand(product) }}</span>
+          <span class="meta-soft" *ngIf="product.weightInGrams">{{ product.weightInGrams }} جرام</span>
           <span class="meta-soft" *ngIf="product.packageCount">{{ product.packageCount }} عبوة</span>
         </div>
         <div class="card-actions">

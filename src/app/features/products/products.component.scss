@@ -367,6 +367,35 @@
   line-height: 1.5;
 }
 
+.product-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(27, 42, 74, 0.06);
+  color: var(--navy-700);
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  em {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--gold-600);
+  }
+
+  b {
+    font-weight: 700;
+  }
+}
+
 .card-link {
   display: inline-flex;
   align-items: center;
