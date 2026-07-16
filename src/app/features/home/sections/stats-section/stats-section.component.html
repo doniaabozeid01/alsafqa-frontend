@@ -4,32 +4,26 @@
       <div class="panel-image" appReveal="right" [revealDelay]="200">
         <img
           src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=900&q=70"
-          [alt]="'home.stats.alt' | translate"
+          [alt]="'home.values.title' | translate"
           loading="lazy"
         />
       </div>
 
       <div class="panel-body">
-        <span class="panel-tag" appReveal [revealDelay]="150">{{ 'home.stats.tag' | translate }}</span>
-        <h2 class="panel-title" appReveal [revealDelay]="250">{{ 'home.stats.title' | translate }}</h2>
+        <span class="panel-tag" appReveal [revealDelay]="150">{{ 'home.values.tag' | translate }}</span>
+        <h2 class="panel-title" appReveal [revealDelay]="250">{{ 'home.values.title' | translate }}</h2>
 
-        <div class="stats-grid">
-          <div
-            class="stat"
-            *ngFor="let stat of stats; let i = index"
+        <div class="values-grid">
+          <article
+            class="value"
+            *ngFor="let value of values; let i = index"
             appReveal="up"
-            [revealDelay]="300 + i * 140"
+            [revealDelay]="300 + i * 120"
           >
-            <div class="stat-icon" [innerHTML]="stat.icon"></div>
-            <strong
-              class="stat-value"
-              appCountUp
-              [countTo]="stat.value"
-              [prefix]="stat.prefix"
-              [suffix]="stat.suffix"
-            ></strong>
-            <span class="stat-label">{{ stat.label }}</span>
-          </div>
+            <div class="value-icon" [innerHTML]="value.icon"></div>
+            <h3>{{ value.title }}</h3>
+            <p>{{ value.description }}</p>
+          </article>
         </div>
       </div>
     </div>

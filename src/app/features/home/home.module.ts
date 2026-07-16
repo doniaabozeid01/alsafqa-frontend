@@ -10,6 +10,9 @@ import { JourneySectionComponent } from './sections/journey-section/journey-sect
 import { StatsSectionComponent } from './sections/stats-section/stats-section.component';
 import { ProductsSectionComponent } from './sections/products-section/products-section.component';
 import { BrandsSectionComponent } from './sections/brands-section/brands-section.component';
+import { AboutSectionComponent } from './sections/about-section/about-section.component';
+import { GoalSectionComponent } from './sections/goal-section/goal-section.component';
+import { VisionSectionComponent } from './sections/vision-section/vision-section.component';
 import { CtaSectionComponent } from './sections/cta-section/cta-section.component';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
@@ -24,6 +27,9 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     StatsSectionComponent,
     ProductsSectionComponent,
     BrandsSectionComponent,
+    AboutSectionComponent,
+    GoalSectionComponent,
+    VisionSectionComponent,
     CtaSectionComponent,
   ],
   imports: [SharedModule, RouterModule.forChild(routes)],
