@@ -1,19 +1,42 @@
+:host {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  width: 100dvw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-width: 100vw;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 99999 !important;
+  display: block;
+  overflow: hidden;
+  transform: none !important;
+  pointer-events: auto;
+}
+
 .splash {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
   display: grid;
   place-items: center;
   overflow: hidden;
   cursor: pointer;
   background: #0c1528;
   color: var(--white);
-  transition: opacity 0.65s ease, transform 0.65s var(--ease-spring);
+  transition: opacity 0.55s ease;
 }
 
 .splash.is-leaving {
   opacity: 0;
-  transform: scale(1.03);
   pointer-events: none;
 }
 
@@ -28,11 +51,11 @@
 
 .splash-glow {
   position: absolute;
-  width: 420px;
-  height: 420px;
+  width: min(420px, 90vw);
+  height: min(420px, 90vw);
   border-radius: 50%;
   background: radial-gradient(circle, rgba(201, 164, 92, 0.22), transparent 68%);
-  top: 18%;
+  top: 14%;
   left: 50%;
   transform: translateX(-50%);
   animation: glowPulse 3.2s ease-in-out infinite;
@@ -43,7 +66,8 @@
   position: relative;
   z-index: 3;
   text-align: center;
-  padding: 0 24px 120px;
+  padding: 0 20px 130px;
+  max-width: 100%;
   animation: brandIn 1s var(--ease-spring) both;
 }
 
@@ -82,7 +106,7 @@
 
 .brand-name {
   margin: 0 0 8px;
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-size: clamp(1.45rem, 5.5vw, 2.2rem);
   font-weight: 800;
   letter-spacing: 0.02em;
   color: #fff;
@@ -96,18 +120,20 @@
 .brand-tag {
   margin: 0;
   color: rgba(243, 232, 211, 0.72);
-  font-size: 0.92rem;
+  font-size: clamp(0.78rem, 3.2vw, 0.92rem);
   font-weight: 600;
+  line-height: 1.6;
+  padding-inline: 8px;
 }
 
-/* ship sailing */
+/* ship sailing — full viewport path */
 .ship-lane {
   position: absolute;
   left: 0;
-  right: 0;
-  bottom: 118px;
+  width: 100%;
+  bottom: 22%;
   z-index: 4;
-  height: 120px;
+  height: 100px;
   overflow: visible;
   pointer-events: none;
 }
@@ -116,9 +142,9 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: min(220px, 42vw);
+  width: min(200px, 46vw);
   animation: sailAcross 3.4s linear forwards;
-  will-change: transform;
+  will-change: left;
 }
 
 .ship {
@@ -136,19 +162,23 @@
 /* waves */
 .sea {
   position: absolute;
-  inset-inline: 0;
+  left: 0;
+  right: 0;
   bottom: 0;
-  height: 160px;
+  width: 100%;
+  height: min(160px, 22vh);
   z-index: 2;
+  overflow: hidden;
   pointer-events: none;
 }
 
 .wave {
   position: absolute;
-  inset-inline: 0;
+  left: 0;
   bottom: 0;
   width: 200%;
   height: 100%;
+  max-width: none;
 }
 
 .wave-back {
@@ -169,8 +199,9 @@
 
 .splash-hint {
   position: absolute;
-  bottom: 22px;
-  inset-inline: 0;
+  bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  left: 0;
+  right: 0;
   z-index: 5;
   text-align: center;
   font-size: 0.78rem;
@@ -219,12 +250,13 @@
   }
 }
 
+/* one continuous pass across the screen — no mid jumps */
 @keyframes sailAcross {
   from {
-    transform: translate3d(-30vw, 0, 0);
+    left: -45%;
   }
   to {
-    transform: translate3d(110vw, 0, 0);
+    left: 105%;
   }
 }
 
@@ -282,26 +314,30 @@
   }
 
   .ship-move {
-    left: 32%;
-    transform: none;
+    left: 28%;
   }
 }
 
 @media (max-width: 560px) {
   .splash-brand {
-    padding-bottom: 100px;
+    padding-bottom: min(28vh, 160px);
   }
 
   .logo-wrap {
-    width: 96px;
-    height: 96px;
-  }
-
-  .sea {
-    height: 130px;
+    width: 88px;
+    height: 88px;
   }
 
   .ship-lane {
-    bottom: 96px;
+    bottom: 18%;
+    height: 84px;
+  }
+
+  .ship-move {
+    width: min(170px, 52vw);
+  }
+
+  .sea {
+    height: min(120px, 20vh);
   }
 }

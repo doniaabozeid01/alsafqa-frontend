@@ -1,4 +1,12 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+  Renderer2,
+} from '@angular/core';
 
 @Component({
   selector: 'app-splash',
@@ -12,7 +20,14 @@ export class SplashComponent implements OnInit, OnDestroy {
   leaving = false;
   private timers: number[] = [];
 
+  constructor(
+    private host: ElementRef<HTMLElement>,
+    private renderer: Renderer2
+  ) {}
+
   ngOnInit(): void {
+    // Attach to <body> so fixed overlay is never clipped by app layout
+    this.renderer.appendChild(document.body, this.host.nativeElement);
     document.body.style.overflow = 'hidden';
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

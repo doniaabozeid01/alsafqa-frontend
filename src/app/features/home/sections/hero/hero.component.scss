@@ -762,30 +762,35 @@
 
 @media (max-width: 768px) {
   .hero-inner {
-    padding: 108px 0 92px;
+    padding: 100px 0 72px;
   }
 
   .hero-visual {
-    width: min(300px, 82%);
+    width: min(240px, 68%);
+    margin-bottom: 4px;
+  }
+
+  .hub-node {
+    width: 68px;
   }
 
   .node-disc {
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
 
     svg {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
     }
   }
 
   .node-label {
-    font-size: 0.66rem;
-    padding: 3px 8px;
+    font-size: 0.62rem;
+    padding: 2px 7px;
   }
 
-  .hub-node {
-    width: 78px;
+  .hero-title {
+    font-size: clamp(1.45rem, 7vw, 1.9rem);
   }
 
   .hero-stats {
