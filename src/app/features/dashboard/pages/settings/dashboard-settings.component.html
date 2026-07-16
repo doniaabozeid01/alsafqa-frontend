@@ -1,0 +1,69 @@
+<div class="page">
+  <header class="page-head">
+    <div>
+      <h1>الإعدادات</h1>
+      <p>إدارة حسابك وأمان الدخول</p>
+    </div>
+  </header>
+
+  <section class="settings-panel">
+    <div class="account-row">
+      <div class="account-left">
+        <div class="avatar">{{ email.charAt(0).toUpperCase() || 'A' }}</div>
+        <div>
+          <span class="label">الحساب الحالي</span>
+          <strong dir="ltr">{{ email }}</strong>
+        </div>
+      </div>
+      <span class="role">{{ role }}</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="form-block">
+      <div class="form-intro">
+        <h2>تغيير كلمة المرور</h2>
+        <p>أدخل كلمة المرور الجديدة ثم أكّدها. يفضّل ألا تقل عن 6 أحرف.</p>
+      </div>
+
+      <div class="ok" *ngIf="success">تم تحديث كلمة المرور بنجاح</div>
+      <div class="err" *ngIf="error">{{ error }}</div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="fields">
+          <div class="field">
+            <div class="field-top">
+              <label for="new-pass">كلمة المرور الجديدة</label>
+              <button type="button" class="toggle-pass" (click)="togglePass()">
+                {{ showPass ? 'إخفاء' : 'إظهار' }}
+              </button>
+            </div>
+            <input
+              id="new-pass"
+              formControlName="password"
+              [type]="showPass ? 'text' : 'password'"
+              placeholder="••••••••"
+              dir="ltr"
+              autocomplete="new-password"
+            />
+          </div>
+          <div class="field">
+            <label for="confirm-pass">تأكيد كلمة المرور</label>
+            <input
+              id="confirm-pass"
+              formControlName="confirm"
+              [type]="showPass ? 'text' : 'password'"
+              placeholder="••••••••"
+              dir="ltr"
+              autocomplete="new-password"
+            />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="save-btn">حفظ التغييرات</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

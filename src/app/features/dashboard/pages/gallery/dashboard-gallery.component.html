@@ -1,0 +1,100 @@
+<div class="page">
+  <header class="page-head">
+    <div>
+      <h1>إدارة المعرض</h1>
+      <p>{{ items.length }} صورة إجمالي</p>
+    </div>
+    <button type="button" class="btn-primary" (click)="openAdd()">+ إضافة صورة</button>
+  </header>
+
+  <div class="empty" *ngIf="!items.length">
+    <p>لا توجد صور في المعرض بعد</p>
+    <button type="button" class="btn-primary" (click)="openAdd()">إضافة أول صورة</button>
+  </div>
+
+  <div class="grid" *ngIf="items.length">
+    <article class="card" *ngFor="let item of items">
+      <div class="card-media">
+        <img [src]="item.image" [alt]="item.title" />
+      </div>
+      <div class="card-body">
+        <div class="card-top">
+          <strong>{{ item.title }}</strong>
+          <div class="tags">
+            <span class="tag cat">{{ item.category }}</span>
+            <span class="tag ok" *ngIf="item.active">نشط</span>
+            <span class="tag off" *ngIf="!item.active">موقوف</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button type="button" class="btn-edit" (click)="openEdit(item)">تعديل</button>
+          <button type="button" class="btn-delete" (click)="askDelete(item)">حذف</button>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<div class="modal-layer" *ngIf="formOpen">
+  <div class="modal-backdrop" (click)="closeForm()"></div>
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <h2>{{ formTitle }}</h2>
+      <button type="button" class="modal-close" (click)="closeForm()" aria-label="إغلاق">×</button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="field-row">
+        <div class="field">
+          <label>عنوان الصورة</label>
+          <input formControlName="title" placeholder="مثال: الصفقة" />
+        </div>
+        <div class="field">
+          <label>التصنيف</label>
+          <select formControlName="category">
+            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>رابط الصورة</label>
+        <input formControlName="image" placeholder="https://..." dir="ltr" />
+      </div>
+
+      <div class="preview" *ngIf="form.value.image">
+        <img [src]="form.value.image" alt="معاينة" />
+      </div>
+
+      <label class="check">
+        <input type="checkbox" formControlName="active" />
+        <span>نشط في الموقع</span>
+      </label>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost" (click)="closeForm()">إلغاء</button>
+        <button type="submit" class="btn-primary">{{ editing ? 'حفظ التعديلات' : 'إضافة' }}</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-layer" *ngIf="deleteOpen">
+  <div class="modal-backdrop" (click)="closeDelete()"></div>
+  <div class="modal modal-sm" role="dialog" aria-modal="true">
+    <div class="delete-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 6h18" />
+        <path d="M8 6V4h8v2" />
+        <path d="M19 6l-1 14H6L5 6" />
+        <path d="M10 11v6M14 11v6" />
+      </svg>
+    </div>
+    <h2>حذف الصورة</h2>
+    <p>هل أنت متأكد من حذف هذه الصورة؟ لا يمكن التراجع عن هذا الإجراء</p>
+    <div class="modal-actions center">
+      <button type="button" class="btn-ghost" (click)="closeDelete()">إلغاء</button>
+      <button type="button" class="btn-danger" (click)="confirmDelete()">حذف</button>
+    </div>
+  </div>
+</div>

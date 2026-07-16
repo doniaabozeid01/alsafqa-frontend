@@ -1,0 +1,122 @@
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.value-card {
+  text-align: center;
+  padding: 36px 20px;
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  transition: transform 0.45s var(--ease-spring), box-shadow 0.45s ease;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-md);
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--navy-800);
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+}
+
+.value-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--gold-100);
+  color: var(--gold-600);
+
+  ::ng-deep svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.stats-section {
+  background: var(--cream);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.stat {
+  text-align: center;
+  padding: 28px 16px;
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+
+  strong {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--gold-600);
+    margin-bottom: 4px;
+  }
+
+  span {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--gold-100);
+  color: var(--gold-600);
+
+  ::ng-deep svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.cta-strip {
+  background: linear-gradient(130deg, var(--navy-800), var(--navy-700));
+  text-align: center;
+  color: var(--white);
+
+  h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 900;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .values-grid,
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .values-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

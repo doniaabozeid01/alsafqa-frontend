@@ -1,0 +1,64 @@
+<div class="login-page">
+  <div class="login-bg" aria-hidden="true"></div>
+  <div class="login-scan" aria-hidden="true"></div>
+
+  <div class="login-shell">
+    <aside class="login-brand">
+      <img src="assets/brand/logo-icon.png" alt="" class="brand-icon" />
+      <h1>شركة الصفقة</h1>
+      <p>لوحة تحكم لإدارة الموقع والمنتجات والرسائل والمعرض</p>
+      <ul>
+        <li>إدارة الرسائل الواردة</li>
+        <li>المنتجات والمعرض</li>
+        <li>إعدادات الحساب</li>
+      </ul>
+    </aside>
+
+    <div class="login-card">
+      <div class="login-header">
+        <span class="eyebrow">مرحباً بعودتك</span>
+        <h2>تسجيل الدخول</h2>
+        <p>ادخل بيانات المدير للوصول إلى لوحة التحكم</p>
+      </div>
+
+      <div class="login-error" *ngIf="error">{{ error }}</div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="field">
+          <label for="login-email">البريد الإلكتروني</label>
+          <input
+            id="login-email"
+            formControlName="email"
+            type="email"
+            placeholder="admin@gmail.com"
+            dir="ltr"
+            autocomplete="username"
+          />
+        </div>
+
+        <div class="field">
+          <label for="login-password">كلمة المرور</label>
+          <div class="password-wrap">
+            <input
+              id="login-password"
+              formControlName="password"
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="••••••••"
+              dir="ltr"
+              autocomplete="current-password"
+            />
+            <button type="button" class="toggle-pass" (click)="togglePassword()">
+              {{ showPassword ? 'إخفاء' : 'إظهار' }}
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-gold login-btn" [disabled]="loading">
+          {{ loading ? 'جاري الدخول...' : 'تسجيل الدخول' }}
+        </button>
+      </form>
+
+      <a routerLink="/" class="login-back">العودة للرئيسية</a>
+    </div>
+  </div>
+</div>

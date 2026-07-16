@@ -1,0 +1,33 @@
+<div class="page">
+  <header class="page-head">
+    <div>
+      <h1>مرحباً بك في لوحة التحكم</h1>
+      <p>نظرة عامة على نشاط الموقع</p>
+    </div>
+  </header>
+
+  <div class="stats-grid">
+    <article class="stat-card" *ngFor="let card of cards" [attr.data-tone]="card.tone">
+      <span>{{ card.label }}</span>
+      <strong>{{ card.value }}</strong>
+    </article>
+  </div>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>آخر الرسائل الواردة</h2>
+      <a routerLink="/dashboard/messages">عرض الكل</a>
+    </div>
+
+    <div class="empty" *ngIf="!latestMessages.length">لا توجد رسائل حالياً</div>
+
+    <article class="msg-row" *ngFor="let msg of latestMessages">
+      <div class="msg-avatar">{{ msg.name.charAt(0) }}</div>
+      <div class="msg-body">
+        <strong>{{ msg.name }}</strong>
+        <p>{{ msg.message }}</p>
+      </div>
+      <span class="msg-date">{{ msg.date }}</span>
+    </article>
+  </section>
+</div>

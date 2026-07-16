@@ -1,65 +1,158 @@
-<section class="hero">
-  <div class="container">
-    <div class="hero-card">
-      <!-- Layered background -->
-      <div class="hero-bg"></div>
-      <div class="hero-overlay"></div>
+<section class="hero" #heroSection>
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
 
-      <!-- Flying plane -->
-      <div class="plane">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M21.5 15.5 13.5 11V4.75a1.5 1.5 0 0 0-3 0V11l-8 4.5V17l8-2.25v5.5L8.25 21.5V23L12 22l3.75 1v-1.5L13.5 20.25v-5.5l8 2.25v-1.5Z"
-          />
-        </svg>
-      </div>
+  <div class="hero-orbs parallax-layer">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+  </div>
 
-      <!-- Content -->
+  <div class="hero-particles" aria-hidden="true">
+    <span
+      class="particle"
+      *ngFor="let p of particles"
+      [style.left]="p.left"
+      [style.animationDelay]="p.delay"
+      [style.animationDuration]="p.duration"
+      [style.width]="p.size"
+      [style.height]="p.size"
+    ></span>
+  </div>
+
+  <div class="hero-grid-lines" aria-hidden="true"></div>
+  <div class="hero-scanline" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <div class="hero-layout">
       <div class="hero-content">
+        <span class="hero-badge">
+          <span class="badge-dot"></span>
+          شركة الصفقة — استيراد وتصدير
+        </span>
+
         <h1 class="hero-title">
-          <span class="line line-1">نربط الأسواق</span>
-          <span class="line line-2">نصل <em>للعالم</em></span>
+          <span class="title-line">شريكك الموثوق في</span>
+          <span class="hero-shimmer">التجارة العالمية</span>
         </h1>
+
         <p class="hero-subtitle">
-          حلول متكاملة للاستيراد والتصدير والشحن
-          <br />
-          بأعلى معايير الجودة والموثوقية
+          حلول متكاملة للاستيراد والتصدير والشحن الدولي —
+          من أول طلب حتى التسليم، بأعلى معايير الجودة والموثوقية.
         </p>
-        <a routerLink="/services" class="btn btn-gold hero-cta">
-          اكتشف خدماتنا
-          <span class="cta-arrow">←</span>
-        </a>
+
+        <div class="hero-actions">
+          <a routerLink="/about" class="btn btn-gold hero-btn-primary">
+            اعرف المزيد
+            <span class="cta-arrow">←</span>
+          </a>
+          <a routerLink="/contact" class="btn btn-outline-light hero-btn-secondary">
+            تواصل معنا
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div
+            class="hero-stat"
+            *ngFor="let stat of stats; let i = index"
+            [style.animationDelay]="0.9 + i * 0.1 + 's'"
+          >
+            <strong
+              appCountUp
+              [countTo]="stat.countTo"
+              [prefix]="stat.prefix"
+              [suffix]="stat.suffix"
+            ></strong>
+            <span>{{ stat.label }}</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Floating shipping chips -->
-      <div class="chip chip-air">
-        <span class="chip-icon">✈️</span>
-        <span class="chip-text">
-          <b>شحن جوي</b>
-          <small>سرعة وأمان</small>
-        </span>
-      </div>
+      <div class="hero-visual parallax-layer" aria-hidden="true">
+        <div class="hub">
+          <span class="hub-glow"></span>
 
-      <div class="chip chip-sea">
-        <span class="chip-icon">⚓</span>
-        <span class="chip-text">
-          <b>شحن بحري</b>
-          <small>إلى جميع أنحاء العالم</small>
-        </span>
-      </div>
+          <div class="hub-rings">
+            <span class="ring ring-outer"></span>
+            <span class="ring ring-path"></span>
+            <span class="ring ring-inner"></span>
+          </div>
 
-      <div class="chip chip-land">
-        <span class="chip-icon">🚚</span>
-        <span class="chip-text">
-          <b>شحن بري</b>
-          <small>داخل جميع المحافظات</small>
-        </span>
-      </div>
+          <div class="hub-spokes" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
 
-      <!-- Scroll indicator -->
-      <div class="scroll-hint">
-        <span class="mouse"><span class="wheel"></span></span>
+          <div class="hub-core">
+            <img src="assets/brand/logo-icon.png" alt="" />
+          </div>
+
+          <div class="hub-orbit">
+            <div class="hub-node node-sea">
+              <div class="node-keep">
+                <span class="node-disc">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 17h18" />
+                    <path d="M5 17V11l7-4 7 4v6" />
+                    <path d="M8 11v6M12 9v8M16 11v6" />
+                    <path d="M2 20c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5" />
+                  </svg>
+                </span>
+                <span class="node-label">شحن بحري</span>
+              </div>
+            </div>
+
+            <div class="hub-node node-customs">
+              <div class="node-keep">
+                <span class="node-disc">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <path d="M14 2v6h6" />
+                    <path d="m9 15 2 2 4-4" />
+                  </svg>
+                </span>
+                <span class="node-label">تخليص جمركي</span>
+              </div>
+            </div>
+
+            <div class="hub-node node-air">
+              <div class="node-keep">
+                <span class="node-disc">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
+                  </svg>
+                </span>
+                <span class="node-label">شحن جوي</span>
+              </div>
+            </div>
+
+            <div class="hub-node node-land">
+              <div class="node-keep">
+                <span class="node-disc">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 17h4V5H2v12h3" />
+                    <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1" />
+                    <circle cx="7.5" cy="17.5" r="2.5" />
+                    <circle cx="17.5" cy="17.5" r="2.5" />
+                  </svg>
+                </span>
+                <span class="node-label">شحن بري</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+
+  <div class="hero-ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span *ngFor="let tag of tickerTags">{{ tag }}</span>
+      <span *ngFor="let tag of tickerTags">{{ tag }}</span>
+    </div>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <span class="mouse"><span class="wheel"></span></span>
+    <small>اكتشف المزيد</small>
   </div>
 </section>

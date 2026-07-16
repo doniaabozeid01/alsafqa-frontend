@@ -1,0 +1,83 @@
+<app-page-hero [tag]="hero.tag" [title]="hero.title" [subtitle]="hero.subtitle"></app-page-hero>
+
+<!-- Intro + Goal -->
+<section class="about-story">
+  <div class="story-wrap">
+    <div class="story-copy" appReveal="up">
+      <span class="eyebrow">قصتنا</span>
+      <h2>{{ content.intro[0] }}</h2>
+      <p class="lead">{{ content.intro[1] }}</p>
+
+      <div class="goal-block">
+        <span class="eyebrow">{{ content.goal.title }}</span>
+        <h3>نحو شراكة عالمية موثوقة</h3>
+        <p>{{ content.goal.description }}</p>
+        <a routerLink="/contact" class="btn btn-gold">تواصل معنا</a>
+      </div>
+    </div>
+
+    <div class="story-media" appReveal="left" [revealDelay]="120">
+      <div class="media-frame" [style.backgroundImage]="'url(' + content.goal.image + ')'">
+        <div class="media-badge">
+          <strong>+10</strong>
+          <span>سنوات خبرة</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="about-stats" appReveal="up">
+  <div class="stats-row">
+    <div class="stat" *ngFor="let stat of content.stats">
+      <strong
+        appCountUp
+        [countTo]="stat.value"
+        [prefix]="stat.prefix"
+        [suffix]="stat.suffix"
+      ></strong>
+      <span>{{ stat.label }}</span>
+    </div>
+  </div>
+</section>
+
+<!-- Vision timeline -->
+<section class="about-vision">
+  <div class="vision-wrap">
+    <div class="vision-head" appReveal="up">
+      <span class="eyebrow">طموحنا</span>
+      <h2>{{ content.vision.title }}</h2>
+      <p>نعمل كل يوم لنحقق أهدافاً واضحة ونبني حضوراً أقوى في الأسواق العالمية</p>
+    </div>
+
+    <ol class="vision-list">
+      <li
+        class="vision-row"
+        *ngFor="let item of content.vision.items; let i = index"
+        appReveal="up"
+        [revealDelay]="i * 40"
+      >
+        <span class="vision-num">{{ i + 1 | number: '2.0-0' }}</span>
+        <div class="vision-body">
+          <p>{{ item }}</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="about-cta">
+  <div class="cta-wrap" appReveal="up">
+    <div class="cta-copy">
+      <h2>جاهزون للبدء معكم</h2>
+      <p>تواصلوا معنا للحصول على أفضل حلول الاستيراد والتصدير والشحن</p>
+      <div class="cta-links">
+        <a href="mailto:{{ contact.email }}" dir="ltr">{{ contact.email }}</a>
+        <a *ngFor="let phone of content.phones" [href]="'tel:' + phone" dir="ltr">{{ phone }}</a>
+      </div>
+    </div>
+    <a routerLink="/contact" class="btn btn-gold">اطلب عرض سعر</a>
+  </div>
+</section>

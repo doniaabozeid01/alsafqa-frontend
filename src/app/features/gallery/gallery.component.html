@@ -1,0 +1,26 @@
+<app-page-hero [tag]="hero.tag" [title]="hero.title" [subtitle]="hero.subtitle"></app-page-hero>
+
+<section class="section">
+  <div class="container">
+    <div class="gallery-grid">
+      <figure
+        class="gallery-card"
+        *ngFor="let image of images; let i = index"
+        appReveal="up"
+        [revealDelay]="i * 80"
+        (click)="openLightbox(image.src)"
+      >
+        <img [src]="image.src" [alt]="image.alt" loading="lazy" />
+        <figcaption>
+          <span class="gallery-category">{{ image.category }}</span>
+          <span class="gallery-alt">{{ image.alt }}</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" *ngIf="lightboxSrc" (click)="closeLightbox()">
+  <img [src]="lightboxSrc" alt="" class="lightbox-img" (click)="$event.stopPropagation()" />
+  <button type="button" class="lightbox-close" (click)="closeLightbox()" aria-label="إغلاق">×</button>
+</div>

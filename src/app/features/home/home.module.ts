@@ -5,7 +5,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { HomeComponent } from './home.component';
 import { HeroComponent } from './sections/hero/hero.component';
 import { ServicesSectionComponent } from './sections/services-section/services-section.component';
-import { StepsSectionComponent } from './sections/steps-section/steps-section.component';
+import { BrandSectionComponent } from './sections/brand-section/brand-section.component';
+import { JourneySectionComponent } from './sections/journey-section/journey-section.component';
 import { StatsSectionComponent } from './sections/stats-section/stats-section.component';
 import { ProductsSectionComponent } from './sections/products-section/products-section.component';
 import { BrandsSectionComponent } from './sections/brands-section/brands-section.component';
@@ -18,7 +19,8 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     HomeComponent,
     HeroComponent,
     ServicesSectionComponent,
-    StepsSectionComponent,
+    BrandSectionComponent,
+    JourneySectionComponent,
     StatsSectionComponent,
     ProductsSectionComponent,
     BrandsSectionComponent,

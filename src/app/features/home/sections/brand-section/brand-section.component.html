@@ -1,0 +1,36 @@
+<section id="brand" class="section brand">
+  <div class="container">
+    <span class="section-tag" appReveal>خدمات التصنيع للغير</span>
+    <h2 class="section-title" appReveal>اصنع علامتك التجارية معنا</h2>
+
+    <div class="brand-intro">
+      <div class="brand-text" appReveal="right">
+        <h3>{{ brand.subtitle }}</h3>
+        <p *ngFor="let paragraph of brand.paragraphs">{{ paragraph }}</p>
+        <p class="brand-highlight">{{ brand.highlight }}</p>
+      </div>
+      <div class="brand-image" appReveal="left" [revealDelay]="150">
+        <img [src]="brand.image" alt="علامتك التجارية" loading="lazy" />
+      </div>
+    </div>
+
+    <div class="brand-cards">
+      <article
+        class="brand-card"
+        *ngFor="let card of brand.cards; let i = index"
+        appReveal="up"
+        [revealDelay]="i * 100"
+      >
+        <div class="brand-card-icon" [innerHTML]="card.icon"></div>
+        <h4>{{ card.title }}</h4>
+        <ul>
+          <li *ngFor="let item of card.items">{{ item }}</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="brand-cta" appReveal>
+      <a routerLink="/contact" class="btn btn-gold">ابدأ علامتك التجارية الآن</a>
+    </div>
+  </div>
+</section>

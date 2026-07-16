@@ -1,0 +1,130 @@
+.brand {
+  background: var(--cream);
+}
+
+.brand-intro {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin: 50px 0 40px;
+}
+
+.brand-text {
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--navy-800);
+    margin-bottom: 14px;
+  }
+
+  p {
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 14px;
+  }
+}
+
+.brand-highlight {
+  color: var(--gold-600) !important;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.brand-image {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+
+  img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+}
+
+.brand-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.brand-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  transition: transform 0.4s var(--ease-spring), box-shadow 0.4s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-md);
+
+    .brand-card-icon {
+      background: var(--navy-800);
+      color: var(--gold-500);
+    }
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--navy-800);
+    margin-bottom: 10px;
+  }
+
+  ul {
+    li {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.8;
+      padding-inline-start: 14px;
+      position: relative;
+
+      &::before {
+        content: '•';
+        position: absolute;
+        inset-inline-start: 0;
+        color: var(--gold-500);
+      }
+    }
+  }
+}
+
+.brand-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: var(--gold-100);
+  color: var(--gold-600);
+  margin-bottom: 14px;
+  transition: all 0.4s ease;
+
+  ::ng-deep svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.brand-cta {
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .brand-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .brand-intro {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-cards {
+    grid-template-columns: 1fr;
+  }
+}

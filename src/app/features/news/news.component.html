@@ -1,0 +1,19 @@
+<app-page-hero [tag]="hero.tag" [title]="hero.title" [subtitle]="hero.subtitle"></app-page-hero>
+
+<section class="section">
+  <div class="container">
+    <div class="news-list">
+      <article
+        class="news-card"
+        *ngFor="let item of news; let i = index"
+        appReveal="up"
+        [revealDelay]="i * 120"
+      >
+        <span class="news-category">{{ item.category }}</span>
+        <time class="news-date">{{ item.date }}</time>
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.excerpt }}</p>
+      </article>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,41 @@
+<section class="section journey">
+  <div class="container">
+    <span class="section-tag" appReveal>رحلة العميل</span>
+    <h2 class="section-title" appReveal>رحلتك معنا خطوة بخطوة</h2>
+
+    <div class="journey-track" #journey>
+      <svg class="journey-svg" #journeySvg fill="none">
+        <defs>
+          <linearGradient id="journeyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#c9a45c" />
+            <stop offset="0.5" stop-color="#b98b3e" />
+            <stop offset="1" stop-color="#1b2a4a" />
+          </linearGradient>
+        </defs>
+        <path #pathBg class="journey-path-bg" />
+        <path #pathEl class="journey-path" />
+        <g #dotsG></g>
+        <circle #tip class="journey-tip" r="6" />
+      </svg>
+
+      <div
+        class="journey-item"
+        *ngFor="let step of steps"
+        #journeyItem
+      >
+        <div class="journey-card" [class.journey-card-final]="step.isFinal">
+          <span class="journey-step" [class.journey-step-light]="step.isFinal">
+            {{ step.order }}
+          </span>
+          <div class="journey-card-body">
+            <div class="journey-icon" [class.journey-icon-light]="step.isFinal" [innerHTML]="step.icon"></div>
+            <div class="journey-text">
+              <h3>{{ step.title }}</h3>
+              <p>{{ step.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,239 @@
+.contact-section {
+  padding: 70px 0 90px;
+  background: var(--cream);
+}
+
+.contact-wrap {
+  width: min(1400px, 94%);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 0.9fr 1.2fr;
+  gap: clamp(28px, 4vw, 48px);
+  align-items: start;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: var(--gold-600);
+  font-size: 0.82rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.contact-info {
+  h2 {
+    font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+    font-weight: 900;
+    color: var(--navy-800);
+    margin-bottom: 10px;
+  }
+}
+
+.info-lead {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  margin-bottom: 28px;
+  max-width: 360px;
+}
+
+.info-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 28px;
+
+  li {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 16px 18px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      border-color: rgba(201, 164, 92, 0.45);
+      box-shadow: var(--shadow-sm);
+    }
+  }
+
+  strong {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  a,
+  span {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--navy-800);
+  }
+
+  a:hover {
+    color: var(--gold-600);
+  }
+}
+
+.contact-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(16, 28, 51, 0.06);
+  color: var(--navy-800);
+  border: 1px solid var(--line);
+
+  svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+}
+
+.info-hours {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 20px;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
+  color: var(--white);
+
+  strong {
+    font-size: 0.82rem;
+    color: var(--gold-500);
+  }
+
+  span {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.82);
+  }
+}
+
+.contact-form {
+  background: var(--white);
+  padding: clamp(28px, 4vw, 40px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+
+  h2 {
+    font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+    font-weight: 900;
+    color: var(--navy-800);
+    margin-bottom: 8px;
+  }
+}
+
+.form-lead {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin-bottom: 24px;
+}
+
+.form-success {
+  background: rgba(201, 164, 92, 0.12);
+  border: 1px solid rgba(201, 164, 92, 0.45);
+  color: var(--gold-600);
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.field {
+  margin-bottom: 14px;
+
+  label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--navy-800);
+    margin-bottom: 6px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--cream);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--gold-500);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(201, 164, 92, 0.15);
+    }
+
+    &::placeholder {
+      color: #9aa3b5;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 130px;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.form-submit {
+  min-width: 220px;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 14px 36px;
+  box-shadow: 0 6px 18px rgba(185, 139, 62, 0.28);
+
+  &:hover {
+    box-shadow: 0 10px 24px rgba(185, 139, 62, 0.35);
+  }
+}
+
+@media (max-width: 900px) {
+  .contact-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .info-lead {
+    max-width: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-submit {
+    width: 100%;
+    min-width: 0;
+  }
+}

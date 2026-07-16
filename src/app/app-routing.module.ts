@@ -7,7 +7,36 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/home/home.module').then((m) => m.HomeModule),
   },
-  /* الصفحات الجاية هتتضاف هنا (about / services / products / contact ...) */
+  {
+    path: 'about',
+    loadChildren: () =>
+      import('./features/about/about.module').then((m) => m.AboutModule),
+  },
+  {
+    path: 'products',
+    loadChildren: () =>
+      import('./features/products/products.module').then((m) => m.ProductsModule),
+  },
+  {
+    path: 'gallery',
+    loadChildren: () =>
+      import('./features/gallery/gallery.module').then((m) => m.GalleryModule),
+  },
+  {
+    path: 'contact',
+    loadChildren: () =>
+      import('./features/contact/contact.module').then((m) => m.ContactModule),
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./features/login/login.module').then((m) => m.LoginModule),
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./features/dashboard/dashboard.module').then((m) => m.DashboardModule),
+  },
   { path: '**', redirectTo: '' },
 ];
 

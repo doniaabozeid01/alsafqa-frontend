@@ -1,0 +1,60 @@
+<div class="page">
+  <header class="page-head">
+    <div>
+      <h1>إدارة الرسائل</h1>
+      <p>{{ total }} رسالة إجمالي</p>
+    </div>
+  </header>
+
+  <div class="filters">
+    <button type="button" [class.active]="filter === 'all'" (click)="setFilter('all')">الكل</button>
+    <button type="button" [class.active]="filter === 'unread'" (click)="setFilter('unread')">غير مقروءة</button>
+  </div>
+
+  <div class="empty" *ngIf="!messages.length">لا توجد رسائل في هذا التصفية</div>
+
+  <article
+    class="msg-card"
+    *ngFor="let msg of messages"
+    [class.unread]="!msg.read"
+    (click)="open(msg)"
+  >
+    <div class="msg-avatar">{{ msg.name.charAt(0) }}</div>
+    <div class="msg-main">
+      <div class="msg-top">
+        <strong>{{ msg.name }}</strong>
+        <span>{{ msg.date }}</span>
+      </div>
+      <div class="msg-meta">
+        <span dir="ltr">{{ msg.email }}</span>
+        <span dir="ltr">{{ msg.phone }}</span>
+      </div>
+      <p>{{ msg.message }}</p>
+    </div>
+    <button type="button" class="btn-delete" (click)="askDelete(msg, $event)">حذف</button>
+  </article>
+</div>
+
+<div class="modal-layer" *ngIf="deleteOpen">
+  <div class="modal-backdrop" (click)="closeDelete()"></div>
+  <div class="modal modal-sm" role="dialog" aria-modal="true">
+    <div class="delete-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 6h18" />
+        <path d="M8 6V4h8v2" />
+        <path d="M19 6l-1 14H6L5 6" />
+        <path d="M10 11v6M14 11v6" />
+      </svg>
+    </div>
+    <h2>حذف الرسالة</h2>
+    <p>
+      هل أنت متأكد من حذف رسالة
+      <strong *ngIf="pendingDelete">{{ pendingDelete.name }}</strong>؟
+      لا يمكن التراجع عن هذا الإجراء
+    </p>
+    <div class="modal-actions">
+      <button type="button" class="btn-ghost" (click)="closeDelete()">إلغاء</button>
+      <button type="button" class="btn-danger" (click)="confirmDelete()">حذف</button>
+    </div>
+  </div>
+</div>

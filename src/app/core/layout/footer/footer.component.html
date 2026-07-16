@@ -3,21 +3,15 @@
     <!-- Brand -->
     <div class="footer-col brand-col" appReveal="up">
       <a routerLink="/" class="footer-logo">
-        <span class="logo-mark">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <circle cx="12" cy="12" r="10" />
-            <path d="M2 12h20" />
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-          </svg>
-        </span>
+        <img src="assets/brand/logo-icon.png" alt="شركة الصفقة" class="logo-img" />
         <span class="logo-text">
-          <span class="logo-name">Global<b>Way</b></span>
-          <span class="logo-sub">IMPORT &amp; EXPORT</span>
+          <span class="logo-name">شركة <b>الصفقة</b></span>
+          <span class="logo-sub">استيراد وتصدير | شحن | تخليص جمركي</span>
         </span>
       </a>
       <p class="footer-about">
-        شريكك الموثوق في عالم الاستيراد والتصدير والشحن الدولي — حلول متكاملة
-        بأعلى معايير الجودة والموثوقية.
+        شركة الصفقة للاستيراد والتصدير والشحن والتخليص الجمركي —
+        شريكك الموثوق في عالم التجارة الدولية.
       </p>
     </div>
 
@@ -26,7 +20,7 @@
       <h4 class="footer-title">خدماتنا</h4>
       <ul>
         <li *ngFor="let service of services">
-          <a routerLink="/services">{{ service.title }}</a>
+          <a routerLink="/contact">{{ service.title }}</a>
         </li>
       </ul>
     </div>
@@ -36,7 +30,7 @@
       <h4 class="footer-title">روابط سريعة</h4>
       <ul>
         <li *ngFor="let link of navLinks">
-          <a [routerLink]="link.path">{{ link.label }}</a>
+          <a [routerLink]="link.path" [fragment]="link.fragment">{{ link.label }}</a>
         </li>
       </ul>
     </div>
@@ -46,16 +40,31 @@
       <h4 class="footer-title">تواصل معنا</h4>
       <ul class="contact-list">
         <li>
-          <span class="contact-icon">📞</span>
+          <span class="contact-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.68 2.35a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.75.32 1.54.55 2.35.68A2 2 0 0 1 22 16.92z"
+                stroke="#c9a45c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
           <a href="tel:+201234567890" dir="ltr">{{ contact.phone }}</a>
         </li>
         <li>
-          <span class="contact-icon">✉️</span>
+          <span class="contact-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="5" width="18" height="14" rx="2" stroke="#c9a45c" stroke-width="1.8"/>
+              <path d="m3 7 9 6 9-6" stroke="#c9a45c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
           <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
         </li>
         <li>
-          <span class="contact-icon">📍</span>
-          <span dir="ltr">{{ contact.address }}</span>
+          <span class="contact-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z" stroke="#c9a45c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="10" r="2.5" stroke="#c9a45c" stroke-width="1.8"/>
+            </svg>
+          </span>
+          <span>{{ contact.address }}</span>
         </li>
       </ul>
     </div>
@@ -63,7 +72,7 @@
 
   <div class="footer-bottom">
     <div class="container">
-      <p>© {{ year }} GlobalWay — جميع الحقوق محفوظة</p>
+      <p>© {{ year }} AL-SAFQA — جميع الحقوق محفوظة</p>
     </div>
   </div>
 </footer>
