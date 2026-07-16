@@ -19,7 +19,7 @@ export class ProductsSectionComponent implements OnInit {
   ngOnInit(): void {
     this.productsService.getAll().subscribe({
       next: (products) => {
-        this.products = products;
+        this.products = products.slice(0, 6);
       },
       error: () => {
         this.products = [];

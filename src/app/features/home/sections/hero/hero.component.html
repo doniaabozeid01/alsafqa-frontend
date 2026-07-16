@@ -146,8 +146,9 @@
 
   <div class="hero-ticker" aria-hidden="true">
     <div class="ticker-track">
-      <span *ngFor="let tag of tickerTags">{{ tag }}</span>
-      <span *ngFor="let tag of tickerTags">{{ tag }}</span>
+      <div class="ticker-group" *ngFor="let copy of [0, 1]">
+        <span *ngFor="let tag of tickerTags">{{ tag }}</span>
+      </div>
     </div>
   </div>
 

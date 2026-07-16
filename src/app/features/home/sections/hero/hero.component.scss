@@ -636,13 +636,22 @@
   backdrop-filter: blur(10px);
   overflow: hidden;
   padding: 12px 0;
+  direction: ltr;
 }
 
 .ticker-track {
   display: flex;
-  gap: 40px;
   width: max-content;
-  animation: tickerScroll 28s linear infinite;
+  animation: tickerScroll 12s linear infinite;
+  will-change: transform;
+}
+
+.ticker-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 40px;
+  padding-inline-end: 40px;
 
   span {
     font-size: 0.82rem;
@@ -655,10 +664,10 @@
 
 @keyframes tickerScroll {
   from {
-    transform: translateX(-50vw);
+    transform: translateX(-50%);
   }
   to {
-    transform: translateX(calc(-50vw + 50%));
+    transform: translateX(0);
   }
 }
 

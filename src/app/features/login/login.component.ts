@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class LoginComponent {
     private router: Router
   ) {
     if (this.auth.isLoggedIn()) {
-      this.router.navigate(['/dashboard']);
+      this.goDashboard();
     }
 
     this.form = this.fb.group({
@@ -43,19 +44,33 @@ export class LoginComponent {
     this.loading = true;
     const { email, password } = this.form.value;
 
-    this.auth.login(email, password).subscribe({
-      next: (result) => {
-        this.loading = false;
-        if (result.ok) {
-          this.router.navigate(['/dashboard']);
-          return;
-        }
-        this.error = result.message || 'تعذر تسجيل الدخول';
-      },
-      error: () => {
-        this.loading = false;
-        this.error = 'تعذر تسجيل الدخول. حاول مرة أخرى.';
-      },
+    this.auth
+      .login(email, password)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (result) => {
+          if (result.ok && this.auth.isLoggedIn()) {
+            this.goDashboard();
+            return;
+          }
+
+          this.error =
+            result.message ||
+            (result.ok
+              ? 'تم الدخول لكن تعذر فتح لوحة التحكم.'
+              : 'تعذر تسجيل الدخول');
+        },
+        error: () => {
+          this.error = 'تعذر تسجيل الدخول. حاول مرة أخرى.';
+        },
+      });
+  }
+
+  private goDashboard(): void {
+    this.router.navigateByUrl('/dashboard').then((ok) => {
+      if (!ok && !this.auth.isLoggedIn()) {
+        this.error = 'تعذر فتح لوحة التحكم. حاول مرة أخرى.';
+      }
     });
   }
 }

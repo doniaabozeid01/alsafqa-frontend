@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, catchError, map, of } from 'rxjs';
+import { Observable, TimeoutError, catchError, map, of, timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {
   ApiResponse,
@@ -40,25 +40,47 @@ export class AuthService {
       password,
     };
 
-    return this.http.post<ApiResponse<LoginData>>(`${this.baseUrl}/login`, payload).pipe(
-      map((res) => {
-        if (!res?.success || !res.data?.token || !res.data.user) {
-          return {
-            ok: false,
-            message: res?.message || 'تعذر تسجيل الدخول',
-          };
-        }
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
 
-        this.persistSession(res.data);
-        return { ok: true };
-      }),
-      catchError(() =>
-        of({
-          ok: false,
-          message: 'تعذر الاتصال بالسيرفر. تأكد أن الـ API يعمل ثم حاول مرة أخرى.',
-        })
-      )
-    );
+    return this.http
+      .post<unknown>(`${this.baseUrl}/login`, payload, { headers })
+      .pipe(
+        timeout(60000),
+        map((raw) => {
+          const parsed = this.extractLoginData(raw, payload.email);
+          if (!parsed.token) {
+            return {
+              ok: false,
+              message: parsed.message || 'بيانات الدخول غير صحيحة',
+            };
+          }
+
+          this.persistSession({
+            token: parsed.token,
+            expiresAt: parsed.expiresAt || this.defaultExpiry(),
+            user: parsed.user,
+          });
+
+          // Confirm session is readable before telling UI "ok"
+          if (!this.readSession()?.token) {
+            return {
+              ok: false,
+              message: 'تم الرد من السيرفر لكن فشل حفظ الجلسة في المتصفح.',
+            };
+          }
+
+          return { ok: true };
+        }),
+        catchError((err: unknown) =>
+          of({
+            ok: false,
+            message: this.loginErrorMessage(err),
+          })
+        )
+      );
   }
 
   changePassword(
@@ -67,8 +89,12 @@ export class AuthService {
     return this.http
       .post<ApiResponse<unknown>>(`${this.baseUrl}/change-password`, payload)
       .pipe(
+        timeout(60000),
         map((res) => {
-          if (!res?.success) {
+          const success =
+            (res as { success?: boolean; Success?: boolean })?.success ??
+            (res as { Success?: boolean })?.Success;
+          if (success === false) {
             return {
               ok: false,
               message: res?.message || 'تعذر تغيير كلمة المرور',
@@ -79,7 +105,7 @@ export class AuthService {
             message: res.message || 'تم تحديث كلمة المرور بنجاح',
           };
         }),
-        catchError((err) =>
+        catchError((err: HttpErrorResponse) =>
           of({
             ok: false,
             message:
@@ -92,41 +118,135 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem(STORAGE_KEY);
-    this.router.navigate(['/login']);
+    this.router.navigateByUrl('/login');
   }
 
+  /** Token presence = logged in (don't kick out on flaky expiresAt). */
   isLoggedIn(): boolean {
     const session = this.readSession();
-    if (!session?.token) return false;
-    if (this.isExpired(session.expiresAt)) {
-      localStorage.removeItem(STORAGE_KEY);
-      return false;
-    }
-    return true;
+    return !!session?.token;
   }
 
   getToken(): string | null {
-    if (!this.isLoggedIn()) return null;
     return this.readSession()?.token ?? null;
   }
 
   getUser(): AuthUser | null {
-    if (!this.isLoggedIn()) return null;
     return this.readSession()?.user ?? null;
   }
 
-  private persistSession(data: LoginData): void {
-    const user: AuthUser = {
-      id: data.user.id,
-      email: data.user.email,
-      fullName: data.user.fullName,
-      role: data.user.fullName || 'مدير',
-    };
+  private extractLoginData(
+    raw: unknown,
+    fallbackEmail: string
+  ): { token: string; expiresAt: string; user: LoginData['user']; message?: string } {
+    if (!raw || typeof raw !== 'object') {
+      return { token: '', expiresAt: '', user: this.fallbackUser(fallbackEmail) };
+    }
 
+    const root = raw as Record<string, unknown>;
+    const explicitFail = root['success'] === false || root['Success'] === false;
+    const message = String(root['message'] ?? root['Message'] ?? '') || undefined;
+
+    if (explicitFail) {
+      return {
+        token: '',
+        expiresAt: '',
+        user: this.fallbackUser(fallbackEmail),
+        message: message || 'بيانات الدخول غير صحيحة',
+      };
+    }
+
+    const data = (root['data'] ?? root['Data'] ?? root) as Record<string, unknown>;
+    const token = String(
+      data['token'] ?? data['Token'] ?? root['token'] ?? root['Token'] ?? ''
+    ).trim();
+
+    let expiresAt = String(
+      data['expiresAt'] ??
+        data['ExpiresAt'] ??
+        root['expiresAt'] ??
+        root['ExpiresAt'] ??
+        ''
+    );
+
+    const userRaw = (data['user'] ?? data['User'] ?? root['user'] ?? root['User']) as
+      | Record<string, unknown>
+      | null
+      | undefined;
+
+    const user = userRaw
+      ? {
+          id: String(userRaw['id'] ?? userRaw['Id'] ?? 'admin'),
+          email: String(userRaw['email'] ?? userRaw['Email'] ?? fallbackEmail),
+          fullName: String(userRaw['fullName'] ?? userRaw['FullName'] ?? 'Admin'),
+        }
+      : this.fallbackUser(fallbackEmail);
+
+    expiresAt = this.expiryFromJwt(token) || this.defaultExpiry();
+
+    return { token, expiresAt, user, message };
+  }
+
+  private fallbackUser(email: string): LoginData['user'] {
+    return { id: 'admin', email, fullName: 'Admin' };
+  }
+
+  private defaultExpiry(): string {
+    return new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString();
+  }
+
+  private expiryFromJwt(token: string): string | null {
+    try {
+      const part = token.split('.')[1];
+      if (!part) return null;
+      const json = JSON.parse(atob(part.replace(/-/g, '+').replace(/_/g, '/')));
+      if (!json?.exp) return null;
+      const ms = Number(json.exp) * 1000;
+      if (ms <= Date.now() + 30_000) return null;
+      return new Date(ms).toISOString();
+    } catch {
+      return null;
+    }
+  }
+
+  private loginErrorMessage(err: unknown): string {
+    if (err instanceof TimeoutError) {
+      return 'السيرفر أخذ وقت طويل. حاول مرة أخرى.';
+    }
+
+    const httpErr = err as HttpErrorResponse;
+    const body = httpErr?.error;
+    const apiMessage =
+      (typeof body === 'string' ? body : null) ||
+      body?.message ||
+      body?.Message ||
+      body?.title ||
+      (Array.isArray(body?.errors) ? body.errors[0] : null);
+
+    if (apiMessage) return String(apiMessage);
+
+    if (httpErr?.status === 0) {
+      return 'المتصفح منع طلب تسجيل الدخول (CORS على POST).';
+    }
+    if (httpErr?.status === 401 || httpErr?.status === 400) {
+      return 'البريد أو كلمة المرور غير صحيحة';
+    }
+    if (httpErr?.status === 404) {
+      return 'مسار تسجيل الدخول غير موجود على السيرفر.';
+    }
+    return 'تعذر تسجيل الدخول. حاول مرة أخرى.';
+  }
+
+  private persistSession(data: LoginData): void {
     const session: StoredSession = {
       token: data.token,
-      expiresAt: data.expiresAt,
-      user,
+      expiresAt: data.expiresAt || this.defaultExpiry(),
+      user: {
+        id: data.user.id || 'admin',
+        email: data.user.email,
+        fullName: data.user.fullName || 'Admin',
+        role: data.user.fullName || 'مدير',
+      },
     };
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
@@ -139,11 +259,5 @@ export class AuthService {
     } catch {
       return null;
     }
-  }
-
-  private isExpired(expiresAt: string): boolean {
-    const end = Date.parse(expiresAt);
-    if (Number.isNaN(end)) return false;
-    return Date.now() >= end;
   }
 }

@@ -1,8 +1,11 @@
 .carousel {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 14px;
   margin-top: 46px;
+  max-width: 1000px;
+  margin-inline: auto;
 }
 
 .arrow {
@@ -30,11 +33,14 @@
 
 .track {
   display: flex;
+  justify-content: safe center;
   gap: 20px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding: 10px 4px 22px;
   scrollbar-width: none;
+  flex: 1;
+  min-width: 0;
 
   &::-webkit-scrollbar {
     display: none;
@@ -43,7 +49,7 @@
 
 .product-card {
   flex: 0 0 clamp(220px, 24vw, 280px);
-  scroll-snap-align: start;
+  scroll-snap-align: center;
   text-align: center;
   transition: transform 0.45s var(--ease-spring);
 
