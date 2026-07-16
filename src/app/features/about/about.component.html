@@ -4,15 +4,15 @@
 <section class="about-story">
   <div class="story-wrap">
     <div class="story-copy" appReveal="up">
-      <span class="eyebrow">قصتنا</span>
+      <span class="eyebrow">{{ 'about.story' | translate }}</span>
       <h2>{{ content.intro[0] }}</h2>
       <p class="lead">{{ content.intro[1] }}</p>
 
       <div class="goal-block">
         <span class="eyebrow">{{ content.goal.title }}</span>
-        <h3>نحو شراكة عالمية موثوقة</h3>
+        <h3>{{ 'about.goalHeading' | translate }}</h3>
         <p>{{ content.goal.description }}</p>
-        <a routerLink="/contact" class="btn btn-gold">تواصل معنا</a>
+        <a routerLink="/contact" class="btn btn-gold">{{ 'nav.contact' | translate }}</a>
       </div>
     </div>
 
@@ -20,7 +20,7 @@
       <div class="media-frame" [style.backgroundImage]="'url(' + content.goal.image + ')'">
         <div class="media-badge">
           <strong>+10</strong>
-          <span>سنوات خبرة</span>
+          <span>{{ 'about.years' | translate }}</span>
         </div>
       </div>
     </div>
@@ -46,9 +46,9 @@
 <section class="about-vision">
   <div class="vision-wrap">
     <div class="vision-head" appReveal="up">
-      <span class="eyebrow">طموحنا</span>
+      <span class="eyebrow">{{ 'about.ambition' | translate }}</span>
       <h2>{{ content.vision.title }}</h2>
-      <p>نعمل كل يوم لنحقق أهدافاً واضحة ونبني حضوراً أقوى في الأسواق العالمية</p>
+      <p>{{ 'about.visionLead' | translate }}</p>
     </div>
 
     <ol class="vision-list">
@@ -71,13 +71,13 @@
 <section class="about-cta">
   <div class="cta-wrap" appReveal="up">
     <div class="cta-copy">
-      <h2>جاهزون للبدء معكم</h2>
-      <p>تواصلوا معنا للحصول على أفضل حلول الاستيراد والتصدير والشحن</p>
+      <h2>{{ 'about.ctaTitle' | translate }}</h2>
+      <p>{{ 'about.ctaBody' | translate }}</p>
       <div class="cta-links">
         <a href="mailto:{{ contact.email }}" dir="ltr">{{ contact.email }}</a>
         <a *ngFor="let phone of content.phones" [href]="'tel:' + phone" dir="ltr">{{ phone }}</a>
       </div>
     </div>
-    <a routerLink="/contact" class="btn btn-gold">اطلب عرض سعر</a>
+    <a routerLink="/contact" class="btn btn-gold">{{ 'nav.contact' | translate }}</a>
   </div>
 </section>

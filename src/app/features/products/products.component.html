@@ -5,10 +5,10 @@
     <div class="filter-panel" [class.is-open]="pickerOpen" appReveal *ngIf="brands.length">
       <div class="filter-head">
         <div class="filter-title">
-          <span class="filter-label">تصفية حسب البراند</span>
-          <span class="filter-hint">اختر براند لعرض منتجاته</span>
+          <span class="filter-label">{{ 'products.filterLabel' | translate }}</span>
+          <span class="filter-hint">{{ 'products.filterHint' | translate }}</span>
         </div>
-        <span class="filter-count">{{ products.length }} منتج</span>
+        <span class="filter-count">{{ products.length }} {{ 'products.count' | translate }}</span>
       </div>
 
       <div class="brand-filters" #brandPicker>
@@ -18,7 +18,7 @@
           [class.active]="!selectedBrandId"
           (click)="selectBrand(null)"
         >
-          كل البراندات
+          {{ 'products.allBrands' | translate }}
         </button>
 
         <div class="brand-search">
@@ -27,7 +27,7 @@
             [value]="brandQuery"
             (input)="onBrandQuery($event)"
             (focus)="openPicker()"
-            placeholder="ابحث ضمن البراندات..."
+            [placeholder]="'products.searchBrands' | translate"
             autocomplete="off"
           />
 
@@ -40,32 +40,32 @@
               (click)="selectBrand(brand.id)"
             >
               <span>{{ brandName(brand) }}</span>
-              <small dir="ltr" *ngIf="brand.nameEn && brand.nameEn !== brand.nameAr">
+              <small dir="ltr" *ngIf="isArabic && brand.nameEn && brand.nameEn !== brand.nameAr">
                 {{ brand.nameEn }}
               </small>
             </button>
-            <p class="brand-empty" *ngIf="!filteredBrands.length">لا توجد نتائج مطابقة</p>
+            <p class="brand-empty" *ngIf="!filteredBrands.length">{{ 'products.noResults' | translate }}</p>
           </div>
         </div>
 
         <div class="selected-brand" *ngIf="selectedBrand">
           <span>{{ brandName(selectedBrand) }}</span>
-          <button type="button" (click)="selectBrand(null)" aria-label="مسح الفلتر">×</button>
+          <button type="button" (click)="selectBrand(null)" [attr.aria-label]="'products.clearFilter' | translate">×</button>
         </div>
       </div>
     </div>
 
     <div class="results-head" *ngIf="selectedBrand" appReveal>
       <h2>
-        منتجات
+        {{ 'products.ofBrand' | translate }}
         <span>{{ brandName(selectedBrand) }}</span>
       </h2>
       <button type="button" class="clear-filter" (click)="selectBrand(null)">
-        مسح الفلتر
+        {{ 'products.clearFilter' | translate }}
       </button>
     </div>
 
-    <div class="loading-state" *ngIf="loading">جاري تحميل المنتجات...</div>
+    <div class="loading-state" *ngIf="loading">{{ 'products.loading' | translate }}</div>
 
     <ng-container *ngIf="!loading">
       <div
@@ -91,28 +91,28 @@
           </div>
           <div class="card-body">
             <h3>{{ productTitle(product) }}</h3>
-            <a routerLink="/contact" class="card-link">اطلب توريد ←</a>
+            <a routerLink="/contact" class="card-link">{{ 'common.requestSupply' | translate }}</a>
           </div>
         </article>
       </div>
 
       <ng-template #emptyState>
         <div class="empty-state" appReveal>
-          <p>لا توجد منتجات{{ selectedBrand ? ' لهذا البراند' : '' }} حاليًا.</p>
+          <p>{{ selectedBrand ? ('products.emptyBrand' | translate) : ('products.empty' | translate) }}</p>
           <button
             type="button"
             class="btn btn-outline"
             *ngIf="selectedBrandId"
             (click)="selectBrand(null)"
           >
-            عرض كل المنتجات
+            {{ 'products.viewAll' | translate }}
           </button>
         </div>
       </ng-template>
     </ng-container>
 
     <div class="page-cta" appReveal>
-      <a routerLink="/contact" class="btn btn-gold">اطلب توريد منتجات</a>
+      <a routerLink="/contact" class="btn btn-gold">{{ 'common.requestProducts' | translate }}</a>
     </div>
   </div>
 </section>

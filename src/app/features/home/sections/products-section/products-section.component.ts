@@ -1,6 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { NO_IMAGE_URL } from '../../../../core/constants/media';
 import { ProductDto } from '../../../../core/models/api.models';
+import { LanguageService } from '../../../../core/services/language.service';
 import { ProductsService } from '../../../../core/services/products.service';
 
 @Component({
@@ -8,15 +10,20 @@ import { ProductsService } from '../../../../core/services/products.service';
   templateUrl: './products-section.component.html',
   styleUrls: ['./products-section.component.scss'],
 })
-export class ProductsSectionComponent implements OnInit {
+export class ProductsSectionComponent implements OnInit, OnDestroy {
   products: ProductDto[] = [];
   readonly placeholderImage = NO_IMAGE_URL;
+  private langSub?: Subscription;
 
   @ViewChild('track') track?: ElementRef<HTMLElement>;
 
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private lang: LanguageService
+  ) {}
 
   ngOnInit(): void {
+    this.langSub = this.lang.lang$.subscribe();
     this.productsService.getAll().subscribe({
       next: (products) => {
         this.products = products.slice(0, 6);
@@ -27,8 +34,12 @@ export class ProductsSectionComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.langSub?.unsubscribe();
+  }
+
   productTitle(product: ProductDto): string {
-    return product.nameAr || product.nameEn;
+    return this.lang.localized(product.nameAr, product.nameEn);
   }
 
   productImage(product: ProductDto): string {
@@ -36,7 +47,7 @@ export class ProductsSectionComponent implements OnInit {
   }
 
   brandLabel(product: ProductDto): string {
-    return product.brandNameAr || product.brandNameEn;
+    return this.lang.localized(product.brandNameAr, product.brandNameEn);
   }
 
   scroll(direction: 1 | -1): void {

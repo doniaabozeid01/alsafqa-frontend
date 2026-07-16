@@ -8,7 +8,9 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { JourneyStep } from '../../../../core/models/site.models';
+import { LanguageService } from '../../../../core/services/language.service';
 import { SiteDataService } from '../../../../core/services/site-data.service';
 
 @Component({
@@ -17,8 +19,8 @@ import { SiteDataService } from '../../../../core/services/site-data.service';
   styleUrls: ['./journey-section.component.scss'],
 })
 export class JourneySectionComponent implements AfterViewInit, OnDestroy {
-  steps: JourneyStep[] = this.siteData.getJourneySteps();
-
+  steps: JourneyStep[] = [];
+  private langSub?: Subscription;
   @ViewChild('journey') journeyRef!: ElementRef<HTMLElement>;
   @ViewChild('journeySvg') svgRef!: ElementRef<SVGSVGElement>;
   @ViewChild('pathEl') pathElRef!: ElementRef<SVGPathElement>;
@@ -38,7 +40,16 @@ export class JourneySectionComponent implements AfterViewInit, OnDestroy {
   private scrollTicking = false;
   private reducedMotion = false;
 
-  constructor(private siteData: SiteDataService) {}
+  constructor(
+    private siteData: SiteDataService,
+    private lang: LanguageService
+  ) {
+    this.steps = this.siteData.getJourneySteps();
+    this.langSub = this.lang.lang$.subscribe(() => {
+      this.steps = this.siteData.getJourneySteps();
+      setTimeout(() => this.buildPath(), 0);
+    });
+  }
 
   ngAfterViewInit(): void {
     this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -47,6 +58,7 @@ export class JourneySectionComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.rafId) cancelAnimationFrame(this.rafId);
+    this.langSub?.unsubscribe();
   }
 
   @HostListener('window:scroll')

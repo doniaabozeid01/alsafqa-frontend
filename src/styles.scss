@@ -115,8 +115,8 @@ button {
     content: '';
     position: absolute;
     bottom: 0;
-    inset-inline-start: 50%;
-    transform: translateX(50%);
+    left: 50%;
+    transform: translateX(-50%);
     width: 70px;
     height: 4px;
     border-radius: 4px;

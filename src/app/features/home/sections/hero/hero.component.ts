@@ -6,12 +6,14 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { LanguageService } from '../../../../core/services/language.service';
 
 interface HeroStat {
   countTo: number;
   prefix: string;
   suffix: string;
-  label: string;
+  labelKey: string;
 }
 
 @Component({
@@ -23,9 +25,9 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   @ViewChild('heroSection') heroSection!: ElementRef<HTMLElement>;
 
   stats: HeroStat[] = [
-    { countTo: 120, prefix: '+', suffix: '', label: 'دولة' },
-    { countTo: 2500, prefix: '+', suffix: '', label: 'شحنة سنوياً' },
-    { countTo: 24, prefix: '', suffix: '/7', label: 'دعم متواصل' },
+    { countTo: 120, prefix: '+', suffix: '', labelKey: 'hero.stat.countries' },
+    { countTo: 2500, prefix: '+', suffix: '', labelKey: 'hero.stat.shipments' },
+    { countTo: 24, prefix: '', suffix: '/7', labelKey: 'hero.stat.support' },
   ];
 
   particles = Array.from({ length: 10 }, (_, i) => ({
@@ -35,19 +37,24 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
     size: `${2 + (i % 2)}px`,
   }));
 
-  tickerTags = [
-    '● استيراد وتصدير',
-    '● شحن دولي',
-    '● تخليص جمركي',
-    '● توريد عالمي',
-    '● مستودعات حديثة',
-    '● توصيل آمن',
+  tickerKeys = [
+    'hero.ticker.1',
+    'hero.ticker.2',
+    'hero.ticker.3',
+    'hero.ticker.4',
+    'hero.ticker.5',
+    'hero.ticker.6',
   ];
 
   private parallaxX = 0;
   private parallaxY = 0;
   private rafId = 0;
   private reducedMotion = false;
+  private langSub?: Subscription;
+
+  constructor(public lang: LanguageService) {
+    this.langSub = this.lang.lang$.subscribe();
+  }
 
   ngAfterViewInit(): void {
     this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -56,6 +63,7 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.rafId) cancelAnimationFrame(this.rafId);
+    this.langSub?.unsubscribe();
   }
 
   @HostListener('mousemove', ['$event'])

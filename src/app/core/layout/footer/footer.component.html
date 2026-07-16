@@ -3,21 +3,18 @@
     <!-- Brand -->
     <div class="footer-col brand-col" appReveal="up">
       <a routerLink="/" class="footer-logo">
-        <img src="assets/brand/logo-icon-white-bg.png" alt="شركة الصفقة" class="logo-img" />
+        <img src="assets/brand/logo-icon-white-bg.png" [alt]="'brand.name' | translate" class="logo-img" />
         <span class="logo-text">
-          <span class="logo-name">شركة <b>الصفقة</b></span>
-          <span class="logo-sub">استيراد وتصدير | شحن | تخليص جمركي</span>
+          <span class="logo-name" [innerHTML]="'brand.nameHtml' | translate"></span>
+          <span class="logo-sub">{{ 'brand.tagline' | translate }}</span>
         </span>
       </a>
-      <p class="footer-about">
-        شركة الصفقة للاستيراد والتصدير والشحن والتخليص الجمركي —
-        شريكك الموثوق في عالم التجارة الدولية.
-      </p>
+      <p class="footer-about">{{ 'brand.about' | translate }}</p>
     </div>
 
     <!-- Services -->
     <div class="footer-col" appReveal="up" [revealDelay]="100">
-      <h4 class="footer-title">خدماتنا</h4>
+      <h4 class="footer-title">{{ 'footer.services' | translate }}</h4>
       <ul>
         <li *ngFor="let service of services">
           <a routerLink="/contact">{{ service.title }}</a>
@@ -27,7 +24,7 @@
 
     <!-- Quick links -->
     <div class="footer-col" appReveal="up" [revealDelay]="200">
-      <h4 class="footer-title">روابط سريعة</h4>
+      <h4 class="footer-title">{{ 'footer.links' | translate }}</h4>
       <ul>
         <li *ngFor="let link of navLinks">
           <a [routerLink]="link.path" [fragment]="link.fragment">{{ link.label }}</a>
@@ -37,7 +34,7 @@
 
     <!-- Contact -->
     <div class="footer-col" appReveal="up" [revealDelay]="300">
-      <h4 class="footer-title">تواصل معنا</h4>
+      <h4 class="footer-title">{{ 'footer.contact' | translate }}</h4>
       <ul class="contact-list">
         <li>
           <span class="contact-icon" aria-hidden="true">
@@ -72,7 +69,17 @@
 
   <div class="footer-bottom">
     <div class="container">
-      <p>© {{ year }} AL-SAFQA — جميع الحقوق محفوظة</p>
+      <p>
+        © AL-SAFQA {{ year }}
+        <span class="sep">·</span>
+        {{ 'footer.powered' | translate }}
+        <a
+          class="credit-link"
+          href="https://dm-solution.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >DM Solution</a>
+      </p>
     </div>
   </div>
 </footer>

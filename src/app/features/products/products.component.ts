@@ -1,9 +1,11 @@
 import { Location } from '@angular/common';
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { NO_IMAGE_URL } from '../../core/constants/media';
 import { BrandDto, ProductDto } from '../../core/models/api.models';
 import { BrandsService } from '../../core/services/brands.service';
+import { LanguageService } from '../../core/services/language.service';
 import { ProductsService } from '../../core/services/products.service';
 import { SiteDataService } from '../../core/services/site-data.service';
 
@@ -12,7 +14,7 @@ import { SiteDataService } from '../../core/services/site-data.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
   @ViewChild('brandPicker') brandPicker?: ElementRef<HTMLElement>;
 
   hero = this.siteData.getPageHero('products');
@@ -23,6 +25,7 @@ export class ProductsComponent implements OnInit {
   pickerOpen = false;
   loading = true;
   readonly placeholderImage = NO_IMAGE_URL;
+  private langSub: Subscription;
 
   constructor(
     private siteData: SiteDataService,
@@ -30,8 +33,17 @@ export class ProductsComponent implements OnInit {
     private productsService: ProductsService,
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
-  ) {}
+    private location: Location,
+    private lang: LanguageService
+  ) {
+    this.langSub = this.lang.lang$.subscribe(() => {
+      this.hero = this.siteData.getPageHero('products');
+    });
+  }
+
+  get isArabic(): boolean {
+    return this.lang.current === 'ar';
+  }
 
   ngOnInit(): void {
     const brandId = this.route.snapshot.queryParamMap.get('brandId');
@@ -50,6 +62,10 @@ export class ProductsComponent implements OnInit {
     });
 
     this.loadProducts(this.selectedBrandId);
+  }
+
+  ngOnDestroy(): void {
+    this.langSub.unsubscribe();
   }
 
   get selectedBrand(): BrandDto | null {
@@ -102,7 +118,7 @@ export class ProductsComponent implements OnInit {
   }
 
   productTitle(product: ProductDto): string {
-    return product.nameAr || product.nameEn;
+    return this.lang.localized(product.nameAr, product.nameEn);
   }
 
   productImage(product: ProductDto): string {
@@ -110,11 +126,11 @@ export class ProductsComponent implements OnInit {
   }
 
   brandLabel(product: ProductDto): string {
-    return product.brandNameAr || product.brandNameEn;
+    return this.lang.localized(product.brandNameAr, product.brandNameEn);
   }
 
   brandName(brand: BrandDto): string {
-    return brand.nameAr || brand.nameEn;
+    return this.lang.localized(brand.nameAr, brand.nameEn);
   }
 
   private loadProducts(brandId: string | null): void {

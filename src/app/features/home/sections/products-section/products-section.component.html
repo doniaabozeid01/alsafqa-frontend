@@ -1,10 +1,10 @@
 <section class="section products" *ngIf="products.length">
   <div class="container">
-    <span class="section-tag" appReveal>منتجاتنا</span>
-    <h2 class="section-title" appReveal>جودة عالمية تلبي احتياجاتك</h2>
+    <span class="section-tag" appReveal>{{ 'home.products.tag' | translate }}</span>
+    <h2 class="section-title" appReveal>{{ 'home.products.title' | translate }}</h2>
 
     <div class="carousel" appReveal="up" [revealDelay]="150">
-      <button class="arrow" type="button" (click)="scroll(-1)" aria-label="السابق">
+      <button class="arrow" type="button" (click)="scroll(-1)" [attr.aria-label]="'common.prev' | translate">
         ‹
       </button>
 
@@ -22,13 +22,13 @@
         </article>
       </div>
 
-      <button class="arrow" type="button" (click)="scroll(1)" aria-label="التالي">
+      <button class="arrow" type="button" (click)="scroll(1)" [attr.aria-label]="'common.next' | translate">
         ›
       </button>
     </div>
 
     <div class="products-cta" appReveal [revealDelay]="250">
-      <a routerLink="/products" class="btn btn-outline">عرض جميع المنتجات</a>
+      <a routerLink="/products" class="btn btn-outline">{{ 'common.viewAllProducts' | translate }}</a>
     </div>
   </div>
 </section>

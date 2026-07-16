@@ -20,7 +20,9 @@
         {{ contact.email }}
       </a>
     </div>
-    <button class="lang-switch" type="button">EN</button>
+    <button class="lang-switch" type="button" (click)="toggleLang()" [attr.aria-label]="lang.switchLabel">
+      {{ lang.switchLabel }}
+    </button>
   </div>
 </div>
 
@@ -28,10 +30,10 @@
 <header class="navbar" [class.is-scrolled]="scrolled">
   <div class="container navbar-inner">
     <a routerLink="/" class="logo" (click)="closeMenu()">
-      <img src="assets/brand/logo-icon.png" alt="شركة الصفقة" class="logo-img" />
+      <img src="assets/brand/logo-icon.png" [alt]="'brand.name' | translate" class="logo-img" />
       <span class="logo-text">
-        <span class="logo-name">شركة <b>الصفقة</b></span>
-        <span class="logo-sub">استيراد وتصدير | شحن | تخليص جمركي</span>
+        <span class="logo-name" [innerHTML]="'brand.nameHtml' | translate"></span>
+        <span class="logo-sub">{{ 'brand.tagline' | translate }}</span>
       </span>
     </a>
 
@@ -50,7 +52,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0zM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
         </svg>
-        تسجيل الدخول
+        {{ 'nav.login' | translate }}
       </a>
     </nav>
 
@@ -59,7 +61,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0zM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
         </svg>
-        تسجيل الدخول
+        {{ 'nav.login' | translate }}
       </a>
     </div>
 
@@ -68,7 +70,7 @@
       type="button"
       [class.open]="menuOpen"
       (click)="toggleMenu()"
-      aria-label="القائمة"
+      [attr.aria-label]="'nav.menu' | translate"
     >
       <span></span><span></span><span></span>
     </button>

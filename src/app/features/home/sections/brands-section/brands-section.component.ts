@@ -9,8 +9,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { BrandDto } from '../../../../core/models/api.models';
 import { BrandsService } from '../../../../core/services/brands.service';
+import { LanguageService } from '../../../../core/services/language.service';
 
 @Component({
   selector: 'app-brands-section',
@@ -40,14 +42,17 @@ export class BrandsSectionComponent implements OnInit, AfterViewInit, OnDestroy 
   private started = false;
   private resizeObserver?: ResizeObserver;
   private readonly dragThreshold = 12;
+  private langSub?: Subscription;
 
   constructor(
     private brandsService: BrandsService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private lang: LanguageService
   ) {}
 
   ngOnInit(): void {
+    this.langSub = this.lang.lang$.subscribe(() => this.cdr.markForCheck());
     this.brandsService.getAll().subscribe({
       next: (brands) => {
         this.brands = brands;
@@ -70,10 +75,11 @@ export class BrandsSectionComponent implements OnInit, AfterViewInit, OnDestroy 
   ngOnDestroy(): void {
     cancelAnimationFrame(this.rafId);
     this.resizeObserver?.disconnect();
+    this.langSub?.unsubscribe();
   }
 
   brandLabel(brand: BrandDto): string {
-    return brand.nameAr || brand.nameEn;
+    return this.lang.localized(brand.nameAr, brand.nameEn);
   }
 
   openBrand(brand: BrandDto, event: Event): void {

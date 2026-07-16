@@ -6,6 +6,8 @@ import { RevealDirective } from './directives/reveal.directive';
 import { CountUpDirective } from './directives/count-up.directive';
 import { PageHeroComponent } from './components/page-hero/page-hero.component';
 import { SearchableSelectComponent } from './components/searchable-select/searchable-select.component';
+import { TranslatePipe } from './pipes/translate.pipe';
+import { LocalizedPipe } from './pipes/localized.pipe';
 
 @NgModule({
   declarations: [
@@ -13,6 +15,8 @@ import { SearchableSelectComponent } from './components/searchable-select/search
     CountUpDirective,
     PageHeroComponent,
     SearchableSelectComponent,
+    TranslatePipe,
+    LocalizedPipe,
   ],
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
   exports: [
@@ -23,6 +27,8 @@ import { SearchableSelectComponent } from './components/searchable-select/search
     CountUpDirective,
     PageHeroComponent,
     SearchableSelectComponent,
+    TranslatePipe,
+    LocalizedPipe,
   ],
 })
 export class SharedModule {}

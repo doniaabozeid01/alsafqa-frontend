@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { GalleryDto } from '../../core/models/api.models';
 import { GalleriesService } from '../../core/services/galleries.service';
+import { LanguageService } from '../../core/services/language.service';
 import { SiteDataService } from '../../core/services/site-data.service';
 
 @Component({
@@ -8,15 +10,21 @@ import { SiteDataService } from '../../core/services/site-data.service';
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
 })
-export class GalleryComponent implements OnInit {
+export class GalleryComponent implements OnInit, OnDestroy {
   hero = this.siteData.getPageHero('gallery');
   items: GalleryDto[] = [];
   lightboxSrc: string | null = null;
+  private langSub: Subscription;
 
   constructor(
     private siteData: SiteDataService,
-    private galleriesService: GalleriesService
-  ) {}
+    private galleriesService: GalleriesService,
+    private lang: LanguageService
+  ) {
+    this.langSub = this.lang.lang$.subscribe(() => {
+      this.hero = this.siteData.getPageHero('gallery');
+    });
+  }
 
   ngOnInit(): void {
     this.galleriesService.getAll().subscribe({
@@ -29,8 +37,12 @@ export class GalleryComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.langSub.unsubscribe();
+  }
+
   itemTitle(item: GalleryDto): string {
-    return item.titleAr || item.titleEn;
+    return this.lang.localized(item.titleAr, item.titleEn);
   }
 
   itemImage(item: GalleryDto): string {
@@ -38,7 +50,7 @@ export class GalleryComponent implements OnInit {
   }
 
   itemCategory(item: GalleryDto): string {
-    return item.categoryNameAr || item.categoryNameEn;
+    return this.lang.localized(item.categoryNameAr, item.categoryNameEn);
   }
 
   openLightbox(src: string): void {

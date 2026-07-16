@@ -3,9 +3,9 @@
 <section class="contact-section">
   <div class="contact-wrap">
     <aside class="contact-info" appReveal="right">
-      <span class="eyebrow">تواصل مباشر</span>
-      <h2>معلومات التواصل</h2>
-      <p class="info-lead">نحن هنا لمساعدتك في كل ما يتعلق بالاستيراد والتصدير والشحن.</p>
+      <span class="eyebrow">{{ 'contact.direct' | translate }}</span>
+      <h2>{{ 'contact.infoTitle' | translate }}</h2>
+      <p class="info-lead">{{ 'contact.infoLead' | translate }}</p>
 
       <ul class="info-list">
         <li>
@@ -15,7 +15,7 @@
             </svg>
           </span>
           <div>
-            <strong>الهاتف</strong>
+            <strong>{{ 'contact.phone' | translate }}</strong>
             <a href="tel:+201234567890" dir="ltr">{{ contact.phone }}</a>
           </div>
         </li>
@@ -27,7 +27,7 @@
             </svg>
           </span>
           <div>
-            <strong>البريد الإلكتروني</strong>
+            <strong>{{ 'contact.email' | translate }}</strong>
             <a href="mailto:{{ contact.email }}" dir="ltr">{{ contact.email }}</a>
           </div>
         </li>
@@ -39,24 +39,24 @@
             </svg>
           </span>
           <div>
-            <strong>العنوان</strong>
+            <strong>{{ 'contact.addressLabel' | translate }}</strong>
             <span>{{ contact.address }}</span>
           </div>
         </li>
       </ul>
 
       <div class="info-hours">
-        <strong>ساعات العمل</strong>
-        <span>السبت — الخميس · 9:00 ص — 6:00 م</span>
+        <strong>{{ 'contact.hours' | translate }}</strong>
+        <span>{{ 'contact.hoursValue' | translate }}</span>
       </div>
     </aside>
 
     <form class="contact-form" [formGroup]="form" (ngSubmit)="onSubmit()" appReveal="left" [revealDelay]="120">
-      <h2>أرسل رسالة</h2>
-      <p class="form-lead">املأ النموذج وسنعاود التواصل معك في أقرب وقت.</p>
+      <h2>{{ 'contact.formTitle' | translate }}</h2>
+      <p class="form-lead">{{ 'contact.formLead' | translate }}</p>
 
       <div class="form-success" *ngIf="submitted">
-        تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.
+        {{ 'contact.success' | translate }}
       </div>
 
       <div class="form-error" *ngIf="errorMessage">
@@ -65,28 +65,28 @@
 
       <div class="field-row">
         <div class="field">
-          <label for="contact-name">الاسم الكامل</label>
-          <input id="contact-name" formControlName="name" placeholder="اكتب اسمك" />
+          <label for="contact-name">{{ 'contact.name' | translate }}</label>
+          <input id="contact-name" formControlName="name" [placeholder]="'contact.namePh' | translate" />
         </div>
         <div class="field">
-          <label for="contact-phone">رقم الهاتف</label>
+          <label for="contact-phone">{{ 'contact.phoneField' | translate }}</label>
           <input id="contact-phone" formControlName="phone" placeholder="+20 ..." dir="ltr" />
         </div>
       </div>
 
       <div class="field">
-        <label for="contact-email">البريد الإلكتروني</label>
+        <label for="contact-email">{{ 'contact.email' | translate }}</label>
         <input id="contact-email" formControlName="email" type="email" placeholder="name@email.com" dir="ltr" />
       </div>
 
       <div class="field">
-        <label for="contact-message">رسالتك</label>
-        <textarea id="contact-message" formControlName="message" rows="5" placeholder="كيف يمكننا مساعدتك؟"></textarea>
+        <label for="contact-message">{{ 'contact.message' | translate }}</label>
+        <textarea id="contact-message" formControlName="message" rows="5" [placeholder]="'contact.messagePh' | translate"></textarea>
       </div>
 
       <div class="form-actions">
         <button type="submit" class="btn btn-gold form-submit" [disabled]="sending">
-          {{ sending ? 'جاري الإرسال...' : 'إرسال الرسالة' }}
+          {{ sending ? ('common.sending' | translate) : ('common.sendMessage' | translate) }}
         </button>
       </div>
     </form>

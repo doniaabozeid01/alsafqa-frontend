@@ -22,11 +22,11 @@
 
 <section class="section" *ngIf="!items.length">
   <div class="container">
-    <p class="gallery-empty">لا توجد صور في المعرض حاليًا.</p>
+    <p class="gallery-empty">{{ 'gallery.empty' | translate }}</p>
   </div>
 </section>
 
 <div class="lightbox" *ngIf="lightboxSrc" (click)="closeLightbox()">
   <img [src]="lightboxSrc" alt="" class="lightbox-img" (click)="$event.stopPropagation()" />
-  <button type="button" class="lightbox-close" (click)="closeLightbox()" aria-label="إغلاق">×</button>
+  <button type="button" class="lightbox-close" (click)="closeLightbox()" [attr.aria-label]="'gallery.close' | translate">×</button>
 </div>

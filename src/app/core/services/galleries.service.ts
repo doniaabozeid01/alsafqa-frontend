@@ -63,12 +63,27 @@ export class GalleriesService {
   private getAllRaw(galleryCategoryId?: string | null): Observable<GalleryDto[]> {
     let params = new HttpParams();
     if (galleryCategoryId) {
-      params = params.set('galleryCategoryId', galleryCategoryId);
+      params = params
+        .set('galleryCategoryId', galleryCategoryId)
+        .set('GalleryCategoryId', galleryCategoryId)
+        .set('categoryId', galleryCategoryId);
     }
 
-    return this.http
-      .get<ApiResponse<GalleryDto[]>>(this.url, { params })
-      .pipe(map((res) => res.data ?? []));
+    return this.http.get<ApiResponse<GalleryDto[]>>(this.url, { params }).pipe(
+      map((res) => {
+        const items = res.data ?? [];
+        if (!galleryCategoryId) return items;
+        const id = String(galleryCategoryId);
+        return items.filter((item) => {
+          const itemCat = String(
+            item.galleryCategoryId ??
+              (item as { GalleryCategoryId?: string }).GalleryCategoryId ??
+              ''
+          );
+          return itemCat === id;
+        });
+      })
+    );
   }
 
   private toFormData(payload: GalleryUpsertPayload): FormData {

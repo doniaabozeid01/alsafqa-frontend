@@ -1,7 +1,7 @@
 <section class="section brands" *ngIf="brands.length">
   <div class="container">
-    <span class="section-tag" appReveal>ثقة الشركات العالمية</span>
-    <h2 class="section-title" appReveal>براندات نعتز بخدمتهم</h2>
+    <span class="section-tag" appReveal>{{ 'home.brands.tag' | translate }}</span>
+    <h2 class="section-title" appReveal>{{ 'home.brands.title' | translate }}</h2>
   </div>
 
   <div
@@ -28,7 +28,7 @@
           *ngFor="let brand of loopBrands"
           [routerLink]="['/products']"
           [queryParams]="{ brandId: brand.id }"
-          [attr.aria-label]="'منتجات ' + brandLabel(brand)"
+          [attr.aria-label]="('home.brands.productsOf' | translate) + ' ' + brandLabel(brand)"
           (click)="openBrand(brand, $event)"
           [attr.tabindex]="i === 0 ? 0 : -1"
           draggable="false"

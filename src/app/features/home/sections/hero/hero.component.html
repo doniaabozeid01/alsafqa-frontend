@@ -28,26 +28,23 @@
       <div class="hero-content">
         <span class="hero-badge">
           <span class="badge-dot"></span>
-          شركة الصفقة — استيراد وتصدير
+          {{ 'hero.eyebrow' | translate }}
         </span>
 
         <h1 class="hero-title">
-          <span class="title-line">شريكك الموثوق في</span>
-          <span class="hero-shimmer">التجارة العالمية</span>
+          <span class="title-line">{{ 'hero.titleLine1' | translate }}</span>
+          <span class="hero-shimmer">{{ 'hero.titleLine2' | translate }}</span>
         </h1>
 
-        <p class="hero-subtitle">
-          حلول متكاملة للاستيراد والتصدير والشحن الدولي —
-          من أول طلب حتى التسليم، بأعلى معايير الجودة والموثوقية.
-        </p>
+        <p class="hero-subtitle">{{ 'hero.subtitle' | translate }}</p>
 
         <div class="hero-actions">
           <a routerLink="/about" class="btn btn-gold hero-btn-primary">
-            اعرف المزيد
+            {{ 'hero.ctaPrimary' | translate }}
             <span class="cta-arrow">←</span>
           </a>
           <a routerLink="/contact" class="btn btn-outline-light hero-btn-secondary">
-            تواصل معنا
+            {{ 'hero.ctaSecondary' | translate }}
           </a>
         </div>
 
@@ -63,7 +60,7 @@
               [prefix]="stat.prefix"
               [suffix]="stat.suffix"
             ></strong>
-            <span>{{ stat.label }}</span>
+            <span>{{ stat.labelKey | translate }}</span>
           </div>
         </div>
       </div>
@@ -97,7 +94,7 @@
                     <path d="M2 20c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5" />
                   </svg>
                 </span>
-                <span class="node-label">شحن بحري</span>
+                <span class="node-label">{{ 'hero.hub.sea' | translate }}</span>
               </div>
             </div>
 
@@ -110,7 +107,7 @@
                     <path d="m9 15 2 2 4-4" />
                   </svg>
                 </span>
-                <span class="node-label">تخليص جمركي</span>
+                <span class="node-label">{{ 'hero.hub.customs' | translate }}</span>
               </div>
             </div>
 
@@ -121,7 +118,7 @@
                     <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
                   </svg>
                 </span>
-                <span class="node-label">شحن جوي</span>
+                <span class="node-label">{{ 'hero.hub.air' | translate }}</span>
               </div>
             </div>
 
@@ -135,7 +132,7 @@
                     <circle cx="17.5" cy="17.5" r="2.5" />
                   </svg>
                 </span>
-                <span class="node-label">شحن بري</span>
+                <span class="node-label">{{ 'hero.hub.land' | translate }}</span>
               </div>
             </div>
           </div>
@@ -147,13 +144,13 @@
   <div class="hero-ticker" aria-hidden="true">
     <div class="ticker-track">
       <div class="ticker-group" *ngFor="let copy of [0, 1]">
-        <span *ngFor="let tag of tickerTags">{{ tag }}</span>
+        <span *ngFor="let key of tickerKeys">{{ key | translate }}</span>
       </div>
     </div>
   </div>
 
   <div class="scroll-hint" aria-hidden="true">
     <span class="mouse"><span class="wheel"></span></span>
-    <small>اكتشف المزيد</small>
+    <small>{{ 'hero.scroll' | translate }}</small>
   </div>
 </section>

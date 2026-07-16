@@ -73,12 +73,22 @@ export class ProductsService {
   private getAllRaw(brandId?: string | null): Observable<ProductDto[]> {
     let params = new HttpParams();
     if (brandId) {
-      params = params.set('brandId', brandId);
+      params = params.set('brandId', brandId).set('BrandId', brandId);
     }
 
-    return this.http
-      .get<ApiResponse<ProductDto[]>>(this.url, { params })
-      .pipe(map((res) => res.data ?? []));
+    return this.http.get<ApiResponse<ProductDto[]>>(this.url, { params }).pipe(
+      map((res) => {
+        const products = res.data ?? [];
+        if (!brandId) return products;
+        const id = String(brandId);
+        return products.filter((product) => {
+          const productBrand = String(
+            product.brandId ?? (product as { BrandId?: string }).BrandId ?? ''
+          );
+          return productBrand === id;
+        });
+      })
+    );
   }
 
   private toFormData(payload: ProductUpsertPayload): FormData {
