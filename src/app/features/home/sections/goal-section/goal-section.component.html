@@ -1,36 +1,33 @@
 <section class="section goal overflow-hidden">
   <div class="container">
-    <div class="goal-panel">
+    <div class="goal-row">
       <div class="goal-copy" appReveal="right">
         <span class="section-tag is-start">{{ 'home.goal.tag' | translate }}</span>
-        <h2 class="block-title">{{ 'home.goal.title' | translate }}</h2>
-        <p class="body">{{ 'home.goal.body' | translate }}</p>
-
-        <ul class="goal-features">
-          <li
-            *ngFor="let feature of features; let i = index"
-            appReveal="up"
-            [revealDelay]="200 + i * 90"
-          >
-            <span class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-            </span>
-            <span>{{ feature | translate }}</span>
-          </li>
-        </ul>
+        <h2 class="goal-title">{{ 'home.goal.title' | translate }}</h2>
+        <p class="goal-lead">{{ 'home.goal.body' | translate }}</p>
       </div>
 
-      <div class="goal-media" appReveal="left" [revealDelay]="120">
-        <div class="media-frame">
-          <img [src]="image" [alt]="'home.goal.alt' | translate" loading="lazy" />
-          <div class="years-badge">
-            <strong appCountUp [countTo]="10" prefix="+"></strong>
-            <span>{{ 'home.goal.years' | translate }}</span>
-          </div>
+      <div class="goal-aside" appReveal="left" [revealDelay]="120">
+        <div class="years">
+          <strong appCountUp [countTo]="10" prefix="+"></strong>
+          <span>{{ 'home.goal.years' | translate }}</span>
         </div>
       </div>
     </div>
+
+    <ul class="goal-features">
+      <li
+        *ngFor="let feature of features; let i = index"
+        appReveal="up"
+        [revealDelay]="160 + i * 80"
+      >
+        <span class="check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </span>
+        <span>{{ feature | translate }}</span>
+      </li>
+    </ul>
   </div>
 </section>

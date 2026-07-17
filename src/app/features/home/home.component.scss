@@ -1,0 +1,71 @@
+.home-flow {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 90% 28% at 0% 6%, rgba(201, 164, 92, 0.1), transparent 60%),
+    radial-gradient(ellipse 80% 26% at 100% 18%, rgba(250, 246, 238, 0.95), transparent 58%),
+    radial-gradient(ellipse 85% 30% at 8% 34%, rgba(250, 246, 238, 0.9), transparent 60%),
+    radial-gradient(ellipse 80% 28% at 95% 48%, rgba(201, 164, 92, 0.08), transparent 58%),
+    radial-gradient(ellipse 90% 30% at 5% 64%, rgba(250, 246, 238, 0.92), transparent 60%),
+    radial-gradient(ellipse 85% 28% at 100% 80%, rgba(201, 164, 92, 0.09), transparent 58%),
+    radial-gradient(ellipse 80% 24% at 20% 94%, rgba(250, 246, 238, 0.88), transparent 55%),
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      var(--cream) 10%,
+      #ffffff 22%,
+      var(--cream) 34%,
+      #ffffff 46%,
+      var(--cream) 58%,
+      #ffffff 70%,
+      var(--cream) 82%,
+      #ffffff 100%
+    );
+
+  /* Soft blend from dark hero into the flow */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    inset-inline: 0;
+    height: 120px;
+    background: linear-gradient(180deg, rgba(16, 28, 51, 0.06), transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Let section backgrounds melt into the shared flow */
+  ::ng-deep {
+    .section,
+    .about-preview,
+    .brands,
+    .goal,
+    .products,
+    .vision,
+    .services,
+    .brand,
+    .journey,
+    .stats,
+    .cta {
+      background: transparent !important;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brands {
+      background: transparent !important;
+      padding: 0 !important;
+    }
+
+    /* Marquee edge fades handled inside brands section */
+
+    .goal::before,
+    .vision::before {
+      display: none !important;
+    }
+
+    .cta {
+      border-block: none !important;
+    }
+  }
+}

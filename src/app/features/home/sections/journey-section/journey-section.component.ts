@@ -156,15 +156,16 @@ export class JourneySectionComponent implements AfterViewInit, OnDestroy {
     }
 
     const dots = dotsG.children;
-    const vh = window.innerHeight;
     for (let i = 0; i < items.length; i++) {
-      const reachedByLine = this.target > 0 && this.current >= this.anchors[i] - 0.5;
-      // Last step: reveal when it enters view so you don't scroll past waiting for the tip
-      const isLast = i === items.length - 1;
-      const lastVisible =
-        isLast && items[i].getBoundingClientRect().top < vh * 0.78;
+      const anchor = this.anchors[i] ?? 0;
+      const prevAnchor = i === 0 ? 0 : this.anchors[i - 1] ?? 0;
+      const segment = Math.max(1, anchor - prevAnchor);
+      // Tiny lead before the tip arrives — only after the previous card was passed
+      const lead = Math.min(18, segment * 0.1);
+      const passedPrev = i === 0 || this.current >= prevAnchor + Math.min(14, segment * 0.12);
+      const nearThis = this.current >= anchor - lead;
 
-      if (reachedByLine || lastVisible) {
+      if (passedPrev && nearThis) {
         items[i].classList.add('revealed');
         if (dots[i]) dots[i].classList.add('lit');
       }
@@ -202,14 +203,6 @@ export class JourneySectionComponent implements AfterViewInit, OnDestroy {
 
     if (this.isDesktop && this.totalLen && !this.reducedMotion) {
       this.target = this.totalLen * progress;
-
-      // When the last step is on screen, pull the line to its end at normal speed
-      const lastIndex = items.length - 1;
-      const lastRect = items[lastIndex].getBoundingClientRect();
-      if (lastRect.top < vh * 0.78 && this.anchors[lastIndex] != null) {
-        this.target = Math.max(this.target, this.anchors[lastIndex]);
-      }
-
       this.startAnim();
     } else {
       items.forEach((item) => {

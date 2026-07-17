@@ -7,12 +7,16 @@ import { Component } from '@angular/core';
 })
 export class VisionSectionComponent {
   readonly items = [
-    'home.vision.1',
-    'home.vision.2',
-    'home.vision.3',
-    'home.vision.4',
-    'home.vision.5',
-    'home.vision.6',
-    'home.vision.7',
+    { key: 'home.vision.1' },
+    { key: 'home.vision.2' },
+    { key: 'home.vision.3' },
+    { key: 'home.vision.4' },
+    { key: 'home.vision.5' },
+    { key: 'home.vision.6' },
+    { key: 'home.vision.7' },
   ] as const;
+
+  pad(n: number): string {
+    return n < 10 ? `0${n}` : `${n}`;
+  }
 }

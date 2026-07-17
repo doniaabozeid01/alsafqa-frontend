@@ -1,49 +1,69 @@
 <section class="section brands overflow-hidden" *ngIf="brands.length">
-  <div class="container">
-    <span class="section-tag" appReveal>{{ 'home.brands.tag' | translate }}</span>
-    <h2 class="section-title" appReveal>{{ 'home.brands.title' | translate }}</h2>
+  <div class="wave wave-top" aria-hidden="true">
+    <svg viewBox="0 0 1440 56" preserveAspectRatio="none">
+      <path
+        d="M0,28 C120,8 240,48 360,28 C480,8 600,48 720,28 C840,8 960,48 1080,28 C1200,8 1320,48 1440,28 L1440,56 L0,56 Z"
+        fill="currentColor"
+      />
+    </svg>
   </div>
 
-  <div
-    class="marquee"
-    #marquee
-    appReveal
-    [revealDelay]="200"
-    [class.is-dragging]="dragging"
-    (pointerdown)="onPointerDown($event)"
-    (pointermove)="onPointerMove($event)"
-    (pointerup)="onPointerUp($event)"
-    (pointercancel)="onPointerUp($event)"
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseLeave()"
-  >
-    <div class="marquee-track" #track>
-      <div
-        class="marquee-group"
-        *ngFor="let group of marqueeGroups; let i = index"
-        [attr.aria-hidden]="i > 0"
-      >
-        <a
-          class="brand"
-          *ngFor="let brand of loopBrands"
-          [routerLink]="['/products']"
-          [queryParams]="{ brandId: brand.id }"
-          [attr.aria-label]="('home.brands.productsOf' | translate) + ' ' + brandLabel(brand)"
-          (click)="openBrand(brand, $event)"
-          [attr.tabindex]="i === 0 ? 0 : -1"
-          draggable="false"
+  <div class="brands-shell">
+    <div class="container">
+      <span class="section-tag" appReveal>{{ 'home.brands.tag' | translate }}</span>
+      <h2 class="section-title" appReveal>{{ 'home.brands.title' | translate }}</h2>
+    </div>
+
+    <div
+      class="marquee"
+      #marquee
+      appReveal
+      [revealDelay]="200"
+      [class.is-dragging]="dragging"
+      (pointerdown)="onPointerDown($event)"
+      (pointermove)="onPointerMove($event)"
+      (pointerup)="onPointerUp($event)"
+      (pointercancel)="onPointerUp($event)"
+      (mouseenter)="onMouseEnter()"
+      (mouseleave)="onMouseLeave()"
+    >
+      <div class="marquee-track" #track>
+        <div
+          class="marquee-group"
+          *ngFor="let group of marqueeGroups; let i = index"
+          [attr.aria-hidden]="i > 0"
         >
-          <img
-            *ngIf="brand.imageUrl"
-            class="brand-logo"
-            [src]="brand.imageUrl"
-            [alt]="brandLabel(brand)"
-            loading="lazy"
+          <a
+            class="brand"
+            *ngFor="let brand of loopBrands"
+            [routerLink]="['/products']"
+            [queryParams]="{ brandId: brand.id }"
+            [attr.aria-label]="('home.brands.productsOf' | translate) + ' ' + brandLabel(brand)"
+            (click)="openBrand(brand, $event)"
+            [attr.tabindex]="i === 0 ? 0 : -1"
             draggable="false"
-          />
-          <span *ngIf="!brand.imageUrl" class="brand-text">{{ brandLabel(brand) }}</span>
-        </a>
+          >
+            <img
+              *ngIf="brand.imageUrl"
+              class="brand-logo"
+              [src]="brand.imageUrl"
+              [alt]="brandLabel(brand)"
+              loading="lazy"
+              draggable="false"
+            />
+            <span *ngIf="!brand.imageUrl" class="brand-text">{{ brandLabel(brand) }}</span>
+          </a>
+        </div>
       </div>
     </div>
+  </div>
+
+  <div class="wave wave-bottom" aria-hidden="true">
+    <svg viewBox="0 0 1440 56" preserveAspectRatio="none">
+      <path
+        d="M0,28 C120,48 240,8 360,28 C480,48 600,8 720,28 C840,48 960,8 1080,28 C1200,48 1320,8 1440,28 L1440,0 L0,0 Z"
+        fill="currentColor"
+      />
+    </svg>
   </div>
 </section>

@@ -1,16 +1,11 @@
 .about-preview {
-  background: linear-gradient(
-    180deg,
-    var(--white) 0%,
-    var(--cream) 100%
-  );
   position: relative;
 }
 
 .about-grid {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: clamp(28px, 5vw, 56px);
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: clamp(32px, 5vw, 64px);
   align-items: center;
 }
 
@@ -31,17 +26,24 @@
   line-height: 1.45;
   margin-bottom: 18px;
   position: relative;
-  padding-bottom: 16px;
+  padding-bottom: 14px;
 
   &::after {
     content: '';
     position: absolute;
     bottom: 0;
     inset-inline-start: 0;
-    width: 56px;
-    height: 4px;
+    width: 48px;
+    height: 3px;
     border-radius: 4px;
-    background: linear-gradient(90deg, var(--gold-500), var(--gold-600));
+    background: var(--gold-500);
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.7s var(--ease-spring) 0.15s;
+  }
+
+  &.revealed::after {
+    transform: scaleX(1);
   }
 }
 
@@ -50,20 +52,20 @@
     color: var(--muted);
     font-size: 1rem;
     line-height: 1.95;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
   }
 
   .highlight {
-    position: relative;
-    color: var(--gold-600);
-    font-weight: 800;
-    font-size: 1.05rem;
+    color: var(--navy-800);
+    font-weight: 700;
+    font-size: 1rem;
     line-height: 1.85;
-    margin-bottom: 28px;
-    padding: 14px 18px;
-    border-radius: 14px;
-    background: rgba(201, 164, 92, 0.1);
-    border: 1px solid rgba(201, 164, 92, 0.22);
+    margin-bottom: 26px;
+    padding: 0;
+    padding-inline-start: 14px;
+    border: none;
+    border-inline-start: 3px solid var(--gold-500);
+    background: transparent;
   }
 
   .cta-arrow {
@@ -71,65 +73,38 @@
     transition: transform 0.35s var(--ease-spring);
   }
 
-  .btn:hover .cta-arrow {
+  .about-cta:hover .cta-arrow {
     transform: translateX(-6px);
   }
 }
 
-.about-media {
-  position: relative;
-}
-
 .media-frame {
-  position: relative;
-  border-radius: var(--radius-lg);
+  border-radius: 22px;
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  isolation: isolate;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: inherit;
-    padding: 2px;
-    background: linear-gradient(145deg, rgba(201, 164, 92, 0.55), transparent 45%, rgba(16, 28, 51, 0.2));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset-inline-end: -18px;
-    bottom: -18px;
-    width: 42%;
-    height: 42%;
-    border-radius: 22px;
-    background: rgba(201, 164, 92, 0.14);
-    z-index: -1;
-  }
+  box-shadow: 0 14px 36px rgba(16, 28, 51, 0.1);
 
   img {
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
-    transition: transform 0.8s var(--ease-spring);
+    display: block;
+    transform: scale(1.04);
+    transition: transform 1s var(--ease-spring);
   }
+}
 
-  &:hover img {
-    transform: scale(1.06);
-  }
+.about-media.revealed .media-frame img {
+  transform: scale(1);
+}
+
+.about-media.revealed .media-frame:hover img {
+  transform: scale(1.04);
 }
 
 @media (max-width: 900px) {
   .about-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 28px;
   }
 
   .about-media {
@@ -145,15 +120,31 @@
 
     .block-title::after {
       inset-inline-start: 50%;
-      transform: translateX(50%);
+      transform: translateX(50%) scaleX(0);
+      transform-origin: center;
     }
 
-    .btn {
+    .block-title.revealed::after {
+      transform: translateX(50%) scaleX(1);
+    }
+
+    .highlight {
+      border-inline-start: none;
+      border-top: 3px solid var(--gold-500);
+      padding-inline-start: 0;
+      padding-top: 12px;
+    }
+
+    .about-cta {
       justify-content: center;
     }
   }
+}
 
-  .media-frame::after {
-    display: none;
+@media (prefers-reduced-motion: reduce) {
+  .about-media.revealed .media-frame img,
+  .block-title::after,
+  .block-title.revealed::after {
+    transform: none;
   }
 }

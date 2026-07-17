@@ -1,18 +1,31 @@
 <section class="section about-preview overflow-hidden">
   <div class="container">
     <div class="about-grid">
-      <div class="about-copy" appReveal="right">
-        <span class="section-tag is-start">{{ 'home.about.tag' | translate }}</span>
-        <h2 class="block-title">{{ 'home.about.title' | translate }}</h2>
-        <p class="body">{{ 'home.about.body' | translate }}</p>
-        <p class="highlight">{{ 'home.about.highlight' | translate }}</p>
-        <a routerLink="/about" class="btn btn-gold">
+      <div class="about-copy">
+        <span class="section-tag is-start" appReveal [revealDelay]="60">
+          {{ 'home.about.tag' | translate }}
+        </span>
+        <h2 class="block-title" appReveal="up" [revealDelay]="120">
+          {{ 'home.about.title' | translate }}
+        </h2>
+        <p class="body" appReveal="up" [revealDelay]="200">
+          {{ 'home.about.body' | translate }}
+        </p>
+        <p class="highlight" appReveal="up" [revealDelay]="280">
+          {{ 'home.about.highlight' | translate }}
+        </p>
+        <a
+          routerLink="/about"
+          class="btn btn-gold about-cta"
+          appReveal="up"
+          [revealDelay]="360"
+        >
           {{ 'home.about.cta' | translate }}
           <span class="cta-arrow">←</span>
         </a>
       </div>
 
-      <div class="about-media" appReveal="left" [revealDelay]="150">
+      <div class="about-media" appReveal="left" [revealDelay]="140">
         <div class="media-frame">
           <img [src]="image" [alt]="'home.about.alt' | translate" loading="lazy" />
         </div>
