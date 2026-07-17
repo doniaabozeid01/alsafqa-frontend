@@ -13,45 +13,45 @@ interface PageSeo {
 }
 
 const DEFAULT: PageSeo = {
-  titleAr: 'شركة الصفقة | استيراد وتصدير وشحن دولي',
-  titleEn: 'AL-SAFQA | Import, Export & International Shipping',
+  titleAr: 'الاتحاد التجارية | استيراد وتصدير وشحن دولي',
+  titleEn: 'Al-Ittihad Trading | Import, Export & International Shipping',
   descAr:
-    'شركة الصفقة للاستيراد والتصدير والشحن والتخليص الجمركي — شريكك الموثوق في التجارة الدولية.',
+    'الاتحاد التجارية للاستيراد والتصدير والشحن والتخليص الجمركي — Quality Beyond Borders. Excellence Without Limits.',
   descEn:
-    'AL-SAFQA for import, export, shipping and customs clearance — your trusted partner in international trade.',
+    'Al-Ittihad Trading for import, export, shipping and customs clearance — Quality Beyond Borders. Excellence Without Limits.',
 };
 
 const PAGES: Record<string, PageSeo> = {
   '/': DEFAULT,
   '/about': {
-    titleAr: 'من نحن | شركة الصفقة',
-    titleEn: 'About Us | AL-SAFQA',
-    descAr: 'تعرّف على شركة الصفقة ورؤيتنا في الاستيراد والتصدير والشحن الدولي.',
-    descEn: 'Learn about AL-SAFQA and our vision in import, export and international shipping.',
+    titleAr: 'من نحن | الاتحاد التجارية',
+    titleEn: 'About Us | Al-Ittihad Trading',
+    descAr: 'تعرّف على الاتحاد التجارية ورؤيتنا في الاستيراد والتصدير والشحن الدولي.',
+    descEn: 'Learn about Al-Ittihad Trading and our vision in import, export and international shipping.',
   },
   '/products': {
-    titleAr: 'المنتجات | شركة الصفقة',
-    titleEn: 'Products | AL-SAFQA',
+    titleAr: 'المنتجات | الاتحاد التجارية',
+    titleEn: 'Products | Al-Ittihad Trading',
     descAr: 'استعرض منتجاتنا من أفضل العلامات العالمية مع خيارات التوريد حسب الطلب.',
     descEn: 'Browse our products from leading global brands with on-demand supply options.',
   },
   '/gallery': {
-    titleAr: 'المعرض | شركة الصفقة',
-    titleEn: 'Gallery | AL-SAFQA',
+    titleAr: 'المعرض | الاتحاد التجارية',
+    titleEn: 'Gallery | Al-Ittihad Trading',
     descAr: 'لمحة مصوّرة عن عملياتنا اللوجستية وخدمات الشحن والتخزين.',
     descEn: 'A visual look at our logistics operations, shipping and warehousing.',
   },
   '/contact': {
-    titleAr: 'تواصل معنا | شركة الصفقة',
-    titleEn: 'Contact Us | AL-SAFQA',
-    descAr: 'تواصل مع شركة الصفقة للحصول على حلول استيراد وتصدير وشحن مخصصة.',
-    descEn: 'Contact AL-SAFQA for tailored import, export and shipping solutions.',
+    titleAr: 'تواصل معنا | الاتحاد التجارية',
+    titleEn: 'Contact Us | Al-Ittihad Trading',
+    descAr: 'تواصل مع الاتحاد التجارية للحصول على حلول استيراد وتصدير وشحن مخصصة.',
+    descEn: 'Contact Al-Ittihad Trading for tailored import, export and shipping solutions.',
   },
   '/login': {
-    titleAr: 'تسجيل الدخول | شركة الصفقة',
-    titleEn: 'Sign In | AL-SAFQA',
-    descAr: 'سجّل دخولك إلى لوحة تحكم شركة الصفقة.',
-    descEn: 'Sign in to the AL-SAFQA dashboard.',
+    titleAr: 'تسجيل الدخول | الاتحاد التجارية',
+    titleEn: 'Sign In | Al-Ittihad Trading',
+    descAr: 'سجّل دخولك إلى لوحة تحكم الاتحاد التجارية.',
+    descEn: 'Sign in to the Al-Ittihad Trading dashboard.',
   },
 };
 
@@ -76,8 +76,8 @@ export class SeoService {
   private updateForUrl(url: string): void {
     const path = (url.split('?')[0] || '/').replace(/\/$/, '') || '/';
     const page = PAGES[path] || (path.startsWith('/dashboard') ? {
-      titleAr: 'لوحة التحكم | شركة الصفقة',
-      titleEn: 'Dashboard | AL-SAFQA',
+      titleAr: 'لوحة التحكم | الاتحاد التجارية',
+      titleEn: 'Dashboard | Al-Ittihad Trading',
       descAr: DEFAULT.descAr,
       descEn: DEFAULT.descEn,
     } : DEFAULT);
@@ -91,8 +91,8 @@ export class SeoService {
     this.title.setTitle(title);
     this.meta.updateTag({ name: 'description', content: description });
     this.meta.updateTag({ name: 'keywords', content: isEn
-      ? 'AL-SAFQA, import, export, shipping, customs, logistics, Cairo'
-      : 'شركة الصفقة, استيراد, تصدير, شحن, تخليص جمركي, لوجستيات, القاهرة' });
+      ? 'Al-Ittihad Trading, import, export, shipping, customs, logistics, Cairo'
+      : 'الاتحاد التجارية, استيراد, تصدير, شحن, تخليص جمركي, لوجستيات, القاهرة' });
 
     this.meta.updateTag({ property: 'og:title', content: title });
     this.meta.updateTag({ property: 'og:description', content: description });
@@ -112,11 +112,11 @@ export class SeoService {
     const site = this.origin() + '/';
 
     this.meta.updateTag({ property: 'og:type', content: 'website' });
-    this.meta.updateTag({ property: 'og:site_name', content: 'AL-SAFQA' });
+    this.meta.updateTag({ property: 'og:site_name', content: 'الاتحاد التجارية' });
     this.meta.updateTag({ property: 'og:image', content: image });
     this.meta.updateTag({ property: 'og:image:width', content: '1200' });
     this.meta.updateTag({ property: 'og:image:height', content: '630' });
-    this.meta.updateTag({ property: 'og:image:alt', content: 'AL-SAFQA logo' });
+    this.meta.updateTag({ property: 'og:image:alt', content: 'الاتحاد التجارية — Al-Ittihad Trading' });
     this.meta.updateTag({ property: 'og:url', content: site });
 
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
@@ -133,8 +133,7 @@ export class SeoService {
   }
 
   private setCanonical(url: string): void {
-    if (typeof document === 'undefined') return;
-    let link = document.querySelector("link[rel='canonical']") as HTMLLinkElement | null;
+    let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (!link) {
       link = document.createElement('link');
       link.setAttribute('rel', 'canonical');

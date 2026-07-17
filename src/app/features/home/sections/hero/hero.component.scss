@@ -543,28 +543,24 @@
 
 /* Sit nodes on the gold path ring (~14% inset) */
 .node-sea {
-  top: 14%;
+  top: 12%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
 .node-customs {
-  top: 50%;
-  right: 14%;
+  bottom: 18%;
+  right: 12%;
   left: auto;
-  transform: translate(50%, -50%);
-}
-
-.node-air {
-  bottom: 14%;
-  left: 50%;
-  transform: translate(-50%, 50%);
+  top: auto;
+  transform: translate(50%, 50%);
 }
 
 .node-land {
-  top: 50%;
-  left: 14%;
-  transform: translate(-50%, -50%);
+  bottom: 18%;
+  left: 12%;
+  top: auto;
+  transform: translate(-50%, 50%);
 }
 
 .node-disc {
