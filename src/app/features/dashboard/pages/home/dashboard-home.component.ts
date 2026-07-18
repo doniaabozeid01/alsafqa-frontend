@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { catchError, forkJoin, of } from 'rxjs';
 import { ContactMessageDto } from '../../../../core/models/api.models';
 import { ContactMessagesService } from '../../../../core/services/contact-messages.service';
-import { DashboardDataService } from '../../../../core/services/dashboard-data.service';
+import { GalleriesService } from '../../../../core/services/galleries.service';
+import { ProductsService } from '../../../../core/services/products.service';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -13,35 +15,30 @@ export class DashboardHomeComponent implements OnInit {
   cards: Array<{ label: string; value: number; tone: string }> = [];
 
   constructor(
-    private data: DashboardDataService,
-    private contactMessages: ContactMessagesService
+    private contactMessages: ContactMessagesService,
+    private productsService: ProductsService,
+    private galleriesService: GalleriesService
   ) {}
 
   ngOnInit(): void {
-    const localStats = this.data.getStats();
-    this.cards = [
-      { label: 'إجمالي الرسائل', value: 0, tone: 'blue' },
-      { label: 'رسائل غير مقروءة', value: 0, tone: 'red' },
-      { label: 'إجمالي المنتجات', value: localStats.totalProducts, tone: 'green' },
-      { label: 'منتجات نشطة', value: localStats.activeProducts, tone: 'gold' },
-      { label: 'صور المعرض', value: localStats.galleryImages, tone: 'purple' },
-    ];
-
-    this.contactMessages.getAll().subscribe({
-      next: (list) => {
-        this.latestMessages = list.slice(0, 5);
-        const unread = list.filter((m) => !m.isRead).length;
+    forkJoin({
+      messages: this.contactMessages.getAll().pipe(catchError(() => of([]))),
+      products: this.productsService.getAllAdmin().pipe(catchError(() => of([]))),
+      gallery: this.galleriesService.getAllAdmin().pipe(catchError(() => of([]))),
+    }).subscribe(({ messages, products, gallery }) => {
+        this.latestMessages = messages.slice(0, 5);
+        const unread = messages.filter((message) => !message.isRead).length;
         this.cards = [
-          { label: 'إجمالي الرسائل', value: list.length, tone: 'blue' },
+          { label: 'إجمالي الرسائل', value: messages.length, tone: 'blue' },
           { label: 'رسائل غير مقروءة', value: unread, tone: 'red' },
-          { label: 'إجمالي المنتجات', value: localStats.totalProducts, tone: 'green' },
-          { label: 'منتجات نشطة', value: localStats.activeProducts, tone: 'gold' },
-          { label: 'صور المعرض', value: localStats.galleryImages, tone: 'purple' },
+          { label: 'إجمالي المنتجات', value: products.length, tone: 'green' },
+          {
+            label: 'منتجات نشطة',
+            value: products.filter((product) => product.isActive).length,
+            tone: 'gold',
+          },
+          { label: 'صور المعرض', value: gallery.length, tone: 'purple' },
         ];
-      },
-      error: () => {
-        this.latestMessages = [];
-      },
     });
   }
 
