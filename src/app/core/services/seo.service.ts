@@ -86,7 +86,7 @@ export class SeoService {
     const title = isEn ? page.titleEn : page.titleAr;
     const description = isEn ? page.descEn : page.descAr;
     const pageUrl = this.origin() + (path === '/' ? '/' : path);
-    const image = this.origin() + '/assets/brand/og-image.png';
+    const image = this.origin() + '/assets/brand/logo-social.png';
 
     this.title.setTitle(title);
     this.meta.updateTag({ name: 'description', content: description });
@@ -104,6 +104,8 @@ export class SeoService {
     this.meta.updateTag({ property: 'og:description', content: description });
     this.meta.updateTag({ property: 'og:url', content: pageUrl });
     this.meta.updateTag({ property: 'og:image', content: image });
+    this.meta.updateTag({ property: 'og:image:url', content: image });
+    this.meta.updateTag({ property: 'og:image:secure_url', content: image });
     this.meta.updateTag({ property: 'og:locale', content: isEn ? 'en_US' : 'ar_AR' });
 
     this.meta.updateTag({ name: 'twitter:title', content: title });
@@ -114,14 +116,16 @@ export class SeoService {
   }
 
   private applyShareDefaults(): void {
-    const image = this.origin() + '/assets/brand/og-image.png';
+    const image = this.origin() + '/assets/brand/logo-social.png';
     const site = this.origin() + '/';
 
     this.meta.updateTag({ property: 'og:type', content: 'website' });
     this.meta.updateTag({ property: 'og:site_name', content: 'شركة الاتحاد التجارية للاستيراد والتصدير' });
     this.meta.updateTag({ property: 'og:image', content: image });
+    this.meta.updateTag({ property: 'og:image:url', content: image });
+    this.meta.updateTag({ property: 'og:image:secure_url', content: image });
     this.meta.updateTag({ property: 'og:image:width', content: '1200' });
-    this.meta.updateTag({ property: 'og:image:height', content: '630' });
+    this.meta.updateTag({ property: 'og:image:height', content: '1200' });
     this.meta.updateTag({ property: 'og:image:alt', content: 'شركة الاتحاد التجارية للاستيراد والتصدير — Al-Ittihad Trading Company' });
     this.meta.updateTag({ property: 'og:url', content: site });
 

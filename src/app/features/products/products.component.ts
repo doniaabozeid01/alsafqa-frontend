@@ -24,6 +24,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   brandQuery = '';
   pickerOpen = false;
   loading = true;
+  currentPage = 1;
+  readonly pageSize = 9;
   readonly placeholderImage = NO_IMAGE_URL;
   private langSub: Subscription;
 
@@ -47,7 +49,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const brandId = this.route.snapshot.queryParamMap.get('brandId');
+    const page = Number(this.route.snapshot.queryParamMap.get('page'));
     this.selectedBrandId = brandId;
+    this.currentPage = Number.isInteger(page) && page > 0 ? page : 1;
 
     this.brandsService.getAll().subscribe({
       next: (brands) => {
@@ -83,6 +87,23 @@ export class ProductsComponent implements OnInit, OnDestroy {
     );
   }
 
+  get paginatedProducts(): ProductDto[] {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.products.slice(start, start + this.pageSize);
+  }
+
+  get totalPages(): number {
+    return Math.max(1, Math.ceil(this.products.length / this.pageSize));
+  }
+
+  get visiblePages(): number[] {
+    const maxVisible = 5;
+    let start = Math.max(1, this.currentPage - Math.floor(maxVisible / 2));
+    const end = Math.min(this.totalPages, start + maxVisible - 1);
+    start = Math.max(1, end - maxVisible + 1);
+    return Array.from({ length: end - start + 1 }, (_, index) => start + index);
+  }
+
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     const host = this.brandPicker?.nativeElement;
@@ -103,6 +124,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   selectBrand(brandId: string | null): void {
     this.selectedBrandId = brandId;
+    this.currentPage = 1;
     this.brandQuery = '';
     this.pickerOpen = false;
 
@@ -115,6 +137,28 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
     this.location.replaceState(url);
     this.loadProducts(brandId);
+  }
+
+  setPage(page: number): void {
+    if (page < 1 || page > this.totalPages || page === this.currentPage) return;
+
+    this.currentPage = page;
+    const url = this.router
+      .createUrlTree([], {
+        relativeTo: this.route,
+        queryParams: {
+          ...(this.selectedBrandId ? { brandId: this.selectedBrandId } : {}),
+          ...(page > 1 ? { page } : {}),
+        },
+      })
+      .toString();
+    this.location.replaceState(url);
+
+    const grid = document.querySelector('.products-grid');
+    if (grid) {
+      const top = grid.getBoundingClientRect().top + window.scrollY - 120;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
   }
 
   productTitle(product: ProductDto): string {
@@ -138,6 +182,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.productsService.getAll(brandId).subscribe({
       next: (products) => {
         this.products = products;
+        this.currentPage = Math.min(this.currentPage, this.totalPages);
         this.loading = false;
       },
       error: () => {

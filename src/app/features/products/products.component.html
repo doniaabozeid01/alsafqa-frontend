@@ -75,7 +75,7 @@
       >
         <article
           class="product-card"
-          *ngFor="let product of products; let i = index"
+          *ngFor="let product of paginatedProducts; let i = index"
           appReveal="up"
           [revealDelay]="i * 80"
         >
@@ -112,6 +112,45 @@
           </div>
         </article>
       </div>
+
+      <nav
+        class="pagination"
+        *ngIf="products.length > pageSize"
+        aria-label="Products pagination"
+      >
+        <button
+          type="button"
+          class="pagination-arrow"
+          [disabled]="currentPage === 1"
+          (click)="setPage(currentPage - 1)"
+        >
+          <span aria-hidden="true">‹</span>
+          {{ 'common.prev' | translate }}
+        </button>
+
+        <div class="pagination-pages">
+          <button
+            type="button"
+            *ngFor="let page of visiblePages"
+            [class.active]="page === currentPage"
+            [attr.aria-current]="page === currentPage ? 'page' : null"
+            [attr.aria-label]="'Page ' + page"
+            (click)="setPage(page)"
+          >
+            {{ page }}
+          </button>
+        </div>
+
+        <button
+          type="button"
+          class="pagination-arrow"
+          [disabled]="currentPage === totalPages"
+          (click)="setPage(currentPage + 1)"
+        >
+          {{ 'common.next' | translate }}
+          <span aria-hidden="true">›</span>
+        </button>
+      </nav>
 
       <ng-template #emptyState>
         <div class="empty-state" appReveal>

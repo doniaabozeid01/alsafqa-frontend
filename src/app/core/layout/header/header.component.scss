@@ -101,6 +101,11 @@
   height: 52px;
   object-fit: contain;
   flex-shrink: 0;
+  order: -1;
+  padding: 3px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(201, 164, 92, 0.22);
 }
 
 .logo-mark {
@@ -187,6 +192,18 @@
     &.active {
       font-weight: 700;
     }
+  }
+}
+
+@media (min-width: 1081px) {
+  .navbar-inner {
+    position: relative;
+  }
+
+  .nav-links {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
