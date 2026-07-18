@@ -13,43 +13,43 @@ interface PageSeo {
 }
 
 const DEFAULT: PageSeo = {
-  titleAr: 'الاتحاد التجارية | استيراد وتصدير وشحن دولي',
-  titleEn: 'Al-Ittihad Trading | Import, Export & International Shipping',
+  titleAr: 'شركة الاتحاد التجارية للاستيراد والتصدير | شحن وتجارة دولية',
+  titleEn: 'Al-Ittihad Trading Company | Import, Export & International Shipping',
   descAr:
-    'الاتحاد التجارية للاستيراد والتصدير والشحن والتخليص الجمركي — Quality Beyond Borders. Excellence Without Limits.',
+    'شركة الاتحاد التجارية للاستيراد والتصدير والشحن والتخليص الجمركي، نوفر منتجات موثوقة وحلول تجارة دولية باحترافية وجودة.',
   descEn:
-    'Al-Ittihad Trading for import, export, shipping and customs clearance — Quality Beyond Borders. Excellence Without Limits.',
+    'Al-Ittihad Trading Company provides professional import, export, international shipping and customs clearance solutions.',
 };
 
 const PAGES: Record<string, PageSeo> = {
   '/': DEFAULT,
   '/about': {
-    titleAr: 'من نحن | الاتحاد التجارية',
-    titleEn: 'About Us | Al-Ittihad Trading',
-    descAr: 'تعرّف على الاتحاد التجارية ورؤيتنا في الاستيراد والتصدير والشحن الدولي.',
-    descEn: 'Learn about Al-Ittihad Trading and our vision in import, export and international shipping.',
+    titleAr: 'من نحن | شركة الاتحاد التجارية للاستيراد والتصدير',
+    titleEn: 'About Us | Al-Ittihad Trading Company',
+    descAr: 'تعرّف على شركة الاتحاد التجارية ورؤيتنا وخبرتنا في الاستيراد والتصدير والشحن الدولي.',
+    descEn: 'Learn about Al-Ittihad Trading Company and our experience in import, export and international shipping.',
   },
   '/products': {
-    titleAr: 'المنتجات | الاتحاد التجارية',
-    titleEn: 'Products | Al-Ittihad Trading',
-    descAr: 'استعرض منتجاتنا من أفضل العلامات العالمية مع خيارات التوريد حسب الطلب.',
-    descEn: 'Browse our products from leading global brands with on-demand supply options.',
+    titleAr: 'منتجاتنا | شركة الاتحاد التجارية للاستيراد والتصدير',
+    titleEn: 'Products | Al-Ittihad Trading Company',
+    descAr: 'استعرض منتجات شركة الاتحاد التجارية من العلامات الموثوقة مع خيارات التوريد والاستيراد والتصدير حسب الطلب.',
+    descEn: 'Browse Al-Ittihad Trading Company products from trusted brands with flexible supply and export options.',
   },
   '/gallery': {
-    titleAr: 'المعرض | الاتحاد التجارية',
-    titleEn: 'Gallery | Al-Ittihad Trading',
+    titleAr: 'المعرض | شركة الاتحاد التجارية للاستيراد والتصدير',
+    titleEn: 'Gallery | Al-Ittihad Trading Company',
     descAr: 'لمحة مصوّرة عن عملياتنا اللوجستية وخدمات الشحن والتخزين.',
     descEn: 'A visual look at our logistics operations, shipping and warehousing.',
   },
   '/contact': {
-    titleAr: 'تواصل معنا | الاتحاد التجارية',
-    titleEn: 'Contact Us | Al-Ittihad Trading',
-    descAr: 'تواصل مع الاتحاد التجارية للحصول على حلول استيراد وتصدير وشحن مخصصة.',
-    descEn: 'Contact Al-Ittihad Trading for tailored import, export and shipping solutions.',
+    titleAr: 'تواصل معنا | شركة الاتحاد التجارية للاستيراد والتصدير',
+    titleEn: 'Contact Us | Al-Ittihad Trading Company',
+    descAr: 'تواصل مع شركة الاتحاد التجارية للحصول على حلول استيراد وتصدير وشحن مخصصة.',
+    descEn: 'Contact Al-Ittihad Trading Company for tailored import, export and shipping solutions.',
   },
   '/login': {
-    titleAr: 'تسجيل الدخول | الاتحاد التجارية',
-    titleEn: 'Sign In | Al-Ittihad Trading',
+    titleAr: 'تسجيل الدخول | شركة الاتحاد التجارية',
+    titleEn: 'Sign In | Al-Ittihad Trading Company',
     descAr: 'سجّل دخولك إلى لوحة تحكم الاتحاد التجارية.',
     descEn: 'Sign in to the Al-Ittihad Trading dashboard.',
   },
@@ -76,8 +76,8 @@ export class SeoService {
   private updateForUrl(url: string): void {
     const path = (url.split('?')[0] || '/').replace(/\/$/, '') || '/';
     const page = PAGES[path] || (path.startsWith('/dashboard') ? {
-      titleAr: 'لوحة التحكم | الاتحاد التجارية',
-      titleEn: 'Dashboard | Al-Ittihad Trading',
+      titleAr: 'لوحة التحكم | شركة الاتحاد التجارية',
+      titleEn: 'Dashboard | Al-Ittihad Trading Company',
       descAr: DEFAULT.descAr,
       descEn: DEFAULT.descEn,
     } : DEFAULT);
@@ -91,8 +91,14 @@ export class SeoService {
     this.title.setTitle(title);
     this.meta.updateTag({ name: 'description', content: description });
     this.meta.updateTag({ name: 'keywords', content: isEn
-      ? 'Al-Ittihad Trading, import, export, shipping, customs, logistics, Cairo'
-      : 'الاتحاد التجارية, استيراد, تصدير, شحن, تخليص جمركي, لوجستيات, القاهرة' });
+      ? 'Al-Ittihad Trading Company, import, export, international shipping, customs clearance, logistics, Egypt'
+      : 'شركة الاتحاد التجارية, الاتحاد التجارية للاستيراد والتصدير, استيراد, تصدير, شحن دولي, تخليص جمركي, لوجستيات, مصر' });
+    this.meta.updateTag({
+      name: 'robots',
+      content: path === '/login' || path.startsWith('/dashboard')
+        ? 'noindex, nofollow'
+        : 'index, follow, max-image-preview:large',
+    });
 
     this.meta.updateTag({ property: 'og:title', content: title });
     this.meta.updateTag({ property: 'og:description', content: description });
@@ -112,11 +118,11 @@ export class SeoService {
     const site = this.origin() + '/';
 
     this.meta.updateTag({ property: 'og:type', content: 'website' });
-    this.meta.updateTag({ property: 'og:site_name', content: 'الاتحاد التجارية' });
+    this.meta.updateTag({ property: 'og:site_name', content: 'شركة الاتحاد التجارية للاستيراد والتصدير' });
     this.meta.updateTag({ property: 'og:image', content: image });
     this.meta.updateTag({ property: 'og:image:width', content: '1200' });
     this.meta.updateTag({ property: 'og:image:height', content: '630' });
-    this.meta.updateTag({ property: 'og:image:alt', content: 'الاتحاد التجارية — Al-Ittihad Trading' });
+    this.meta.updateTag({ property: 'og:image:alt', content: 'شركة الاتحاد التجارية للاستيراد والتصدير — Al-Ittihad Trading Company' });
     this.meta.updateTag({ property: 'og:url', content: site });
 
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });

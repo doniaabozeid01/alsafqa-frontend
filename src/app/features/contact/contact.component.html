@@ -16,7 +16,9 @@
           </span>
           <div>
             <strong>{{ 'contact.phone' | translate }}</strong>
-            <a href="tel:+201234567890" dir="ltr">{{ contact.phone }}</a>
+            <span class="phone-links">
+              <a *ngFor="let phone of contact.phones" [href]="'tel:' + phone" dir="ltr">{{ phone }}</a>
+            </span>
           </div>
         </li>
         <li>

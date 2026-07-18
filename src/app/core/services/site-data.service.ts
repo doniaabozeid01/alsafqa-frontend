@@ -59,8 +59,9 @@ export class SiteDataService {
 
   getContactInfo(): ContactInfo {
     return {
-      phone: '+20 123 456 7890',
-      email: 'info@alsafqa.com',
+      phone: '01050302172',
+      phones: ['01050302172', '01210077500'],
+      email: 'info@al-ittihad.com',
       address: this.t('contact.address'),
     };
   }
@@ -397,7 +398,7 @@ export class SiteDataService {
           label: this.L('سوق عالمي', 'Global markets'),
         },
       ],
-      phones: ['+20 123 456 7890', '+20 100 000 0000', '+20 111 000 0000'],
+      phones: ['01050302172', '01210077500'],
     };
   }
 

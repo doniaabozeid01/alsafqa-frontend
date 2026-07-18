@@ -42,7 +42,9 @@
                 stroke="#c9a45c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </span>
-          <a href="tel:+201234567890" dir="ltr">{{ contact.phone }}</a>
+          <span class="phone-links">
+            <a *ngFor="let phone of contact.phones" [href]="'tel:' + phone" dir="ltr">{{ phone }}</a>
+          </span>
         </li>
         <li>
           <span class="contact-icon" aria-hidden="true">

@@ -133,6 +133,13 @@
   gap: 12px;
 }
 
+.phone-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
 .contact-icon {
   width: 20px;
   height: 20px;
