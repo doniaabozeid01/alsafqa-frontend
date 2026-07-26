@@ -61,7 +61,7 @@ export class SiteDataService {
     return {
       phone: '01050302172',
       phones: ['01050302172', '01210077500'],
-      email: 'info@al-ittihad.com',
+      email: 'info@al-safqa.com',
       address: this.t('contact.address'),
     };
   }

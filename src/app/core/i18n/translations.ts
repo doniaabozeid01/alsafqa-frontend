@@ -18,7 +18,7 @@ export const TRANSLATIONS = {
     'brand.tagline': 'Quality Beyond Borders. Excellence Without Limits.',
     'brand.about':
       'الاتحاد التجارية للاستيراد والتصدير والشحن والتخليص الجمركي — شريكك الموثوق في عالم التجارة الدولية.',
-    'contact.address': 'القاهرة، مصر',
+    'contact.address': 'الجيزة - مصر',
 
     // Footer
     'footer.services': 'خدماتنا',
@@ -187,7 +187,7 @@ export const TRANSLATIONS = {
     'brand.tagline': 'Quality Beyond Borders. Excellence Without Limits.',
     'brand.about':
       'Al-Ittihad Trading for import, export, shipping and customs clearance — your trusted partner in international trade.',
-    'contact.address': 'Cairo, Egypt',
+    'contact.address': 'Giza - Egypt',
 
     'footer.services': 'Our Services',
     'footer.links': 'Quick Links',
