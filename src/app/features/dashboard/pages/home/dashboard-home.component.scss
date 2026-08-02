@@ -131,7 +131,7 @@
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr) auto;
   gap: 12px;
-  align-items: center;
+  align-items: start;
   padding: 12px 8px;
   border-radius: 12px;
   transition: background 0.25s ease;
@@ -171,10 +171,51 @@
   }
 }
 
+.msg-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.btn-reply {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-whatsapp {
+  background: rgba(37, 211, 102, 0.12);
+  color: #128c7e;
+
+  &:hover {
+    background: rgba(37, 211, 102, 0.2);
+  }
+}
+
+.btn-email {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563eb;
+
+  &:hover {
+    background: rgba(59, 130, 246, 0.18);
+  }
+}
+
 .msg-date {
   font-size: 0.74rem;
   color: var(--muted);
   white-space: nowrap;
+  padding-top: 4px;
 }
 
 @media (max-width: 1100px) {

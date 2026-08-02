@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError, forkJoin, of } from 'rxjs';
+import {
+  buildWhatsAppReplyUrl,
+  openEmailReply,
+} from '../../../../core/constants/contact-reply';
 import { ContactMessageDto } from '../../../../core/models/api.models';
 import { ContactMessagesService } from '../../../../core/services/contact-messages.service';
 import { GalleriesService } from '../../../../core/services/galleries.service';
@@ -19,6 +23,18 @@ export class DashboardHomeComponent implements OnInit {
     private productsService: ProductsService,
     private galleriesService: GalleriesService
   ) {}
+
+  whatsappUrl(msg: ContactMessageDto): string {
+    return buildWhatsAppReplyUrl(msg.phone);
+  }
+
+  hasEmail(msg: ContactMessageDto): boolean {
+    return !!(msg.email || '').trim();
+  }
+
+  openEmail(msg: ContactMessageDto, event: Event): void {
+    openEmailReply(msg.email, event);
+  }
 
   ngOnInit(): void {
     forkJoin({

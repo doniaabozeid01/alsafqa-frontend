@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  buildWhatsAppReplyUrl,
+  openEmailReply,
+} from '../../../../core/constants/contact-reply';
 import { ContactMessageDto } from '../../../../core/models/api.models';
 import { ContactMessagesService } from '../../../../core/services/contact-messages.service';
 
@@ -17,6 +21,18 @@ export class DashboardMessagesComponent implements OnInit {
   pendingDelete: ContactMessageDto | null = null;
 
   constructor(private contactMessages: ContactMessagesService) {}
+
+  whatsappUrl(msg: ContactMessageDto): string {
+    return buildWhatsAppReplyUrl(msg.phone);
+  }
+
+  hasEmail(msg: ContactMessageDto): boolean {
+    return !!(msg.email || '').trim();
+  }
+
+  openEmail(msg: ContactMessageDto, event: Event): void {
+    openEmailReply(msg.email, event);
+  }
 
   ngOnInit(): void {
     this.refresh();

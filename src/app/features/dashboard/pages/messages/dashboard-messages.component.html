@@ -22,19 +22,41 @@
     (click)="open(msg)"
   >
     <div class="msg-avatar">{{ msg.fullName.charAt(0) }}</div>
+
     <div class="msg-main">
       <div class="msg-top">
-        <strong>{{ msg.fullName }}</strong>
-        <span>{{ formatDate(msg.createdAt) }}</span>
+        <div class="msg-identity">
+          <strong>{{ msg.fullName }}</strong>
+          <div class="msg-meta">
+            <span *ngIf="msg.email" dir="ltr">{{ msg.email }}</span>
+            <span *ngIf="msg.phone" class="msg-meta-sep" aria-hidden="true">·</span>
+            <span *ngIf="msg.phone" dir="ltr">{{ msg.phone }}</span>
+          </div>
+        </div>
+        <time class="msg-date">{{ formatDate(msg.createdAt) }}</time>
       </div>
-      <div class="msg-meta">
-        <span dir="ltr">{{ msg.email }}</span>
-        <span dir="ltr">{{ msg.phone }}</span>
+
+      <p class="msg-text">{{ msg.message }}</p>
+
+      <div class="msg-footer" (click)="$event.stopPropagation()">
+        <div class="msg-actions">
+          <a
+            *ngIf="whatsappUrl(msg)"
+            class="btn-reply btn-whatsapp"
+            [href]="whatsappUrl(msg)"
+            target="_blank"
+            rel="noopener noreferrer"
+          >واتساب</a>
+          <button
+            *ngIf="hasEmail(msg)"
+            type="button"
+            class="btn-reply btn-email"
+            (click)="openEmail(msg, $event)"
+          >إيميل</button>
+        </div>
+        <button type="button" class="btn-delete" (click)="askDelete(msg, $event)">حذف</button>
       </div>
-      <p *ngIf="msg.subject"><strong>{{ msg.subject }}</strong></p>
-      <p>{{ msg.message }}</p>
     </div>
-    <button type="button" class="btn-delete" (click)="askDelete(msg, $event)">حذف</button>
   </article>
 </div>
 

@@ -60,13 +60,13 @@
 
 .msg-card {
   display: grid;
-  grid-template-columns: 48px minmax(0, 1fr) auto;
+  grid-template-columns: 48px minmax(0, 1fr);
   gap: 14px;
   align-items: start;
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 14px;
-  padding: 14px 16px;
+  padding: 16px 18px;
   margin-bottom: 10px;
   cursor: pointer;
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
@@ -84,40 +84,56 @@
 }
 
 .msg-avatar {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: rgba(201, 164, 92, 0.15);
   color: var(--gold-600);
   display: grid;
   place-items: center;
   font-weight: 800;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+
+.msg-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .msg-top {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 12px;
-  margin-bottom: 6px;
+}
+
+.msg-identity {
+  min-width: 0;
 
   strong {
+    display: block;
     color: var(--navy-800);
     font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 4px;
   }
+}
 
-  span {
-    color: var(--muted);
-    font-size: 0.78rem;
-    white-space: nowrap;
-  }
+.msg-date {
+  color: var(--muted);
+  font-size: 0.76rem;
+  white-space: nowrap;
+  padding-top: 3px;
 }
 
 .msg-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 16px;
-  margin-bottom: 8px;
+  align-items: center;
+  gap: 4px 6px;
 
   span {
     font-size: 0.8rem;
@@ -125,10 +141,67 @@
   }
 }
 
-.msg-main p {
+.msg-meta-sep {
+  opacity: 0.5;
+}
+
+.msg-text {
+  margin: 0;
   color: var(--ink);
-  font-size: 0.92rem;
-  line-height: 1.7;
+  font-size: 0.94rem;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.msg-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 4px;
+  border-top: 1px solid #f0ebe2;
+  margin-top: 2px;
+}
+
+.msg-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.btn-reply {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-whatsapp {
+  background: rgba(37, 211, 102, 0.12);
+  color: #128c7e;
+
+  &:hover {
+    background: rgba(37, 211, 102, 0.2);
+  }
+}
+
+.btn-email {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563eb;
+
+  &:hover {
+    background: rgba(59, 130, 246, 0.18);
+  }
 }
 
 .btn-delete {
@@ -141,7 +214,6 @@
   font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
-  align-self: center;
 }
 
 .modal-layer {
@@ -272,11 +344,25 @@
 @media (max-width: 700px) {
   .msg-card {
     grid-template-columns: 44px 1fr;
+    padding: 14px;
+  }
+
+  .msg-top {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .msg-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .msg-actions {
+    width: 100%;
   }
 
   .btn-delete {
-    grid-column: 1 / -1;
-    justify-self: start;
+    width: 100%;
   }
 }
 

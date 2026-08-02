@@ -26,6 +26,21 @@
       <div class="msg-body">
         <strong>{{ msg.fullName }}</strong>
         <p>{{ msg.message }}</p>
+        <div class="msg-actions">
+          <a
+            *ngIf="whatsappUrl(msg)"
+            class="btn-reply btn-whatsapp"
+            [href]="whatsappUrl(msg)"
+            target="_blank"
+            rel="noopener noreferrer"
+          >واتساب</a>
+          <button
+            *ngIf="hasEmail(msg)"
+            type="button"
+            class="btn-reply btn-email"
+            (click)="openEmail(msg, $event)"
+          >إيميل</button>
+        </div>
       </div>
       <span class="msg-date">{{ formatDate(msg.createdAt) }}</span>
     </article>
