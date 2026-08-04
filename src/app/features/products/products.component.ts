@@ -165,6 +165,16 @@ export class ProductsComponent implements OnInit, OnDestroy {
     return this.lang.localized(product.nameAr, product.nameEn);
   }
 
+  productQuantity(product: ProductDto): number | null {
+    const qty = product.quantity ?? product.weightInGrams;
+    if (qty == null || Number(qty) === 0) return null;
+    return Number(qty);
+  }
+
+  productUnitLabel(product: ProductDto): string {
+    return this.lang.localized(product.unitNameAr, product.unitNameEn);
+  }
+
   productImage(product: ProductDto): string {
     return product.imageUrl || this.placeholderImage;
   }

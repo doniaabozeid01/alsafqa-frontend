@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NO_IMAGE_URL } from '../../../../core/constants/media';
-import { BrandDto, ProductDto } from '../../../../core/models/api.models';
+import { BrandDto, ProductDto, ProductUnitDto } from '../../../../core/models/api.models';
 import { BrandsService } from '../../../../core/services/brands.service';
 import { ProductsService } from '../../../../core/services/products.service';
 import { SearchableOption } from '../../../../shared/components/searchable-select/searchable-select.component';
@@ -14,6 +14,7 @@ import { SearchableOption } from '../../../../shared/components/searchable-selec
 export class DashboardProductsComponent implements OnInit {
   products: ProductDto[] = [];
   brands: BrandDto[] = [];
+  units: ProductUnitDto[] = [];
   filterBrandId: string | null = null;
   loading = true;
   saving = false;
@@ -37,7 +38,8 @@ export class DashboardProductsComponent implements OnInit {
       nameEn: ['', Validators.required],
       descriptionAr: [''],
       descriptionEn: [''],
-      weightInGrams: [0],
+      quantity: [0, [Validators.required, Validators.min(0)]],
+      unit: [1, Validators.required],
       packageCount: [0],
       brandId: ['', Validators.required],
       isActive: [true],
@@ -51,6 +53,17 @@ export class DashboardProductsComponent implements OnInit {
       },
       error: () => {
         this.brands = [];
+      },
+    });
+    this.productsService.getUnits().subscribe({
+      next: (units) => {
+        this.units = units;
+        if (units.length && !this.form.value.unit) {
+          this.form.patchValue({ unit: units[0].value });
+        }
+      },
+      error: () => {
+        this.units = [];
       },
     });
     this.refresh();
@@ -89,6 +102,16 @@ export class DashboardProductsComponent implements OnInit {
     return product.brandNameAr || product.brandNameEn;
   }
 
+  productQuantityLabel(product: ProductDto): string {
+    const qty = product.quantity ?? product.weightInGrams;
+    if (qty == null || Number(qty) === 0) return '';
+    const unit =
+      product.unitNameAr ||
+      this.units.find((u) => u.value === product.unit)?.nameAr ||
+      '';
+    return unit ? `${qty} ${unit}` : String(qty);
+  }
+
   setBrandFilter(brandId: string | null): void {
     this.filterBrandId = brandId || null;
     this.refresh();
@@ -123,7 +146,8 @@ export class DashboardProductsComponent implements OnInit {
       nameEn: '',
       descriptionAr: '',
       descriptionEn: '',
-      weightInGrams: 0,
+      quantity: 0,
+      unit: this.units[0]?.value ?? 1,
       packageCount: 0,
       brandId: this.filterBrandId || this.brands[0]?.id || '',
       isActive: true,
@@ -140,7 +164,8 @@ export class DashboardProductsComponent implements OnInit {
       nameEn: product.nameEn,
       descriptionAr: product.descriptionAr || '',
       descriptionEn: product.descriptionEn || '',
-      weightInGrams: product.weightInGrams ?? 0,
+      quantity: product.quantity ?? product.weightInGrams ?? 0,
+      unit: product.unit ?? this.units[0]?.value ?? 1,
       packageCount: product.packageCount ?? 0,
       brandId: product.brandId,
       isActive: product.isActive,
@@ -180,7 +205,8 @@ export class DashboardProductsComponent implements OnInit {
       nameEn: String(value.nameEn).trim(),
       descriptionAr: String(value.descriptionAr || '').trim(),
       descriptionEn: String(value.descriptionEn || '').trim(),
-      weightInGrams: Number(value.weightInGrams) || 0,
+      quantity: Number(value.quantity) || 0,
+      unit: Number(value.unit),
       packageCount: Number(value.packageCount) || 0,
       brandId: value.brandId,
       isActive: !!value.isActive,

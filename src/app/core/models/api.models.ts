@@ -21,13 +21,24 @@ export interface ProductDto {
   nameEn: string;
   descriptionAr: string | null;
   descriptionEn: string | null;
-  weightInGrams: number;
+  /** @deprecated prefer quantity + unit */
+  weightInGrams?: number;
+  quantity?: number;
+  unit?: number;
+  unitNameAr?: string | null;
+  unitNameEn?: string | null;
   packageCount: number;
   imageUrl: string | null;
   isActive: boolean;
   brandId: string;
   brandNameAr: string;
   brandNameEn: string;
+}
+
+export interface ProductUnitDto {
+  value: number;
+  nameAr: string;
+  nameEn: string;
 }
 
 export interface GalleryDto {

@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { ApiResponse, ProductDto } from '../models/api.models';
+import { ApiResponse, ProductDto, ProductUnitDto } from '../models/api.models';
 
 export interface ProductUpsertPayload {
   nameAr: string;
   nameEn: string;
   descriptionAr?: string | null;
   descriptionEn?: string | null;
-  weightInGrams?: number | null;
+  quantity: number;
+  unit: number;
   packageCount?: number | null;
   isActive: boolean;
   brandId: string;
@@ -32,6 +33,12 @@ export class ProductsService {
   /** Dashboard: all products including inactive */
   getAllAdmin(brandId?: string | null): Observable<ProductDto[]> {
     return this.getAllRaw(brandId);
+  }
+
+  getUnits(): Observable<ProductUnitDto[]> {
+    return this.http
+      .get<ApiResponse<ProductUnitDto[]>>(`${this.url}/units`)
+      .pipe(map((res) => res.data ?? []));
   }
 
   getById(id: string): Observable<ProductDto> {
@@ -97,7 +104,8 @@ export class ProductsService {
     form.append('NameEn', payload.nameEn);
     form.append('DescriptionAr', payload.descriptionAr ?? '');
     form.append('DescriptionEn', payload.descriptionEn ?? '');
-    form.append('WeightInGrams', String(payload.weightInGrams ?? 0));
+    form.append('Quantity', String(payload.quantity ?? 0));
+    form.append('Unit', String(payload.unit));
     form.append('PackageCount', String(payload.packageCount ?? 0));
     form.append('IsActive', String(payload.isActive));
     form.append('BrandId', payload.brandId);
