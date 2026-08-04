@@ -115,6 +115,17 @@
   color: #b93737;
 }
 
+.form-error {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(185, 55, 55, 0.1);
+  color: #b93737;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
 .loading {
   background: #fff;
   color: var(--muted);

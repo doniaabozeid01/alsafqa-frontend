@@ -86,6 +86,8 @@
 
     <p class="modal-lead">اختر البراند أولاً — سيظهر المنتج ضمن فلتر هذا البراند في الموقع.</p>
 
+    <div class="form-error" *ngIf="formError">{{ formError }}</div>
+
     <form [formGroup]="form" (ngSubmit)="save()">
       <div class="field">
         <label>البراند (فئة الفلترة)</label>

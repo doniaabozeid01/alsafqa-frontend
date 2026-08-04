@@ -19,6 +19,7 @@ export class DashboardProductsComponent implements OnInit {
   loading = true;
   saving = false;
   error = '';
+  formError = '';
   formOpen = false;
   deleteOpen = false;
   editing: ProductDto | null = null;
@@ -141,6 +142,7 @@ export class DashboardProductsComponent implements OnInit {
     this.editing = null;
     this.selectedFile = null;
     this.previewUrl = null;
+    this.formError = '';
     this.form.reset({
       nameAr: '',
       nameEn: '',
@@ -159,6 +161,7 @@ export class DashboardProductsComponent implements OnInit {
     this.editing = product;
     this.selectedFile = null;
     this.previewUrl = product.imageUrl;
+    this.formError = '';
     this.form.reset({
       nameAr: product.nameAr,
       nameEn: product.nameEn,
@@ -179,6 +182,7 @@ export class DashboardProductsComponent implements OnInit {
     this.selectedFile = null;
     this.previewUrl = null;
     this.saving = false;
+    this.formError = '';
   }
 
   onFileChange(event: Event): void {
@@ -194,11 +198,12 @@ export class DashboardProductsComponent implements OnInit {
     if (this.saving) return;
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.formError = 'أكمل الحقول المطلوبة قبل الحفظ.';
       return;
     }
 
     this.saving = true;
-    this.error = '';
+    this.formError = '';
     const value = this.form.getRawValue();
     const payload = {
       nameAr: String(value.nameAr).trim(),
@@ -222,13 +227,58 @@ export class DashboardProductsComponent implements OnInit {
         this.closeForm();
         this.refresh();
       },
-      error: () => {
+      error: (err) => {
         this.saving = false;
-        this.error = this.editing
-          ? 'تعذر حفظ تعديلات المنتج.'
-          : 'تعذر إضافة المنتج.';
+        this.formError =
+          (err instanceof Error && err.message) ||
+          this.extractError(err) ||
+          (this.editing ? 'تعذر حفظ تعديلات المنتج.' : 'تعذر إضافة المنتج.');
       },
     });
+  }
+
+  /** Fallback if error wasn't normalized by the service */
+  private extractError(err: unknown): string {
+    const httpBody = (err as { error?: unknown })?.error;
+    return this.formatApiBody(httpBody);
+  }
+
+  private formatApiBody(body: unknown): string {
+    if (!body) return '';
+    if (typeof body === 'string') {
+      const text = body.trim();
+      return text && text !== '[object Object]' ? text : '';
+    }
+    if (typeof body !== 'object') return '';
+
+    const obj = body as {
+      message?: string | null;
+      Message?: string | null;
+      title?: string | null;
+      errors?: string[] | Record<string, string[] | string> | null;
+      Errors?: string[] | Record<string, string[] | string> | null;
+    };
+
+    const message = (obj.message || obj.Message || obj.title || '').trim();
+    const errors = obj.errors ?? obj.Errors;
+
+    if (Array.isArray(errors) && errors.length) {
+      const list = errors.map(String).filter(Boolean);
+      if (list.length) return message ? `${message}: ${list.join(' · ')}` : list.join(' · ');
+    }
+
+    if (errors && typeof errors === 'object' && !Array.isArray(errors)) {
+      const list = Object.entries(errors).flatMap(([key, value]) => {
+        const msgs = Array.isArray(value) ? value : [value];
+        return msgs
+          .map(String)
+          .filter(Boolean)
+          .map((msg) => (key ? `${key}: ${msg}` : msg));
+      });
+      if (list.length) return message ? `${message}: ${list.join(' · ')}` : list.join(' · ');
+    }
+
+    return message;
   }
 
   askDelete(product: ProductDto): void {
