@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
@@ -9,7 +9,7 @@ import { AuthService } from '../../core/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   form: FormGroup;
   error = '';
   loading = false;
@@ -20,14 +20,16 @@ export class LoginComponent {
     private auth: AuthService,
     private router: Router
   ) {
-    if (this.auth.isLoggedIn()) {
-      this.goDashboard();
-    }
-
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+  }
+
+  ngOnInit(): void {
+    // Always clear any stored session when opening login.
+    // Expired tokens must not auto-enter the dashboard or keep failing API calls.
+    this.auth.clearSession();
   }
 
   togglePassword(): void {

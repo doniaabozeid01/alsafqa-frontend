@@ -24,6 +24,8 @@ interface StoredSession {
 }
 
 const STORAGE_KEY = 'alsafqa_admin_session';
+/** Treat token as expired this many ms before actual expiry */
+const EXPIRY_SKEW_MS = 15_000;
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -64,11 +66,19 @@ export class AuthService {
             user: parsed.user,
           });
 
-          // Confirm session is readable before telling UI "ok"
-          if (!this.readSession()?.token) {
+          if (!this.getValidSession()?.token) {
+            const stored = this.readSession();
+            if (!stored?.token) {
+              return {
+                ok: false,
+                message:
+                  'تعذر حفظ الجلسة في المتصفح. تأكد أن التخزين المحلي مسموح (Local Storage).',
+              };
+            }
             return {
               ok: false,
-              message: 'تم الرد من السيرفر لكن فشل حفظ الجلسة في المتصفح.',
+              message:
+                'تم استلام توكن منتهي من السيرفر. حاول مرة أخرى أو راجع إعدادات التوكن في الباك.',
             };
           }
 
@@ -116,23 +126,103 @@ export class AuthService {
       );
   }
 
-  logout(): void {
+  /** Clear any stored session without navigating (used on login page). */
+  clearSession(): void {
     localStorage.removeItem(STORAGE_KEY);
+  }
+
+  logout(): void {
+    this.clearSession();
     this.router.navigateByUrl('/login');
   }
 
-  /** Token presence = logged in (don't kick out on flaky expiresAt). */
+  /**
+   * Called when API returns 401 — session is invalid/expired.
+   * Forces a fresh login so the user is not stuck with a dead token.
+   */
+  handleUnauthorized(): void {
+    this.clearSession();
+    if (!this.router.url.startsWith('/login')) {
+      this.router.navigateByUrl('/login');
+    }
+  }
+
+  /** Valid non-expired token only. Expired sessions are cleared automatically. */
   isLoggedIn(): boolean {
-    const session = this.readSession();
-    return !!session?.token;
+    return !!this.getValidSession()?.token;
   }
 
   getToken(): string | null {
-    return this.readSession()?.token ?? null;
+    return this.getValidSession()?.token ?? null;
   }
 
   getUser(): AuthUser | null {
-    return this.readSession()?.user ?? null;
+    return this.getValidSession()?.user ?? null;
+  }
+
+  private getValidSession(): StoredSession | null {
+    const session = this.readSession();
+    if (!session?.token) {
+      return null;
+    }
+
+    if (this.isSessionExpired(session)) {
+      this.clearSession();
+      return null;
+    }
+
+    return session;
+  }
+
+  private isSessionExpired(session: StoredSession): boolean {
+    const expiresMs = this.resolveExpiryMs(session);
+    if (expiresMs == null) {
+      // No usable expiry — keep token but interceptor 401 will clear it
+      return false;
+    }
+    return expiresMs <= Date.now() + EXPIRY_SKEW_MS;
+  }
+
+  private resolveExpiryMs(session: StoredSession): number | null {
+    const jwtMs = this.jwtExpiryMs(session.token);
+    const storedMs = session.expiresAt ? Date.parse(session.expiresAt) : NaN;
+    const storedOk = !Number.isNaN(storedMs);
+    const now = Date.now() + EXPIRY_SKEW_MS;
+
+    // If stored expiry is already past but JWT is still valid, trust the JWT
+    if (storedOk && storedMs <= now && jwtMs != null && jwtMs > now) {
+      return jwtMs;
+    }
+    if (storedOk) return storedMs;
+    return jwtMs;
+  }
+
+  private jwtExpiryMs(token: string): number | null {
+    try {
+      const part = token.split('.')[1];
+      if (!part) return null;
+      const json = JSON.parse(atob(part.replace(/-/g, '+').replace(/_/g, '/')));
+      if (!json?.exp) return null;
+      return Number(json.exp) * 1000;
+    } catch {
+      return null;
+    }
+  }
+
+  /** Never persist a past expiry — that immediately fails getValidSession(). */
+  private pickFutureExpiry(token: string, serverExpiresAt: string): string {
+    const now = Date.now() + EXPIRY_SKEW_MS;
+    const jwtMs = this.jwtExpiryMs(token);
+    if (jwtMs != null && jwtMs > now) {
+      return new Date(jwtMs).toISOString();
+    }
+
+    const serverMs = Date.parse(serverExpiresAt);
+    if (!Number.isNaN(serverMs) && serverMs > now) {
+      return new Date(serverMs).toISOString();
+    }
+
+    return this.defaultExpiry();
   }
 
   private extractLoginData(
@@ -161,7 +251,7 @@ export class AuthService {
       data['token'] ?? data['Token'] ?? root['token'] ?? root['Token'] ?? ''
     ).trim();
 
-    let expiresAt = String(
+    const serverExpiresAt = String(
       data['expiresAt'] ??
         data['ExpiresAt'] ??
         root['expiresAt'] ??
@@ -182,7 +272,7 @@ export class AuthService {
         }
       : this.fallbackUser(fallbackEmail);
 
-    expiresAt = this.expiryFromJwt(token) || this.defaultExpiry();
+    const expiresAt = token ? this.pickFutureExpiry(token, serverExpiresAt) : '';
 
     return { token, expiresAt, user, message };
   }
@@ -193,20 +283,6 @@ export class AuthService {
 
   private defaultExpiry(): string {
     return new Date(Date.now() + 8 * 60 * 60 * 1000).toISOString();
-  }
-
-  private expiryFromJwt(token: string): string | null {
-    try {
-      const part = token.split('.')[1];
-      if (!part) return null;
-      const json = JSON.parse(atob(part.replace(/-/g, '+').replace(/_/g, '/')));
-      if (!json?.exp) return null;
-      const ms = Number(json.exp) * 1000;
-      if (ms <= Date.now() + 30_000) return null;
-      return new Date(ms).toISOString();
-    } catch {
-      return null;
-    }
   }
 
   private loginErrorMessage(err: unknown): string {
@@ -240,7 +316,7 @@ export class AuthService {
   private persistSession(data: LoginData): void {
     const session: StoredSession = {
       token: data.token,
-      expiresAt: data.expiresAt || this.defaultExpiry(),
+      expiresAt: this.pickFutureExpiry(data.token, data.expiresAt || ''),
       user: {
         id: data.user.id || 'admin',
         email: data.user.email,
@@ -249,7 +325,16 @@ export class AuthService {
       },
     };
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+    } catch {
+      // Private mode / blocked storage — leave empty so getValidSession reports clearly
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch {
+        /* ignore */
+      }
+    }
   }
 
   private readSession(): StoredSession | null {
