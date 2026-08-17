@@ -34,7 +34,7 @@ export class DashboardDataService {
       name: 'محمود',
       email: 'mahmoud@example.com',
       phone: '+20 100 000 0000',
-      message: 'أرغب في الاستفسار عن خدمات الشحن والتخليص الجمركي.',
+      message: 'أرغب في الاستفسار عن خدمات التوريدات العمومية والتوكيلات التجارية.',
       date: '2024/02/08 07:05 PM',
       read: false,
     },

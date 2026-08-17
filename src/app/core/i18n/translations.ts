@@ -17,7 +17,7 @@ export const TRANSLATIONS = {
     'brand.nameHtml': 'الاتحاد <b>التجارية</b>',
     'brand.tagline': 'Quality Beyond Borders. Excellence Without Limits.',
     'brand.about':
-      'الاتحاد التجارية للاستيراد والتصدير والشحن والتخليص الجمركي — شريكك الموثوق في عالم التجارة الدولية.',
+      'الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية — شريكك الموثوق في عالم التجارة الدولية.',
     'contact.address': 'الجيزة - مصر',
 
     // Footer
@@ -55,11 +55,11 @@ export const TRANSLATIONS = {
     'home.values.tag': 'قيمنا',
     'home.values.title': 'لماذا تختار الاتحاد؟',
     'home.about.tag': 'من نحن',
-    'home.about.title': 'شركة الاتحاد التجارية للاستيراد والتصدير',
+    'home.about.title': 'شركة الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية',
     'home.about.body':
       'إحدى الشركات الرائدة في تصدير المواد الغذائية ومنتجات التجميل إلى أسواق الشرق الأوسط وما حولها إقليمياً وعالمياً، حيث نلتزم بتوفير منتجات عالية الجودة وخدمات احترافية تلبي تطلعات عملائنا في مختلف الأسواق.',
     'home.about.highlight':
-      'شركة الاتحاد التجارية للاستيراد والتصدير.. جودة تثق بها، وشراكة تمتد إلى العالم.',
+      'شركة الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية.. جودة تثق بها، وشراكة تمتد إلى العالم.',
     'home.about.cta': 'اعرف المزيد',
     'home.about.alt': 'مستودعات ومنتجات الاتحاد التجارية',
 
@@ -92,7 +92,7 @@ export const TRANSLATIONS = {
     'home.brand.alt': 'علامتك التجارية',
     'home.cta.title': 'شراكة تمتد إلى العالم',
     'home.cta.body':
-      'الاتحاد التجارية للاستيراد والتصدير.. جودة تثق بها، وشراكة تمتد إلى العالم',
+      'الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية.. جودة تثق بها، وشراكة تمتد إلى العالم',
     'home.cta.contact': 'تواصل معنا',
     'home.cta.about': 'اعرف المزيد',
 
@@ -109,12 +109,12 @@ export const TRANSLATIONS = {
     'hero.stat.shipments': 'شحنة سنوياً',
     'hero.stat.support': 'دعم متواصل',
     'hero.hub.sea': 'شحن بحري',
-    'hero.hub.customs': 'تخليص جمركي',
+    'hero.hub.customs': 'توكيلات تجارية',
     'hero.hub.air': 'شحن جوي',
     'hero.hub.land': 'شحن بري',
     'hero.ticker.1': '● استيراد وتصدير',
     'hero.ticker.2': '● شحن دولي',
-    'hero.ticker.3': '● تخليص جمركي',
+    'hero.ticker.3': '● توريدات عمومية',
     'hero.ticker.4': '● توريد عالمي',
     'hero.ticker.5': '● مستودعات حديثة',
     'hero.ticker.6': '● توصيل آمن',
@@ -188,7 +188,7 @@ export const TRANSLATIONS = {
     'brand.nameHtml': 'Al-Ittihad <b>Trading</b>',
     'brand.tagline': 'Quality Beyond Borders. Excellence Without Limits.',
     'brand.about':
-      'Al-Ittihad Trading for import, export, shipping and customs clearance — your trusted partner in international trade.',
+      'Al-Ittihad Trading for import, export, general supplies and commercial agencies — your trusted partner in international trade.',
     'contact.address': 'Giza - Egypt',
 
     'footer.services': 'Our Services',
@@ -223,11 +223,11 @@ export const TRANSLATIONS = {
     'home.values.tag': 'Our values',
     'home.values.title': 'Why choose Al-Ittihad?',
     'home.about.tag': 'About us',
-    'home.about.title': 'Al-Ittihad Trading Company for Import and Export',
+    'home.about.title': 'Al-Ittihad Trading Company for Import, Export, General Supplies & Commercial Agencies',
     'home.about.body':
       'One of the leading companies in exporting food products and beauty products to Middle Eastern markets and surrounding regions — regionally and globally — committed to high-quality products and professional services that meet our clients’ aspirations across markets.',
     'home.about.highlight':
-      'Al-Ittihad Trading for import and export… quality you trust, and a partnership that reaches the world.',
+      'Al-Ittihad Trading for import, export, general supplies and commercial agencies… quality you trust, and a partnership that reaches the world.',
     'home.about.cta': 'Learn more',
     'home.about.alt': 'Al-Ittihad Trading warehouses and products',
 
@@ -261,7 +261,7 @@ export const TRANSLATIONS = {
     'home.brand.alt': 'Your brand',
     'home.cta.title': 'A partnership that reaches the world',
     'home.cta.body':
-      'Al-Ittihad Trading for import and export — quality you trust, and a partnership that spans the globe.',
+      'Al-Ittihad Trading for import, export, general supplies and commercial agencies — quality you trust, and a partnership that spans the globe.',
     'home.cta.contact': 'Contact us',
     'home.cta.about': 'Learn more',
 
@@ -277,12 +277,12 @@ export const TRANSLATIONS = {
     'hero.stat.shipments': 'Shipments / year',
     'hero.stat.support': 'Support',
     'hero.hub.sea': 'Sea freight',
-    'hero.hub.customs': 'Customs',
+    'hero.hub.customs': 'Agencies',
     'hero.hub.air': 'Air freight',
     'hero.hub.land': 'Land freight',
     'hero.ticker.1': '● Import & Export',
     'hero.ticker.2': '● International shipping',
-    'hero.ticker.3': '● Customs clearance',
+    'hero.ticker.3': '● General supplies',
     'hero.ticker.4': '● Global supply',
     'hero.ticker.5': '● Modern warehouses',
     'hero.ticker.6': '● Secure delivery',

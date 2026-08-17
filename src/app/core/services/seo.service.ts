@@ -13,12 +13,12 @@ interface PageSeo {
 }
 
 const DEFAULT: PageSeo = {
-  titleAr: 'شركة الاتحاد التجارية للاستيراد والتصدير | شحن وتجارة دولية',
-  titleEn: 'Al-Ittihad Trading Company | Import, Export & International Shipping',
+  titleAr: 'شركة الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية',
+  titleEn: 'Al-Ittihad Trading Company | Import, Export, General Supplies & Commercial Agencies',
   descAr:
-    'شركة الاتحاد التجارية للاستيراد والتصدير والشحن والتخليص الجمركي، نوفر منتجات موثوقة وحلول تجارة دولية باحترافية وجودة.',
+    'شركة الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية، نوفر منتجات موثوقة وحلول تجارة دولية باحترافية وجودة.',
   descEn:
-    'Al-Ittihad Trading Company provides professional import, export, international shipping and customs clearance solutions.',
+    'Al-Ittihad Trading Company provides professional import, export, general supplies and commercial agency solutions.',
 };
 
 const PAGES: Record<string, PageSeo> = {
@@ -91,8 +91,8 @@ export class SeoService {
     this.title.setTitle(title);
     this.meta.updateTag({ name: 'description', content: description });
     this.meta.updateTag({ name: 'keywords', content: isEn
-      ? 'Al-Ittihad Trading Company, import, export, international shipping, customs clearance, logistics, Egypt'
-      : 'شركة الاتحاد التجارية, الاتحاد التجارية للاستيراد والتصدير, استيراد, تصدير, شحن دولي, تخليص جمركي, لوجستيات, مصر' });
+      ? 'Al-Ittihad Trading Company, import, export, general supplies, commercial agencies, international shipping, logistics, Egypt'
+      : 'شركة الاتحاد التجارية, الاتحاد التجارية للاستيراد والتصدير, استيراد, تصدير, توريدات عمومية, توكيلات تجارية, شحن دولي, لوجستيات, مصر' });
     this.meta.updateTag({
       name: 'robots',
       content: path === '/login' || path.startsWith('/dashboard')
@@ -120,13 +120,13 @@ export class SeoService {
     const site = this.origin() + '/';
 
     this.meta.updateTag({ property: 'og:type', content: 'website' });
-    this.meta.updateTag({ property: 'og:site_name', content: 'شركة الاتحاد التجارية للاستيراد والتصدير' });
+    this.meta.updateTag({ property: 'og:site_name', content: 'شركة الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية' });
     this.meta.updateTag({ property: 'og:image', content: image });
     this.meta.updateTag({ property: 'og:image:url', content: image });
     this.meta.updateTag({ property: 'og:image:secure_url', content: image });
     this.meta.updateTag({ property: 'og:image:width', content: '1200' });
     this.meta.updateTag({ property: 'og:image:height', content: '1200' });
-    this.meta.updateTag({ property: 'og:image:alt', content: 'شركة الاتحاد التجارية للاستيراد والتصدير — Al-Ittihad Trading Company' });
+    this.meta.updateTag({ property: 'og:image:alt', content: 'شركة الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية — Al-Ittihad Trading Company' });
     this.meta.updateTag({ property: 'og:url', content: site });
 
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });

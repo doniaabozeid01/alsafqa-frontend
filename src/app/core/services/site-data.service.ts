@@ -109,10 +109,10 @@ export class SiteDataService {
         ),
       },
       {
-        title: this.L('التخليص الجمركي', 'Customs clearance'),
+        title: this.L('التوريدات العمومية والتوكيلات التجارية', 'General supplies & commercial agencies'),
         description: this.L(
-          'تخليص سريع وآمن لجميع أنواع البضائع',
-          'Fast and secure clearance for all cargo types'
+          'حلول توريد متكاملة وتمثيل تجاري للعلامات العالمية',
+          'Integrated supply solutions and commercial representation for global brands'
         ),
         icon: this.icon(
           `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/>`
@@ -169,17 +169,6 @@ export class SiteDataService {
       },
       {
         order: '05',
-        title: this.L('التخليص الجمركي', 'Customs clearance'),
-        description: this.L(
-          'إنهاء كل الإجراءات الجمركية في وقت قياسي',
-          'Complete all customs procedures in record time'
-        ),
-        icon: this.icon(
-          `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/>`
-        ),
-      },
-      {
-        order: '06',
         title: this.L('التسليم', 'Delivery'),
         description: this.L(
           'تسليم في الوقت المحدد أينما كنت',
@@ -190,7 +179,7 @@ export class SiteDataService {
         ),
       },
       {
-        order: '07',
+        order: '06',
         title: this.L('شراكة مستمرة', 'Ongoing partnership'),
         description: this.L(
           'دعم مستمر وتطوير علاقة تجارية طويلة الأمد',
@@ -250,12 +239,12 @@ export class SiteDataService {
       about: {
         tag: this.t('nav.about'),
         title: this.L(
-          'الاتحاد التجارية للاستيراد والتصدير',
-          'Al-Ittihad Trading for import and export'
+          'الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية',
+          'Al-Ittihad Trading for import, export, general supplies and commercial agencies'
         ),
         subtitle: this.L(
-          'إحدى الشركات الرائدة في الاستيراد والتصدير والشحن والتخليص الجمركي إلى أسواق الشرق الأوسط والعالم',
-          'A leading company in import, export, shipping and customs clearance across the Middle East and beyond'
+          'إحدى الشركات الرائدة في الاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية إلى أسواق الشرق الأوسط والعالم',
+          'A leading company in import, export, general supplies and commercial agencies across the Middle East and beyond'
         ),
       },
       services: {
@@ -322,19 +311,19 @@ export class SiteDataService {
     return {
       intro: [
         this.L(
-          'الاتحاد التجارية للاستيراد والتصدير… جودة تثق بها، وشراكة تمتد إلى العالم.',
-          'Al-Ittihad Trading for import and export… quality you trust, and a partnership that reaches the world.'
+          'الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية… جودة تثق بها، وشراكة تمتد إلى العالم.',
+          'Al-Ittihad Trading for import, export, general supplies and commercial agencies… quality you trust, and a partnership that reaches the world.'
         ),
         this.L(
-          'إحدى الشركات الرائدة في مجال الاستيراد والتصدير والشحن والتخليص الجمركي، حيث نلتزم بتوفير منتجات وخدمات عالية الجودة تلبي تطلعات عملائنا في مختلف الأسواق محلياً وإقليمياً وعالمياً.',
-          'A leading company in import, export, shipping and customs clearance, committed to high-quality products and services that meet client expectations across local, regional and global markets.'
+          'إحدى الشركات الرائدة في مجال الاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية، حيث نلتزم بتوفير منتجات وخدمات عالية الجودة تلبي تطلعات عملائنا في مختلف الأسواق محلياً وإقليمياً وعالمياً.',
+          'A leading company in import, export, general supplies and commercial agencies, committed to high-quality products and services that meet client expectations across local, regional and global markets.'
         ),
       ],
       goal: {
         title: this.L('الهدف', 'Our goal'),
         description: this.L(
-          'نسعى إلى توفير حلول متكاملة للاستيراد والتصدير والشحن والتخليص الجمركي بأعلى معايير الجودة والكفاءة، بما يضمن رضا العملاء وتعزيز الثقة المتبادلة مع شركائنا حول العالم.',
-          'We aim to deliver integrated import, export, shipping and customs solutions at the highest standards of quality and efficiency — ensuring client satisfaction and mutual trust with partners worldwide.'
+          'نسعى إلى توفير حلول متكاملة للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية بأعلى معايير الجودة والكفاءة، بما يضمن رضا العملاء وتعزيز الثقة المتبادلة مع شركائنا حول العالم.',
+          'We aim to deliver integrated import, export, general supplies and commercial agency solutions at the highest standards of quality and efficiency — ensuring client satisfaction and mutual trust with partners worldwide.'
         ),
         image:
           'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1600&q=80',
@@ -592,15 +581,6 @@ export class SiteDataService {
       },
       {
         order: '04',
-        title: this.L('التخليص الجمركي', 'Customs clearance'),
-        description: this.L(
-          'إنهاء كل الإجراءات الجمركية في وقت قياسي',
-          'Complete all customs procedures in record time'
-        ),
-        emoji: '🚚',
-      },
-      {
-        order: '05',
         title: this.L('التسليم', 'Delivery'),
         description: this.L(
           'تسليم في الوقت المحدد أينما كنت',
