@@ -239,8 +239,8 @@ export class SiteDataService {
       about: {
         tag: this.t('nav.about'),
         title: this.L(
-          'الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية',
-          'Al-Ittihad Trading for import, export, general supplies and commercial agencies'
+          'الصفقة للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية',
+          'Al Safqa for import, export, general supplies and commercial agencies'
         ),
         subtitle: this.L(
           'إحدى الشركات الرائدة في الاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية إلى أسواق الشرق الأوسط والعالم',
@@ -265,7 +265,7 @@ export class SiteDataService {
       },
       'why-us': {
         tag: this.L('قيمنا', 'Our values'),
-        title: this.L('لماذا تختار الاتحاد؟', 'Why choose Al-Ittihad?'),
+        title: this.L('لماذا تختار الصفقة؟', 'Why choose Al Safqa?'),
         subtitle: this.L(
           'قيم راسخة تجعلنا شريكك الأمثل في التجارة الدولية',
           'Solid values that make us your ideal partner in international trade'
@@ -311,8 +311,8 @@ export class SiteDataService {
     return {
       intro: [
         this.L(
-          'الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية… جودة تثق بها، وشراكة تمتد إلى العالم.',
-          'Al-Ittihad Trading for import, export, general supplies and commercial agencies… quality you trust, and a partnership that reaches the world.'
+          'الصفقة للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية… جودة تثق بها، وشراكة تمتد إلى العالم.',
+          'Al Safqa for import, export, general supplies and commercial agencies… quality you trust, and a partnership that reaches the world.'
         ),
         this.L(
           'إحدى الشركات الرائدة في مجال الاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية، حيث نلتزم بتوفير منتجات وخدمات عالية الجودة تلبي تطلعات عملائنا في مختلف الأسواق محلياً وإقليمياً وعالمياً.',

@@ -13,18 +13,18 @@ export const TRANSLATIONS = {
     'nav.menu': 'القائمة',
 
     // Brand
-    'brand.name': 'الاتحاد التجارية',
-    'brand.nameHtml': 'الاتحاد <b>التجارية</b>',
+    'brand.name': 'الصفقة',
+    'brand.nameHtml': '<b>الصفقة</b>',
     'brand.tagline': 'Quality Beyond Borders. Excellence Without Limits.',
     'brand.about':
-      'الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية — شريكك الموثوق في عالم التجارة الدولية.',
+      'الصفقة للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية — شريكك الموثوق في عالم التجارة الدولية.',
     'contact.address': 'الجيزة - مصر',
 
     // Footer
     'footer.services': 'خدماتنا',
     'footer.links': 'روابط سريعة',
     'footer.contact': 'تواصل معنا',
-    'footer.copyright': '© الاتحاد التجارية',
+    'footer.copyright': '© الصفقة',
     'footer.powered': 'من إنتاج',
     'splash.tap': 'اضغط للمتابعة',
 
@@ -53,15 +53,15 @@ export const TRANSLATIONS = {
     'home.stats.title': 'خبرة، ثقة، التزام',
     'home.stats.alt': 'مستودعات وشحن',
     'home.values.tag': 'قيمنا',
-    'home.values.title': 'لماذا تختار الاتحاد؟',
+    'home.values.title': 'لماذا تختار الصفقة؟',
     'home.about.tag': 'من نحن',
-    'home.about.title': 'شركة الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية',
+    'home.about.title': 'شركة الصفقة للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية',
     'home.about.body':
       'إحدى الشركات الرائدة في تصدير المواد الغذائية ومنتجات التجميل إلى أسواق الشرق الأوسط وما حولها إقليمياً وعالمياً، حيث نلتزم بتوفير منتجات عالية الجودة وخدمات احترافية تلبي تطلعات عملائنا في مختلف الأسواق.',
     'home.about.highlight':
-      'شركة الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية.. جودة تثق بها، وشراكة تمتد إلى العالم.',
+      'شركة الصفقة للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية.. جودة تثق بها، وشراكة تمتد إلى العالم.',
     'home.about.cta': 'اعرف المزيد',
-    'home.about.alt': 'مستودعات ومنتجات الاتحاد التجارية',
+    'home.about.alt': 'مستودعات ومنتجات الصفقة',
 
     'home.goal.tag': 'هدفنا',
     'home.goal.title': 'جودة تثق بها، وشراكة تمتد إلى العالم',
@@ -71,7 +71,7 @@ export const TRANSLATIONS = {
     'home.goal.f1': 'منتجات عالية الجودة',
     'home.goal.f2': 'شبكة توزيع عالمية',
     'home.goal.f3': 'أسعار تنافسية',
-    'home.goal.alt': 'مستودعات ومنتجات الاتحاد التجارية',
+    'home.goal.alt': 'مستودعات ومنتجات الصفقة',
 
     'home.vision.tag': 'رؤيتنا',
     'home.vision.title': 'طموحنا نحو القمة',
@@ -92,12 +92,12 @@ export const TRANSLATIONS = {
     'home.brand.alt': 'علامتك التجارية',
     'home.cta.title': 'شراكة تمتد إلى العالم',
     'home.cta.body':
-      'الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية.. جودة تثق بها، وشراكة تمتد إلى العالم',
+      'الصفقة للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية.. جودة تثق بها، وشراكة تمتد إلى العالم',
     'home.cta.contact': 'تواصل معنا',
     'home.cta.about': 'اعرف المزيد',
 
     // Hero
-    'hero.eyebrow': 'الاتحاد التجارية — استيراد وتصدير',
+    'hero.eyebrow': 'الصفقة — استيراد وتصدير',
     'hero.titleLine1': 'شريكك الموثوق في',
     'hero.titleLine2': 'التجارة العالمية',
     'hero.subtitle':
@@ -184,17 +184,17 @@ export const TRANSLATIONS = {
     'nav.login': 'Sign In',
     'nav.menu': 'Menu',
 
-    'brand.name': 'Al-Ittihad Trading',
-    'brand.nameHtml': 'Al-Ittihad <b>Trading</b>',
+    'brand.name': 'Al Safqa',
+    'brand.nameHtml': '<b>Al Safqa</b>',
     'brand.tagline': 'Quality Beyond Borders. Excellence Without Limits.',
     'brand.about':
-      'Al-Ittihad Trading for import, export, general supplies and commercial agencies — your trusted partner in international trade.',
+      'Al Safqa for import, export, general supplies and commercial agencies — your trusted partner in international trade.',
     'contact.address': 'Giza - Egypt',
 
     'footer.services': 'Our Services',
     'footer.links': 'Quick Links',
     'footer.contact': 'Contact Us',
-    'footer.copyright': '© Al-Ittihad Trading',
+    'footer.copyright': '© Al Safqa',
     'footer.powered': 'Powered by',
     'splash.tap': 'Tap to continue',
 
@@ -221,15 +221,15 @@ export const TRANSLATIONS = {
     'home.stats.title': 'Experience, trust, commitment',
     'home.stats.alt': 'Warehouses and shipping',
     'home.values.tag': 'Our values',
-    'home.values.title': 'Why choose Al-Ittihad?',
+    'home.values.title': 'Why choose Al Safqa?',
     'home.about.tag': 'About us',
-    'home.about.title': 'Al-Ittihad Trading Company for Import, Export, General Supplies & Commercial Agencies',
+    'home.about.title': 'Al Safqa for Import, Export, General Supplies & Commercial Agencies',
     'home.about.body':
       'One of the leading companies in exporting food products and beauty products to Middle Eastern markets and surrounding regions — regionally and globally — committed to high-quality products and professional services that meet our clients’ aspirations across markets.',
     'home.about.highlight':
-      'Al-Ittihad Trading for import, export, general supplies and commercial agencies… quality you trust, and a partnership that reaches the world.',
+      'Al Safqa for import, export, general supplies and commercial agencies… quality you trust, and a partnership that reaches the world.',
     'home.about.cta': 'Learn more',
-    'home.about.alt': 'Al-Ittihad Trading warehouses and products',
+    'home.about.alt': 'Al Safqa warehouses and products',
 
     'home.goal.tag': 'Our goal',
     'home.goal.title': 'Quality you trust, and a partnership that reaches the world',
@@ -239,7 +239,7 @@ export const TRANSLATIONS = {
     'home.goal.f1': 'High-quality products',
     'home.goal.f2': 'Global distribution network',
     'home.goal.f3': 'Competitive prices',
-    'home.goal.alt': 'Al-Ittihad Trading warehouses and products',
+    'home.goal.alt': 'Al Safqa warehouses and products',
 
     'home.vision.tag': 'Our vision',
     'home.vision.title': 'Our ambition toward the top',
@@ -261,11 +261,11 @@ export const TRANSLATIONS = {
     'home.brand.alt': 'Your brand',
     'home.cta.title': 'A partnership that reaches the world',
     'home.cta.body':
-      'Al-Ittihad Trading for import, export, general supplies and commercial agencies — quality you trust, and a partnership that spans the globe.',
+      'Al Safqa for import, export, general supplies and commercial agencies — quality you trust, and a partnership that spans the globe.',
     'home.cta.contact': 'Contact us',
     'home.cta.about': 'Learn more',
 
-    'hero.eyebrow': 'Al-Ittihad Trading — Import & Export',
+    'hero.eyebrow': 'Al Safqa — Import & Export',
     'hero.titleLine1': 'Your trusted partner in',
     'hero.titleLine2': 'global trade',
     'hero.subtitle':

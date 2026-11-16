@@ -13,45 +13,45 @@ interface PageSeo {
 }
 
 const DEFAULT: PageSeo = {
-  titleAr: 'شركة الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية',
-  titleEn: 'Al-Ittihad Trading Company | Import, Export, General Supplies & Commercial Agencies',
+  titleAr: 'شركة الصفقة للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية',
+  titleEn: 'Al Safqa | Import, Export, General Supplies & Commercial Agencies',
   descAr:
-    'شركة الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية، نوفر منتجات موثوقة وحلول تجارة دولية باحترافية وجودة.',
+    'شركة الصفقة للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية، نوفر منتجات موثوقة وحلول تجارة دولية باحترافية وجودة.',
   descEn:
-    'Al-Ittihad Trading Company provides professional import, export, general supplies and commercial agency solutions.',
+    'Al Safqa provides professional import, export, general supplies and commercial agency solutions.',
 };
 
 const PAGES: Record<string, PageSeo> = {
   '/': DEFAULT,
   '/about': {
-    titleAr: 'من نحن | شركة الاتحاد التجارية للاستيراد والتصدير',
-    titleEn: 'About Us | Al-Ittihad Trading Company',
-    descAr: 'تعرّف على شركة الاتحاد التجارية ورؤيتنا وخبرتنا في الاستيراد والتصدير والشحن الدولي.',
-    descEn: 'Learn about Al-Ittihad Trading Company and our experience in import, export and international shipping.',
+    titleAr: 'من نحن | شركة الصفقة للاستيراد والتصدير',
+    titleEn: 'About Us | Al Safqa',
+    descAr: 'تعرّف على شركة الصفقة ورؤيتنا وخبرتنا في الاستيراد والتصدير والشحن الدولي.',
+    descEn: 'Learn about Al Safqa and our experience in import, export and international shipping.',
   },
   '/products': {
-    titleAr: 'منتجاتنا | شركة الاتحاد التجارية للاستيراد والتصدير',
-    titleEn: 'Products | Al-Ittihad Trading Company',
-    descAr: 'استعرض منتجات شركة الاتحاد التجارية من العلامات الموثوقة مع خيارات التوريد والاستيراد والتصدير حسب الطلب.',
-    descEn: 'Browse Al-Ittihad Trading Company products from trusted brands with flexible supply and export options.',
+    titleAr: 'منتجاتنا | شركة الصفقة للاستيراد والتصدير',
+    titleEn: 'Products | Al Safqa',
+    descAr: 'استعرض منتجات شركة الصفقة من العلامات الموثوقة مع خيارات التوريد والاستيراد والتصدير حسب الطلب.',
+    descEn: 'Browse Al Safqa products from trusted brands with flexible supply and export options.',
   },
   '/gallery': {
-    titleAr: 'المعرض | شركة الاتحاد التجارية للاستيراد والتصدير',
-    titleEn: 'Gallery | Al-Ittihad Trading Company',
+    titleAr: 'المعرض | شركة الصفقة للاستيراد والتصدير',
+    titleEn: 'Gallery | Al Safqa',
     descAr: 'لمحة مصوّرة عن عملياتنا اللوجستية وخدمات الشحن والتخزين.',
     descEn: 'A visual look at our logistics operations, shipping and warehousing.',
   },
   '/contact': {
-    titleAr: 'تواصل معنا | شركة الاتحاد التجارية للاستيراد والتصدير',
-    titleEn: 'Contact Us | Al-Ittihad Trading Company',
-    descAr: 'تواصل مع شركة الاتحاد التجارية للحصول على حلول استيراد وتصدير وشحن مخصصة.',
-    descEn: 'Contact Al-Ittihad Trading Company for tailored import, export and shipping solutions.',
+    titleAr: 'تواصل معنا | شركة الصفقة للاستيراد والتصدير',
+    titleEn: 'Contact Us | Al Safqa',
+    descAr: 'تواصل مع شركة الصفقة للحصول على حلول استيراد وتصدير وشحن مخصصة.',
+    descEn: 'Contact Al Safqa for tailored import, export and shipping solutions.',
   },
   '/login': {
-    titleAr: 'تسجيل الدخول | شركة الاتحاد التجارية',
-    titleEn: 'Sign In | Al-Ittihad Trading Company',
-    descAr: 'سجّل دخولك إلى لوحة تحكم الاتحاد التجارية.',
-    descEn: 'Sign in to the Al-Ittihad Trading dashboard.',
+    titleAr: 'تسجيل الدخول | شركة الصفقة',
+    titleEn: 'Sign In | Al Safqa',
+    descAr: 'سجّل دخولك إلى لوحة تحكم الصفقة.',
+    descEn: 'Sign in to the Al Safqa dashboard.',
   },
 };
 
@@ -76,8 +76,8 @@ export class SeoService {
   private updateForUrl(url: string): void {
     const path = (url.split('?')[0] || '/').replace(/\/$/, '') || '/';
     const page = PAGES[path] || (path.startsWith('/dashboard') ? {
-      titleAr: 'لوحة التحكم | شركة الاتحاد التجارية',
-      titleEn: 'Dashboard | Al-Ittihad Trading Company',
+      titleAr: 'لوحة التحكم | شركة الصفقة',
+      titleEn: 'Dashboard | Al Safqa',
       descAr: DEFAULT.descAr,
       descEn: DEFAULT.descEn,
     } : DEFAULT);
@@ -91,8 +91,8 @@ export class SeoService {
     this.title.setTitle(title);
     this.meta.updateTag({ name: 'description', content: description });
     this.meta.updateTag({ name: 'keywords', content: isEn
-      ? 'Al-Ittihad Trading Company, import, export, general supplies, commercial agencies, international shipping, logistics, Egypt'
-      : 'شركة الاتحاد التجارية, الاتحاد التجارية للاستيراد والتصدير, استيراد, تصدير, توريدات عمومية, توكيلات تجارية, شحن دولي, لوجستيات, مصر' });
+      ? 'Al Safqa, import, export, general supplies, commercial agencies, international shipping, logistics, Egypt'
+      : 'شركة الصفقة, الصفقة للاستيراد والتصدير, استيراد, تصدير, توريدات عمومية, توكيلات تجارية, شحن دولي, لوجستيات, مصر' });
     this.meta.updateTag({
       name: 'robots',
       content: path === '/login' || path.startsWith('/dashboard')
@@ -120,13 +120,13 @@ export class SeoService {
     const site = this.origin() + '/';
 
     this.meta.updateTag({ property: 'og:type', content: 'website' });
-    this.meta.updateTag({ property: 'og:site_name', content: 'شركة الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية' });
+    this.meta.updateTag({ property: 'og:site_name', content: 'شركة الصفقة للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية' });
     this.meta.updateTag({ property: 'og:image', content: image });
     this.meta.updateTag({ property: 'og:image:url', content: image });
     this.meta.updateTag({ property: 'og:image:secure_url', content: image });
     this.meta.updateTag({ property: 'og:image:width', content: '1200' });
     this.meta.updateTag({ property: 'og:image:height', content: '1200' });
-    this.meta.updateTag({ property: 'og:image:alt', content: 'شركة الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية — Al-Ittihad Trading Company' });
+    this.meta.updateTag({ property: 'og:image:alt', content: 'شركة الصفقة للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية — Al Safqa' });
     this.meta.updateTag({ property: 'og:url', content: site });
 
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });

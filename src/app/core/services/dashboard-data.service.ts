@@ -70,7 +70,7 @@ export class DashboardDataService {
   private gallery: DashGalleryItem[] = [
     {
       id: 1,
-      title: 'الاتحاد',
+      title: 'الصفقة',
       category: 'عام',
       image:
         'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=800&q=70',

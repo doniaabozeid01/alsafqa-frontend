@@ -1,14 +1,14 @@
 /** Fixed reply template sent with WhatsApp / email from the admin inbox */
-export const CONTACT_REPLY_MESSAGE = `شكرًا لتواصلكم مع شركة الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية.
+export const CONTACT_REPLY_MESSAGE = `شكرًا لتواصلكم مع شركة الصفقة للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية.
 
 تم استلام رسالتكم بنجاح، وسيقوم فريقنا بمراجعة استفساركم والتواصل معكم في أقرب وقت ممكن.
 
 نقدّر ثقتكم بنا، ونتطلع لخدمتكم.
 
 مع خالص التحية،
-شركة الاتحاد التجارية للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية`;
+شركة الصفقة للاستيراد والتصدير والتوريدات العمومية والتوكيلات التجارية`;
 
-export const CONTACT_REPLY_EMAIL_SUBJECT = 'رد على رسالتكم | شركة الاتحاد التجارية';
+export const CONTACT_REPLY_EMAIL_SUBJECT = 'رد على رسالتكم | شركة الصفقة';
 
 /** Normalize local phone (e.g. 0111…) to international digits for wa.me */
 export function toWhatsAppPhone(phone: string): string {
